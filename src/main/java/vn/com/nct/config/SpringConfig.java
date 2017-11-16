@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @Configuration
 @ComponentScan({"vn.com.nct"})
-@Import({ WebSocketConfig.class })
+@Import({ WebSocketConfig.class , HibernateConfig.class})
 public class SpringConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -33,15 +33,15 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
 		return views;
 	}
 	
-//	@Bean
-//	public static PropertyPlaceholderConfigurer properties(){
-//      PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-//      ClassPathResource[] resources = new ClassPathResource[ ]
-//        { new ClassPathResource( "config.properties" ) , new ClassPathResource("validation_en_US.properties") };
-//      ppc.setLocations( resources );
-//      ppc.setIgnoreUnresolvablePlaceholders( true );
-//      return ppc;
-//    }
+	@Bean
+	public static PropertyPlaceholderConfigurer properties(){
+      PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+      ClassPathResource[] resources = new ClassPathResource[ ]
+        { new ClassPathResource( "config.properties" )};
+      ppc.setLocations( resources );
+      ppc.setIgnoreUnresolvablePlaceholders( true );
+      return ppc;
+    }
 	
 	@Bean
     public MultipartResolver multipartResolver() {
