@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FrameData")
-public class FrameData {
+@Table(name = "FrameDataColection")
+public class FrameDataColection {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,8 @@ public class FrameData {
 	@JoinColumn(name = "frame")
 	private Frame frame;
 	
-	@Column(name = "current_time", nullable = false)
-	private String current_time;
+	@Column(name = "time", nullable = false)
+	private String time;
 	
 	@Column(name = "pH", nullable = false)
 	private double pH;
@@ -56,12 +56,12 @@ public class FrameData {
 		this.frame = frame;
 	}
 
-	public String getCurrent_time() {
-		return current_time;
+	public String getTime() {
+		return time;
 	}
 
-	public void setCurrent_time(String current_time) {
-		this.current_time = current_time;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public double getpH() {

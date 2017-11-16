@@ -37,13 +37,13 @@ public class Frame {
 	private String time_begin;
 	
 	@OneToMany(mappedBy = "frame")
-	private List<FrameData> frame_data;
+	private List<FrameDataColection> frame_data;
 
 	@OneToMany(mappedBy = "frame")
 	private List<FrameUsers> frame_users;
 	
 	@OneToMany(mappedBy = "frame")
-	private List<SystemLog> logs;
+	private List<SystemLogActivity> logs;
 
 	public int getId() {
 		return id;
@@ -85,11 +85,11 @@ public class Frame {
 		this.time_begin = time_begin;
 	}
 
-	public List<FrameData> getFrame_data() {
+	public List<FrameDataColection> getFrame_data() {
 		return frame_data;
 	}
 
-	public void setFrame_data(List<FrameData> frame_data) {
+	public void setFrame_data(List<FrameDataColection> frame_data) {
 		this.frame_data = frame_data;
 	}
 
@@ -101,11 +101,11 @@ public class Frame {
 		this.frame_users = frame_users;
 	}
 
-	public List<SystemLog> getLogs() {
+	public List<SystemLogActivity> getLogs() {
 		return logs;
 	}
 
-	public void setLogs(List<SystemLog> logs) {
+	public void setLogs(List<SystemLogActivity> logs) {
 		this.logs = logs;
 	}
 	

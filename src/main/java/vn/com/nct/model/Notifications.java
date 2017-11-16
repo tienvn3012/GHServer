@@ -22,7 +22,7 @@ public class Notifications {
 	private String notifications;
 	
 	@OneToMany(mappedBy = "notification")
-	private List<SystemLog> logs;
+	private List<SystemLogActivity> logs;
 
 	public int getId() {
 		return id;
@@ -40,11 +40,11 @@ public class Notifications {
 		this.notifications = notifications;
 	}
 
-	public List<SystemLog> getLogs() {
+	public List<SystemLogActivity> getLogs() {
 		return logs;
 	}
 
-	public void setLogs(List<SystemLog> logs) {
+	public void setLogs(List<SystemLogActivity> logs) {
 		this.logs = logs;
 	}
 	

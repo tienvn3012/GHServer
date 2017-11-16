@@ -1,5 +1,7 @@
 package vn.com.nct.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class PlantType {
 	private String description;
 	
 	@OneToMany(mappedBy = "plant_type")
-	private Plants plant;
+	private List<Plants> plant;
 
 	public int getId() {
 		return id;
@@ -49,13 +51,14 @@ public class PlantType {
 		this.description = description;
 	}
 
-	public Plants getPlant() {
+	public List<Plants> getPlant() {
 		return plant;
 	}
 
-	public void setPlant(Plants plant) {
+	public void setPlant(List<Plants> plant) {
 		this.plant = plant;
 	}
+
 	
 	
 }

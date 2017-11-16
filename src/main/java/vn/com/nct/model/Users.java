@@ -62,7 +62,7 @@ public class Users {
 	private List<FrameUsers> frame_user;
 	
 	@OneToMany(mappedBy = "users")
-	private List<SystemLog> logs;
+	private List<SystemLogActivity> logs;
 
 	public int getId() {
 		return id;
@@ -168,11 +168,11 @@ public class Users {
 		this.frame_user = frame_user;
 	}
 
-	public List<SystemLog> getLogs() {
+	public List<SystemLogActivity> getLogs() {
 		return logs;
 	}
 
-	public void setLogs(List<SystemLog> logs) {
+	public void setLogs(List<SystemLogActivity> logs) {
 		this.logs = logs;
 	}
 	

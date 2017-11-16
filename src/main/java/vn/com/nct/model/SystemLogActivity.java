@@ -11,15 +11,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SystemLog")
-public class SystemLog {
+@Table(name = "SystemLogActivity")
+public class SystemLogActivity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "current_time", nullable = false)
-	private String current_time;
+	@Column(name = "time", nullable = false)
+	private String time;
 	
 	@Column(name = "auto", nullable = false)
 	private boolean auto;
@@ -47,13 +47,13 @@ public class SystemLog {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getCurrent_time() {
-		return current_time;
+	
+	public String getTime() {
+		return time;
 	}
 
-	public void setCurrent_time(String current_time) {
-		this.current_time = current_time;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public boolean isAuto() {

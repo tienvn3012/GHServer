@@ -25,7 +25,7 @@ public class Statements {
 	private String title;
 	
 	@OneToMany(mappedBy = "statements")
-	private List<SystemLog> logs;
+	private List<SystemLogActivity> logs;
 
 	public int getId() {
 		return id;
@@ -51,11 +51,11 @@ public class Statements {
 		this.title = title;
 	}
 
-	public List<SystemLog> getLogs() {
+	public List<SystemLogActivity> getLogs() {
 		return logs;
 	}
 
-	public void setLogs(List<SystemLog> logs) {
+	public void setLogs(List<SystemLogActivity> logs) {
 		this.logs = logs;
 	}
 	
