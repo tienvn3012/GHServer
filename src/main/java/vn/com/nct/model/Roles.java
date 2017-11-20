@@ -24,6 +24,19 @@ public class Roles {
 	@OneToMany(mappedBy = "role")
 	private List<Users> users;
 
+	public Roles(int id, String role) {
+		super();
+		this.id = id;
+		this.role = role;
+	}
+
+	public Roles() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getId() {
 		return id;
 	}

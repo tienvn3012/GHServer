@@ -1,5 +1,7 @@
 package vn.com.nct.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -19,4 +21,9 @@ public class HibernateDaoSupport {
 	public void delete(Object entity) {
 		hibernateTemplate.delete(entity);
 	}
+	
+	public void deleteMany(List<Object> objs){
+		hibernateTemplate.deleteAll(objs);
+	}
+	
 }

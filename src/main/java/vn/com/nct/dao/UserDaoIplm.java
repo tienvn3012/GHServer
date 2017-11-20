@@ -6,10 +6,12 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import vn.com.nct.base.BaseMethods;
 import vn.com.nct.model.Users;
 
+@Repository
 public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<Users>{
 	
 	private BaseMethods base = new BaseMethods();
@@ -58,9 +60,14 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 		saveOrUpdateE(user);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public void saveOrUpdateE(Users e) {
+	public Users saveOrUpdateE(Users e) {
 		save(e);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Users.class)
+			    .setProjection( Projections.max("id") );
+		Integer i = ((List<Integer>)hibernateTemplate.findByCriteria(criteria)).get(0);
+		return getOneById(i.intValue());
 	}
 
 	@Override
@@ -100,6 +107,21 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 		criteria = base.setCondition(criteria, condition);
 		
 		return (List<Users>)hibernateTemplate.findByCriteria(criteria,index,offset);
+	}
+
+	@Override
+	public void deleteManyE(List<Users> lis) {
+		for (int i = 0; i < lis.size(); i++) {
+			lis.get(i).setDeleted(1);
+			saveOrUpdateE(lis.get(i));
+		}
+	}
+
+	@Override
+	public void saveOrUpdateManyE(List<Users> lis) {
+		for (int i = 0; i < lis.size(); i++) {
+			saveOrUpdateE(lis.get(i));
+		}
 	}
 
 }

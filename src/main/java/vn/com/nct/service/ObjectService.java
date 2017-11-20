@@ -1,9 +1,10 @@
-package vn.com.nct.dao;
+package vn.com.nct.service;
 
 import java.util.List;
 
-public interface ObjectDaoSupport <E>{
-	
+import vn.com.nct.model.response.Page;
+
+public interface ObjectService <E>{
 	public List<E> getAll();
 	public List<E> getAllBy(String... condition);
 	public List<E> getLimit(int index, int offset);
@@ -16,5 +17,5 @@ public interface ObjectDaoSupport <E>{
 	public void saveOrUpdateManyE(List<E> lis);
 	public int countAll();
 	public int countBy(String... condition);
-	
+	public Page<E> getPage();
 }

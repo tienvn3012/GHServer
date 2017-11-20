@@ -18,7 +18,7 @@ public class MqttConfig {
 	@Autowired
 	private MqttCallback mqttCallback;
 	
-	private String topic = "MQTT Examples";
+	private String topic = "nct_control";
 	String content      = "Message from MqttPublishSample";
     int qos             = 2;
     String broker       = "tcp://iot.eclipse.org:1883";
@@ -30,13 +30,17 @@ public class MqttConfig {
          try {
         	 MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
              MqttConnectOptions connOpts = new MqttConnectOptions();
+             
              connOpts.setCleanSession(true);
              System.out.println("Connecting to broker: "+broker);
              sampleClient.connect(connOpts);
-             sampleClient.setCallback(mqttCallback);
-             sampleClient.subscribe("MQTT Examples");
+             
              System.out.println("Connected");
              System.out.println("Publishing message: "+content);
+             
+             sampleClient.setCallback(mqttCallback);
+             sampleClient.subscribe("nct_colect");
+             
              MqttMessage message = new MqttMessage(content.getBytes());
              message.setQos(qos);
 			sampleClient.publish(topic, message);
@@ -46,6 +50,6 @@ public class MqttConfig {
 			e.printStackTrace();
 		}
         
-        return new Message("hello");
+        return null;
     }
 }
