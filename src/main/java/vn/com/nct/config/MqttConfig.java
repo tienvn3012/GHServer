@@ -3,7 +3,7 @@ package vn.com.nct.config;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -11,43 +11,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import vn.com.nct.model.Message;
 
 @Configuration
 public class MqttConfig implements MqttCallback{
 	
 	@Autowired
-	private MqttCallback mqttCallback;
+	private MqttCallback logCallback;
+
+	private MqttClient subscriber = null;
+	private MqttClient publisher = null;
+	private MqttClient log = null;
 	
-	private MqttClient sampleClient = null;
-	private MqttClient client = null;
-	
-	private String topic = "nct_control";
 	String content      = "Message from MqttPublishSample";
     int qos             = 2;
     String broker       = "tcp://iot.eclipse.org:1883";
-    String clientId     = "das";
-//    MemoryPersistence persistence = new MemoryPersistence();
+    MemoryPersistence persistence = new MemoryPersistence();
     
-    @Bean
-    public MqttClient mqtt(){
+    @Bean(name = "subscribe")
+    public MqttClient mqttSubscriber(){
     	 
          try {
-        	 sampleClient = new MqttClient(broker, clientId);
-        	 client = new MqttClient(broker, "id");
+        	 subscriber = new MqttClient(broker,"subscriber",persistence);
+        	
 //             MqttConnectOptions connOpts = new MqttConnectOptions();
              
 //             connOpts.setCleanSession(true);
              System.out.println("Connecting to broker: "+broker);
-             sampleClient.connect();
-             client.connect();
+             subscriber.connect();
+            
              
              System.out.println("Connected");
              System.out.println("Publishing message: "+content);
              
-             sampleClient.setCallback(this);
-             sampleClient.subscribe("nct_colect");
-             
+             subscriber.setCallback(this);
+             subscriber.subscribe("nct_colect");
+             System.out.println("Subscribed topic 'nct_colect'");
              
 			System.out.println("Message published");
 		} catch (MqttException e) {
@@ -55,9 +53,36 @@ public class MqttConfig implements MqttCallback{
 			e.printStackTrace();
 		}
         
-        return sampleClient;
+        return subscriber;
     }
 
+    @Bean(name = "publisher")
+    public MqttClient mqttPublisher(){
+    	 try {
+			publisher = new MqttClient(broker, "publisher");
+			publisher.connect();
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 return publisher;
+    }
+    
+    @Bean(name = "log")
+    public MqttClient mqttLog(){
+    	try {
+			log = new MqttClient(broker, "log");
+			log.connect();
+			log.setCallback(logCallback);
+			log.subscribe("nct_log");
+			System.out.println("Subscribed topic 'Log'");
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return log;
+    }
+    
 	@Override
 	public void connectionLost(Throwable arg0) {
 		// TODO Auto-generated method stub
@@ -72,22 +97,15 @@ public class MqttConfig implements MqttCallback{
 
 	@Override
 	public void messageArrived(String arg0, MqttMessage arg1){
-		System.out.println(arg0);
 		System.out.println(arg1);
-		String xxx = "hello";
-		MqttMessage message = new MqttMessage(xxx.getBytes());
-		System.out.println("herewwq2req");
-        message.setQos(0);
-        System.out.println("hereqwr23");
-
-			System.out.println("here21367");
-//			client.publish("nct_control", message);
+		double t = Double.parseDouble(arg1.toString());
+		if(t < 25 || t > 30){
 			try{
-			client.publish("nct_control", ("message").getBytes(), 0, true);
+				publisher.publish("nct_control", ("led").getBytes(), 2, true);
+				System.out.println();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			System.out.println("here");
-		
+		}
 	}
 }

@@ -2,20 +2,14 @@ package vn.com.nct.service;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
+
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.com.nct.config.MqttConfig;
 
 @Service
 public class MqttService implements MqttCallback{
 	
-//	@Autowired
-//	private MqttClient mqttClient;
 
 	@Override
 	public void connectionLost(Throwable arg0) {
@@ -31,8 +25,7 @@ public class MqttService implements MqttCallback{
 
 	@Override
 	public void messageArrived(String arg0, MqttMessage arg1)  {
-		System.out.println(arg0);
-		System.out.println(arg1);
+		System.out.println("Received message '"+arg1+"' from topic '"+arg0+"'");
 //		System.out.println("heresacs");
 //		MqttMessage message = new MqttMessage("hello".getBytes());
 //		System.out.println("herewwq2req");

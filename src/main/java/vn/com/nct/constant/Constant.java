@@ -7,4 +7,9 @@ public class Constant {
 	 */
 	public static final String SPLIT_PATTERN = ";";
 	
+	// Control syntax
+	public static final String LED_ON 	= "L_1";
+	public static final String LED_OFF  = "L_0";
+	
+	
 }

@@ -1,0 +1,58 @@
+@CHARSET "utf-8";
+
+body{
+	background-image:url("../../img/login/login_bg.jpg");
+	background-repeat:no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+#gh-login{
+	width: 100%;
+}
+
+#gh-login .login-box{
+	width: 30%;
+	margin-top: 100px;
+	float: right;
+	margin-right: 150px;
+	border: 2px solid #fff;
+	border-radius:8px;
+	background-color: rgba(161, 191, 151, 0.2);
+}
+
+#gh-login .login-box .title{
+	font-size:20px;
+	width: 100%;
+	height: auto;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	background-color: transparent;
+}
+
+#gh-login .login-box .input-data{
+	width: 100%;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-top : 1px solid #f5f5f5;
+}
+
+#gh-login .login-box .input-data .forget{
+	width: 100%;
+	height: auto;
+	text-align: center;
+}
+
+#gh-login .login-box .input-data label{font-weight: normal;}
+#gh-login .login-box .input-data .btn{width: 100%;margin-top: 10px;}
+#gh-login .login-box .input-data .form-control{
+	background-color: transparent;
+	margin-bottom: 30px;
+	border: 1px solid #f5f5f5;
+	color: #fff;
+}
+

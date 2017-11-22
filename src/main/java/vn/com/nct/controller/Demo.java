@@ -3,7 +3,11 @@ package vn.com.nct.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -38,6 +42,10 @@ public class Demo {
 	
 	@Autowired
 	private ObjectService<Roles> roleService;
+	
+	@Autowired
+	@Qualifier("publisher")
+	private MqttClient publisher;
 	
 	@RequestMapping(value="demo", method = RequestMethod.GET)
 	public ModelAndView demo(@RequestParam(name = "id")String id,
@@ -86,6 +94,24 @@ public class Demo {
 		return new ModelAndView("demo");
 	}
 	
+	@RequestMapping(value = "demo2", method = RequestMethod.GET)
+	public ModelAndView demo2(){
+		return new ModelAndView("demo2");
+	}
+	
+	@RequestMapping(value = "demo2/led", method = RequestMethod.POST)
+	public void led(){
+		System.out.println("here");
+		try {
+			publisher.publish("nct_control", ("led").getBytes(),2,true);
+		} catch (MqttPersistenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	@MessageMapping("/control_app")
 	@SendTo("/topic/control")

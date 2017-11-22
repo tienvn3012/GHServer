@@ -1,0 +1,31 @@
+@CHARSET "utf-8";
+
+@font-face {
+    font-family: Open_Sans;
+    src: url(../font/Open_Sans/OpenSans-Regular.ttf);
+}
+
+html, body{
+	padding: 0px;
+	margin: 0px;
+}
+
+body{
+	font-size: 14px;
+	font-family:Open_Sans;
+	color:#4a4a4a;
+	letter-spacing: 0.6px;
+}
+
+.wapper{
+	width: 100%;
+}
+
+.main{
+	width: 90%;
+	margin: auto;
+}
+
+.clear{
+	clear: both;
+}
