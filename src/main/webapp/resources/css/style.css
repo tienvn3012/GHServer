@@ -17,6 +17,11 @@ body{
 	letter-spacing: 0.6px;
 }
 
+a:hover{text-decoration:none;color:blue;}
+ul{margin:0px;padding:0px;}
+li{list-style:none;}
+p{margin:0px;padding:0px;}
+
 .wapper{
 	width: 100%;
 }
@@ -29,3 +34,23 @@ body{
 .clear{
 	clear: both;
 }
+.fl-l{
+	float: left;
+}
+.fl-r{
+	float: right;
+}
+
+.text-limit{
+	white-space: nowrap; 
+	overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.font-weight-normal{
+	font-weight: normal;
+}
+
+.display-none{
+	display: none !important;
+}
+

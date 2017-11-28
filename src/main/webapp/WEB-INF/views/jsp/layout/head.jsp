@@ -9,6 +9,7 @@
 
 <spring:url value="/resources/css/lib/bootstrap.css" var="bootstrap"></spring:url>
 <spring:url value="/resources/css/lib/font-awesome-4.7.0/css/font-awesome.css" var="font_awesome"></spring:url>
+<spring:url value="/resources/css/lib/bootstrap-toggle.min.css" var="bootstrap_toggle_css"></spring:url>
 <spring:url value="/resources/css/style.css" var="style"></spring:url>
 
 
@@ -19,8 +20,11 @@
 <spring:url value="/resources/js/lib/jquery.nicescroll.js" var="jquery_nicescroll"></spring:url>
 <spring:url value="/resources/js/lib/jquery.form.js" var="jquery_form"></spring:url>
 <spring:url value="/resources/js/lib/bootstrap.js" var="bootstrapjs"></spring:url>
+<spring:url value="/resources/js/lib/bootstrap-toggle.min.js" var="bootstrap_toggle_js"></spring:url>
+<spring:url value="/resources/js/app.js" var="app"></spring:url>
 
 <link href="${bootstrap}" type="text/css" rel="stylesheet" />
+<link href="${bootstrap_toggle_css}" type="text/css" rel="stylesheet" />
 <link href="${font_awesome}" type="text/css" rel="stylesheet" />
 <link href="${style}" type="text/css" rel="stylesheet" />
 
@@ -31,3 +35,5 @@
 <script src="${jquery_nicescroll}"></script>
 <script src="${jquery_form}"></script>
 <script src="${bootstrapjs}"></script>
+<script src="${bootstrap_toggle_js}"></script>
+<script src="${app}"></script>

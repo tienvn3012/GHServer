@@ -1,0 +1,132 @@
+@CHARSET "utf-8";
+
+#control{
+	width: 100%;
+	height: 100%;
+	background-color: #e9ebee;
+	padding-top: 50px;
+}
+
+#control .line{
+	width: 100%;
+	height: auto;
+}
+
+#control .title{
+	width: 100%;
+	text-indent: 2%;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: left;
+	position: relative;
+}
+
+#control .title .switch-mode{
+	position: absolute;
+	font-weight:bold !important;
+	right: 5%;
+	top: -5px;
+	width: 250px;
+}
+#control .title .switch-mode > label{width: auto;}
+
+#control .control-area{
+	background-color: #fff;
+	padding-top: 20px;
+	padding-bottom: 50px;
+	margin-bottom: 100px;
+	margin-top : 20px;
+	border: 0.5px solid #9b9b9b;
+	border-top: 2px solid #9b9b9b;
+	box-sizing: border-box;
+	border-radius : 4px;
+}
+
+#control .control-area .control-box{
+	border-radius : 4px;
+	border: 1px solid #4a4a4a;
+	width: 30%;
+	box-sizing: border-box;
+	margin-left: 2.5%;
+	float: left;
+}
+
+#control .control-area .control-box .box-title{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-weight: bold;
+	text-indent: 5%;
+	border-radius: 4px 4px 0px 0px;
+	border-bottom: 1px solid #4a4a4a;
+	position: relative;
+	background-color: #653f3f;
+	color: #fff;
+}
+
+#control .control-area .control-box .box-title .activity{
+	position: absolute;
+	right: 2%;
+	top: 7px;
+	cursor: pointer;
+}
+#control .control-area .control-box .box-title .activity > i{
+	margin-right: 5px;
+}
+#control .control-area .control-box .box-title .activity > i:hover{
+	color: darkgray;
+}
+#control .control-area .control-box > ul{
+	border-top: 1px solid #4a4a4a;
+}
+#control .control-area .control-box li.box-item{
+	margin-top: 20px;
+	margin-bottom: 10px;
+	display: flex;
+	position: relative;
+	color: #fff;
+	font-weight: bold;
+}
+
+#control .control-area .control-box li.box-item .icon{
+	width: 20%;
+	float: left;
+	background-color: #442828;
+}
+#control .control-area .control-box li.box-item .icon > i{
+	width:100%;
+	clear:both;
+	margin: auto;
+	text-align : center;
+	font-size: 28px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#control .control-area .control-box li.box-item[state="1"] .icon > i{
+	color: yellow;
+}
+#control .control-area .control-box li.box-item[state="0"] .icon > i{
+	color: #fff;
+}
+
+#control .control-area .control-box li.box-item .control-button{
+	width: 80%;
+	float: right;
+	background-color: #753131;
+}
+
+#control .control-area .control-box li.box-item .control-button .time-countdown{
+	margin-top: 3px;
+}
+
+#control .control-area .control-box li.box-item .control-button input.input-time{
+	width: 60%;
+	padding: 0px 6px;
+	height: auto;
+}
+
+#control .control-area .control-box li.box-item .control-button .control-led{
+	position: absolute;
+	right: 5%;
+	top: 8px;
+}
