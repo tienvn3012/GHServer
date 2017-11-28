@@ -1,6 +1,8 @@
 package vn.com.nct.model;
 
+
 import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,6 +37,9 @@ public class Users {
 	@Column(name = "active", nullable = false)
 	private boolean active;
 	
+	@Column(name = "avatar")
+	private String avatar;
+	
 	@Column(name = "last_login")
 	private String last_login;
 	
@@ -63,6 +68,9 @@ public class Users {
 	
 	@OneToMany(mappedBy = "users")
 	private List<SystemLogActivity> logs;
+	
+	
+	
 
 	public int getId() {
 		return id;
@@ -175,6 +183,15 @@ public class Users {
 	public void setLogs(List<SystemLogActivity> logs) {
 		this.logs = logs;
 	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
 	
 	
 }
