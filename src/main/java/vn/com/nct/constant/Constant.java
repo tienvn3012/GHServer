@@ -7,6 +7,8 @@ import vn.com.nct.model.ModelProperties;
 
 public class Constant {
 
+	public static boolean AUTOMATIC_MODE = false;
+	
 	/*
 	 * condition standard : name_of_argument;value;compare 
 	 */

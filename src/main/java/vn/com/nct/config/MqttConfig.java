@@ -44,8 +44,8 @@ public class MqttConfig implements MqttCallback{
              System.out.println("Publishing message: "+content);
              
              subscriber.setCallback(this);
-             subscriber.subscribe("nct_colect");
-             System.out.println("Subscribed topic 'nct_colect'");
+             subscriber.subscribe("nct_collect");
+             System.out.println("Subscribed topic 'nct_collect'");
              
 			System.out.println("Message published");
 		} catch (MqttException e) {
@@ -83,6 +83,8 @@ public class MqttConfig implements MqttCallback{
     	return log;
     }
     
+   
+    
 	@Override
 	public void connectionLost(Throwable arg0) {
 		// TODO Auto-generated method stub
@@ -98,14 +100,15 @@ public class MqttConfig implements MqttCallback{
 	@Override
 	public void messageArrived(String arg0, MqttMessage arg1){
 		System.out.println(arg1);
-		double t = Double.parseDouble(arg1.toString());
-		if(t < 25 || t > 30){
-			try{
-				publisher.publish("nct_control", ("led").getBytes(), 2, true);
-				System.out.println();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
+//		double t = Double.parseDouble(arg1.toString());
+//		
+//		if(t < 25 || t > 30){
+//			try{
+//				publisher.publish("nct_control", ("led").getBytes(), 2, true);
+//				System.out.println();
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+//		}
 	}
 }

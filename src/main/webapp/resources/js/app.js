@@ -1,4 +1,5 @@
 var ansync_ajax_result = null;
+var interval_event_countdown;
 
 $(document).ready(function(){
 	
@@ -41,10 +42,18 @@ $(document).ready(function(){
 	            },
 	            
 	            error : function (jqXHR, exception) {
-	            	return $(this).error(jqXHR, exception);
+	            	$(this).error(jqXHR, exception);
 	            }
 	        });
-		}
+		},
+		
+		off_activity : function(target,url,data,method,async) {
+			clearInterval(interval_event_countdown);
+			$(target).parents("li").find(".time-countdown").addClass("display-none");
+			$(target).parents("li").find(".input-time").removeClass("display-none");
+			$(target).parents("li").attr("state","0");
+			$(target).simple_ajax_request(url,data,method,async);
+		},
 		
 	});
 	

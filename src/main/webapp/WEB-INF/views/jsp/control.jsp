@@ -66,7 +66,7 @@
 							<div class="icon"><i class="fa fa-tint"></i></div>
 							<div class="control-button">
 								<div class="main">
-									<div class="line text">Máy bơm dung dịch A</div>
+									<div class="line text">Pump of A liquid</div>
 									<input type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
@@ -80,7 +80,7 @@
 							<div class="icon"><i class="fa fa-tint"></i></div>
 							<div class="control-button">
 								<div class="main">
-									<div class="line text">Máy bơm dung dịch B</div>
+									<div class="line text">Pump of B liquid</div>
 									<input type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
@@ -94,7 +94,7 @@
 							<div class="icon"><i class="fa fa-tint"></i></div>
 							<div class="control-button">
 								<div class="main">
-									<div class="line text">Máy bơm pH up</div>
+									<div class="line text">Pump of pH up</div>
 									<input type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
@@ -108,7 +108,7 @@
 							<div class="icon"><i class="fa fa-tint"></i></div>
 							<div class="control-button">
 								<div class="main">
-									<div class="line text">Máy bơm pH down</div>
+									<div class="line text">Pump of pH down</div>
 									<input type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
