@@ -36,6 +36,9 @@ public class PlantInfo {
 	@Column(name = "light_time", nullable = false)
 	private String light_time;
 	
+	@Column(name = "time_harvest")
+	private int time_harvest;
+	
 	@OneToOne(mappedBy = "plant_info", cascade = CascadeType.PERSIST)
 	private Plants plant;
 
@@ -101,6 +104,14 @@ public class PlantInfo {
 
 	public void setPlant(Plants plant) {
 		this.plant = plant;
+	}
+
+	public int getTime_harvest() {
+		return time_harvest;
+	}
+
+	public void setTime_harvest(int time_harvest) {
+		this.time_harvest = time_harvest;
 	}
 	
 	

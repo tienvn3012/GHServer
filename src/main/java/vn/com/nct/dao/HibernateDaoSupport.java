@@ -25,5 +25,4 @@ public class HibernateDaoSupport {
 	public void deleteMany(List<Object> objs){
 		hibernateTemplate.deleteAll(objs);
 	}
-	
 }

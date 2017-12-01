@@ -8,6 +8,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,11 +17,19 @@ import org.springframework.context.annotation.Configuration;
 public class MqttConfig implements MqttCallback{
 	
 	@Autowired
+	@Qualifier(value = "log_callback")
 	private MqttCallback logCallback;
+	
+	@Autowired
+	@Qualifier(value = "authentication_callback")
+	private MqttCallback authenticationCallback;
 
 	private MqttClient subscriber = null;
 	private MqttClient publisher = null;
 	private MqttClient log = null;
+	private MqttClient authentication = null;
+	private MqttClient authentication_result = null;
+	
 	
 	String content      = "Message from MqttPublishSample";
     int qos             = 2;
@@ -44,10 +53,8 @@ public class MqttConfig implements MqttCallback{
              System.out.println("Publishing message: "+content);
              
              subscriber.setCallback(this);
-             subscriber.subscribe("nct_collect");
-             System.out.println("Subscribed topic 'nct_collect'");
-             
-			System.out.println("Message published");
+//             subscriber.subscribe("nct_collect");
+//             System.out.println("Subscribed topic 'nct_collect'");
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,6 +90,30 @@ public class MqttConfig implements MqttCallback{
     	return log;
     }
     
+    @Bean(name = "authentication")
+    public MqttClient mqttAuthentication(){
+    	try{
+    		authentication = new MqttClient(broker, "authentication");
+    		authentication.connect();
+    		authentication.setCallback(authenticationCallback );
+    		authentication.subscribe("nct_authentication");
+    		System.out.println("subscribed topic nct_authentication");
+    	}catch(MqttException e){
+    		e.printStackTrace();
+    	}
+    	return authentication;
+    }
+    
+    @Bean(name = "authentication_result")
+    public MqttClient mqttAuthenticationResult(){
+    	try{
+    		authentication_result = new MqttClient(broker, "authentication_result");
+    		authentication_result.connect();
+    	}catch(MqttException e){
+    		e.printStackTrace();
+    	}
+    	return authentication_result;
+    }
    
     
 	@Override

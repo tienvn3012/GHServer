@@ -36,6 +36,9 @@ public class Frame {
 	@Column(name = "time_begin", nullable = false)
 	private String time_begin;
 	
+	@Column(name = "harvested", nullable = false)
+	private boolean harvested;
+	
 	@OneToMany(mappedBy = "frame")
 	private List<FrameDataColection> frame_data;
 
@@ -83,6 +86,14 @@ public class Frame {
 
 	public void setTime_begin(String time_begin) {
 		this.time_begin = time_begin;
+	}
+
+	public boolean isHarvested() {
+		return harvested;
+	}
+
+	public void setHarvested(boolean harvested) {
+		this.harvested = harvested;
 	}
 
 	public List<FrameDataColection> getFrame_data() {

@@ -10,7 +10,12 @@ public class Constant {
 	public static boolean AUTOMATIC_MODE = false;
 	
 	/*
-	 * condition standard : name_of_argument;value;compare 
+	 * condition standard : name_of_argument;value;compare;datatype
+	 * plant param standad : min;max;time_min2;max2;time2
+	 * if plant param not change in all life time : min;max;0
+	 * time unit : default is 'day'
+	 * 
+	 * authentication message : id;password;type
 	 */
 	public static final String SPLIT_PATTERN = ";";
 	

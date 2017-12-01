@@ -27,6 +27,7 @@ public class Devices {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
+	// false : collect; true : control
 	@Column(name = "device_task", nullable = false)
 	private boolean device_task;
 	

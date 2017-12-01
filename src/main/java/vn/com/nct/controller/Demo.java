@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,7 +63,7 @@ public class Demo {
 		//admin_info
 		UserInfo ui = new UserInfo();
 		ui.setId(0);
-		ui.setAddress("victoria secret");
+		ui.setAddress("secret");
 		ui.setDate_of_birth("30/12/1995");
 		ui.setDeleted(0);
 		ui.setEmail("tienvn3012@gmail.com");
@@ -72,7 +73,6 @@ public class Demo {
 		ui.setPhone("0123456789");
 		
 		UserInfo u = userInfoService.saveOrUpdateE(ui);
-		
 		
 		//admin
 		Users admin_account = new Users();
@@ -94,6 +94,14 @@ public class Demo {
 		return new ModelAndView("demo");
 	}
 	
+	@RequestMapping(value = "demop", method = RequestMethod.GET)
+	public ModelAndView dm(){
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		System.out.println(encoder.encodePassword("nct_laboratory", null));
+//		System.out.println(Boolean.parseBoolean("dsadfgbx"));
+		return new ModelAndView("demo");
+	}
+
 	@RequestMapping(value = "demo2", method = RequestMethod.GET)
 	public ModelAndView demo2(){
 		return new ModelAndView("demo2");

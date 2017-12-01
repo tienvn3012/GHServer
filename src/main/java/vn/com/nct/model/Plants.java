@@ -75,6 +75,5 @@ public class Plants {
 	public void setFrames(List<Frame> frames) {
 		this.frames = frames;
 	}
-	
-	
+
 }
