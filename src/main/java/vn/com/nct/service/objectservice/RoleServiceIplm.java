@@ -1,4 +1,4 @@
-package vn.com.nct.service;
+package vn.com.nct.service.objectservice;
 
 import java.util.List;
 
@@ -7,47 +7,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
-import vn.com.nct.model.Devices;
+import vn.com.nct.model.Roles;
 import vn.com.nct.model.response.Page;
 
 @Service
 @Transactional(readOnly = false)
-public class DeviceServiceIplm implements ObjectService<Devices>{
-	
+public class RoleServiceIplm implements ObjectService<Roles>{
+
 	@Autowired
-	private ObjectDaoSupport<Devices> deviceDao;
-
+	private ObjectDaoSupport<Roles> roleDao;
+	
 	@Override
-	public List<Devices> getAll() {
+	public List<Roles> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Devices> getAllBy(String... condition) {
+	public List<Roles> getAllBy(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Devices> getLimit(int index, int offset) {
+	public List<Roles> getLimit(int index, int offset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Devices> getLimitBy(int index, int offset, String... condition) {
+	public List<Roles> getLimitBy(int index, int offset, String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Devices getOneById(int id) {
-		return deviceDao.getOneById(id);
+	public Roles getOneById(int id) {
+		// TODO Auto-generated method stub
+		return roleDao.getOneById(id);
 	}
 
 	@Override
-	public Devices getOneByCondition(String... condition) {
+	public Roles getOneByCondition(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -59,20 +60,19 @@ public class DeviceServiceIplm implements ObjectService<Devices>{
 	}
 
 	@Override
-	public void deleteManyE(List<Devices> lis) {
+	public void deleteManyE(List<Roles> lis) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Devices saveOrUpdateE(Devices e) {
+	public Roles saveOrUpdateE(Roles e) {
 		// TODO Auto-generated method stub
-		return null;
+		return roleDao.saveOrUpdateE(e);
 	}
 
 	@Override
-	public void saveOrUpdateManyE(List<Devices> lis) {
-		// TODO Auto-generated method stub
+	public void saveOrUpdateManyE(List<Roles> lis) {
 		
 	}
 
@@ -89,9 +89,9 @@ public class DeviceServiceIplm implements ObjectService<Devices>{
 	}
 
 	@Override
-	public Page<Devices> getPage() {
+	public Page<Roles> getPage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

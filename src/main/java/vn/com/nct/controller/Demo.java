@@ -24,7 +24,7 @@ import vn.com.nct.model.Message;
 import vn.com.nct.model.Roles;
 import vn.com.nct.model.UserInfo;
 import vn.com.nct.model.Users;
-import vn.com.nct.service.ObjectService;
+import vn.com.nct.service.objectservice.ObjectService;
 
 @Controller
 public class Demo {

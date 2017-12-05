@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import vn.com.nct.service.controlservice.AutomaticControlService;
+
 
 @Configuration
 public class MqttConfig implements MqttCallback{
@@ -23,6 +25,9 @@ public class MqttConfig implements MqttCallback{
 	@Autowired
 	@Qualifier(value = "authentication_callback")
 	private MqttCallback authenticationCallback;
+	
+	@Autowired
+	private AutomaticControlService automatic;
 
 	private MqttClient subscriber = null;
 	private MqttClient publisher = null;
@@ -129,17 +134,10 @@ public class MqttConfig implements MqttCallback{
 	}
 
 	@Override
-	public void messageArrived(String arg0, MqttMessage arg1){
-		System.out.println(arg1);
-//		double t = Double.parseDouble(arg1.toString());
-//		
-//		if(t < 25 || t > 30){
-//			try{
-//				publisher.publish("nct_control", ("led").getBytes(), 2, true);
-//				System.out.println();
-//			}catch(Exception e){
-//				e.printStackTrace();
-//			}
-//		}
+	public void messageArrived(String topic, MqttMessage message){
+		System.out.println("Receive message '"+message+"' from topic '"+topic+"'");
+		
+		automatic.trackParamsAnalysis(message.toString(), topic);
+		
 	}
 }

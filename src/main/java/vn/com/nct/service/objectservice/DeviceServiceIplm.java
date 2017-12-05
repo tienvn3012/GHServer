@@ -1,4 +1,4 @@
-package vn.com.nct.service;
+package vn.com.nct.service.objectservice;
 
 import java.util.List;
 
@@ -7,48 +7,47 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
-import vn.com.nct.model.UserInfo;
+import vn.com.nct.model.Devices;
 import vn.com.nct.model.response.Page;
 
 @Service
 @Transactional(readOnly = false)
-public class UserInfoServiceIplm implements ObjectService<UserInfo>{
-
-	@Autowired
-	private ObjectDaoSupport<UserInfo> userInfoDao;
+public class DeviceServiceIplm implements ObjectService<Devices>{
 	
+	@Autowired
+	private ObjectDaoSupport<Devices> deviceDao;
+
 	@Override
-	public List<UserInfo> getAll() {
+	public List<Devices> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UserInfo> getAllBy(String... condition) {
+	public List<Devices> getAllBy(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UserInfo> getLimit(int index, int offset) {
+	public List<Devices> getLimit(int index, int offset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UserInfo> getLimitBy(int index, int offset, String... condition) {
+	public List<Devices> getLimitBy(int index, int offset, String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public UserInfo getOneById(int id) {
-		// TODO Auto-generated method stub
-		return userInfoDao.getOneById(id);
+	public Devices getOneById(int id) {
+		return deviceDao.getOneById(id);
 	}
 
 	@Override
-	public UserInfo getOneByCondition(String... condition) {
+	public Devices getOneByCondition(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,19 +59,19 @@ public class UserInfoServiceIplm implements ObjectService<UserInfo>{
 	}
 
 	@Override
-	public void deleteManyE(List<UserInfo> lis) {
+	public void deleteManyE(List<Devices> lis) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public UserInfo saveOrUpdateE(UserInfo e) {
+	public Devices saveOrUpdateE(Devices e) {
 		// TODO Auto-generated method stub
-		return userInfoDao.saveOrUpdateE(e);
+		return null;
 	}
 
 	@Override
-	public void saveOrUpdateManyE(List<UserInfo> lis) {
+	public void saveOrUpdateManyE(List<Devices> lis) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -90,7 +89,7 @@ public class UserInfoServiceIplm implements ObjectService<UserInfo>{
 	}
 
 	@Override
-	public Page<UserInfo> getPage() {
+	public Page<Devices> getPage() {
 		// TODO Auto-generated method stub
 		return null;
 	}

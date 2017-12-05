@@ -12,7 +12,8 @@ import vn.com.nct.base.PasswordCryptService;
 //import vn.com.nct.base.TimerService;
 import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Devices;
-import vn.com.nct.model.Frame;
+import vn.com.nct.service.controlservice.AutomaticControlService;
+import vn.com.nct.service.objectservice.ObjectService;
 
 @Service("authentication_callback")
 public class MqttAuthenticationService implements MqttCallback{
@@ -34,8 +35,6 @@ public class MqttAuthenticationService implements MqttCallback{
 	@Autowired
 	private ObjectService<Devices> deviceService;
 	
-	@Autowired
-	private ObjectService<Frame> frameService;
 	
 	@Autowired
 	private AutomaticControlService controlService;
@@ -63,14 +62,9 @@ public class MqttAuthenticationService implements MqttCallback{
 					subscribe.subscribe("nct_collect_"+id);
 					System.out.println("nct_collect_"+id);
 				}else {
-					System.out.println("here");
-					// find frame by condition and get plant info then open automatic thread control
-					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
-					System.out.println(frame);
-					System.out.println(frame.getPlant().getPlant_info().getLight_time());
-					String[] split = frame.getPlant().getPlant_info().getLight_time().split(Constant.SPLIT_PATTERN);
-					
-					controlService.control("led", Double.parseDouble(split[1]), id);
+					System.out.println("Device id "+id+" loged in !!!!");
+					// open automatic thread control
+					controlService.plantAnalysis(id);
 				}
 					
 			}else {

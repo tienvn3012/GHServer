@@ -19,6 +19,7 @@ public class PublishService extends Thread{
 	private double delay_time;
 	private String message_on;
 	private String message_off;
+	private int stop_time;
 	
 
 	
@@ -29,30 +30,38 @@ public class PublishService extends Thread{
 	}
 
 	
-	public PublishService(int did,double delay_time, String message_on, String message_off) {
+	public PublishService(int did,double delay_time, String message_on, String message_off, int stop_time) {
 		super();
 		this.did = did;
 		this.delay_time = delay_time;
 		this.message_on = message_on;
 		this.message_off = message_off;
+		this.stop_time = stop_time;
 	}
 
 	@Override
 	public void run() {
 		super.run();
-		try {
-			control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
-			System.out.println("nct_control_"+this.did);
-			sleep((long)Math.floor(delay_time*60*60*1000));
-			control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
-			System.out.println("nct_control_"+this.did);
-		} catch (MqttException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		synchronized (control_device) {
+			try {
+				int day = 1;
+				long time_on = (long)Math.floor(delay_time*60*60*1000);
+				long time_off = 24*60*60*1000 - time_on;
+				while(day <= stop_time){
+					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
+					sleep(time_on);
+					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
+					sleep(time_off);
+				}
+			} catch (MqttException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
 
@@ -90,6 +99,18 @@ public class PublishService extends Thread{
 	public void setMessage_off(String message_off) {
 		this.message_off = message_off;
 	}
+
+
+	public int getStop_time() {
+		return stop_time;
+	}
+
+
+	public void setStop_time(int stop_time) {
+		this.stop_time = stop_time;
+	}
+
+
 
 	
 }

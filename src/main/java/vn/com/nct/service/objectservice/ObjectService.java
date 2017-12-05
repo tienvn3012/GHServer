@@ -1,4 +1,4 @@
-package vn.com.nct.service;
+package vn.com.nct.service.objectservice;
 
 import java.util.List;
 

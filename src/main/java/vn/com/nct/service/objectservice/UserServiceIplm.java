@@ -1,4 +1,4 @@
-package vn.com.nct.service;
+package vn.com.nct.service.objectservice;
 
 import java.util.List;
 
@@ -7,48 +7,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
-import vn.com.nct.model.Roles;
+import vn.com.nct.model.Users;
 import vn.com.nct.model.response.Page;
 
 @Service
 @Transactional(readOnly = false)
-public class RoleServiceIplm implements ObjectService<Roles>{
+public class UserServiceIplm implements ObjectService<Users>{
 
 	@Autowired
-	private ObjectDaoSupport<Roles> roleDao;
+	private ObjectDaoSupport<Users> userDao;
 	
 	@Override
-	public List<Roles> getAll() {
+	public List<Users> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Roles> getAllBy(String... condition) {
+	public List<Users> getAllBy(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Roles> getLimit(int index, int offset) {
+	public List<Users> getLimit(int index, int offset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Roles> getLimitBy(int index, int offset, String... condition) {
+	public List<Users> getLimitBy(int index, int offset, String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Roles getOneById(int id) {
+	public Users getOneById(int id) {
 		// TODO Auto-generated method stub
-		return roleDao.getOneById(id);
+		return userDao.getOneById(id);
 	}
 
 	@Override
-	public Roles getOneByCondition(String... condition) {
+	public Users getOneByCondition(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,19 +60,20 @@ public class RoleServiceIplm implements ObjectService<Roles>{
 	}
 
 	@Override
-	public void deleteManyE(List<Roles> lis) {
+	public void deleteManyE(List<Users> lis) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Roles saveOrUpdateE(Roles e) {
+	public Users saveOrUpdateE(Users e) {
 		// TODO Auto-generated method stub
-		return roleDao.saveOrUpdateE(e);
+		return userDao.saveOrUpdateE(e);
 	}
 
 	@Override
-	public void saveOrUpdateManyE(List<Roles> lis) {
+	public void saveOrUpdateManyE(List<Users> lis) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -89,9 +90,9 @@ public class RoleServiceIplm implements ObjectService<Roles>{
 	}
 
 	@Override
-	public Page<Roles> getPage() {
+	public Page<Users> getPage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package vn.com.nct.service;
+package vn.com.nct.service.objectservice;
 
 import java.util.List;
 
@@ -7,51 +7,50 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
-import vn.com.nct.model.Frame;
+import vn.com.nct.model.UserInfo;
 import vn.com.nct.model.response.Page;
 
 @Service
 @Transactional(readOnly = false)
-public class FrameServiceIplm implements ObjectService<Frame>{
-	
+public class UserInfoServiceIplm implements ObjectService<UserInfo>{
+
 	@Autowired
-	private ObjectDaoSupport<Frame> frameDao;
-
+	private ObjectDaoSupport<UserInfo> userInfoDao;
+	
 	@Override
-	public List<Frame> getAll() {
+	public List<UserInfo> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Frame> getAllBy(String... condition) {
+	public List<UserInfo> getAllBy(String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Frame> getLimit(int index, int offset) {
+	public List<UserInfo> getLimit(int index, int offset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Frame> getLimitBy(int index, int offset, String... condition) {
+	public List<UserInfo> getLimitBy(int index, int offset, String... condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Frame getOneById(int id) {
+	public UserInfo getOneById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return userInfoDao.getOneById(id);
 	}
 
 	@Override
-	public Frame getOneByCondition(String... condition) {
+	public UserInfo getOneByCondition(String... condition) {
 		// TODO Auto-generated method stub
-		System.out.println("frame service");
-		return frameDao.getOneByCondition(condition);
+		return null;
 	}
 
 	@Override
@@ -61,19 +60,19 @@ public class FrameServiceIplm implements ObjectService<Frame>{
 	}
 
 	@Override
-	public void deleteManyE(List<Frame> lis) {
+	public void deleteManyE(List<UserInfo> lis) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Frame saveOrUpdateE(Frame e) {
+	public UserInfo saveOrUpdateE(UserInfo e) {
 		// TODO Auto-generated method stub
-		return null;
+		return userInfoDao.saveOrUpdateE(e);
 	}
 
 	@Override
-	public void saveOrUpdateManyE(List<Frame> lis) {
+	public void saveOrUpdateManyE(List<UserInfo> lis) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -91,9 +90,9 @@ public class FrameServiceIplm implements ObjectService<Frame>{
 	}
 
 	@Override
-	public Page<Frame> getPage() {
+	public Page<UserInfo> getPage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

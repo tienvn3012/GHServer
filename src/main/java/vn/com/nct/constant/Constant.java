@@ -16,8 +16,11 @@ public class Constant {
 	 * time unit : default is 'day'
 	 * 
 	 * authentication message : id;password;type
+	 * track message : token;temp;humid;co2;ph;time
+	 * 
 	 */
 	public static final String SPLIT_PATTERN = ";";
+	public static final String SPLIT_PATTERN_LEVEL2 = "_";
 	
 	// Control syntax
 	public static final String LED_ON 			= "L_1\0";
