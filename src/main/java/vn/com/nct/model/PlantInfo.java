@@ -39,6 +39,9 @@ public class PlantInfo {
 	@Column(name = "time_harvest")
 	private int time_harvest;
 	
+	@Column(name="track_time")
+	private double track_time;
+	
 	@OneToOne(mappedBy = "plant_info", cascade = CascadeType.PERSIST)
 	private Plants plant;
 
@@ -112,6 +115,14 @@ public class PlantInfo {
 
 	public void setTime_harvest(int time_harvest) {
 		this.time_harvest = time_harvest;
+	}
+
+	public double getTrack_time() {
+		return track_time;
+	}
+
+	public void setTrack_time(double track_time) {
+		this.track_time = track_time;
 	}
 	
 	

@@ -5,6 +5,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,13 +34,13 @@ public class ControlController extends LayoutController{
 		return model;
 	}
 	
-	@RequestMapping(value = "control/led", method = RequestMethod.GET)
-	public String ledControl(@RequestParam(name="led")String led){
+	@RequestMapping(value = "control/led/{id}", method = RequestMethod.GET)
+	public String ledControl(@PathVariable int id, @RequestParam(name="led")String led){
 		try{
 			if("on".equals(led)){
-				publisher.publish("nct_control", (Constant.LED_ON).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.LED_ON).getBytes(),2,true);
 			}else {
-				publisher.publish("nct_control", (Constant.LED_OFF).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.LED_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
 			// TODO Auto-generated catch block

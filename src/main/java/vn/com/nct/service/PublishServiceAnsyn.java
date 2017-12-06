@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-@Service("sync")
+@Service("ansync")
 @Scope("prototype")
-public class PublishService extends Thread{
-	
+public class PublishServiceAnsyn extends Thread{
 	@Autowired
 	@Qualifier("publisher")
 	private MqttClient control_device;
@@ -24,14 +23,21 @@ public class PublishService extends Thread{
 
 	
 	
-	public PublishService() {
+	
+
+	public PublishServiceAnsyn() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public PublishService(int did,double delay_time, String message_on, String message_off, int stop_time) {
+
+
+
+
+	public PublishServiceAnsyn(MqttClient control_device, int did, double delay_time, String message_on,
+			String message_off, int stop_time) {
 		super();
+		this.control_device = control_device;
 		this.did = did;
 		this.delay_time = delay_time;
 		this.message_on = message_on;
@@ -39,19 +45,21 @@ public class PublishService extends Thread{
 		this.stop_time = stop_time;
 	}
 
+
+
+
+
 	@Override
 	public void run() {
 		super.run();
-		synchronized (control_device) {
+		
 			try {
 				int day = 1;
-				long time_on = (long)Math.floor(delay_time*1000);
-				long time_off = 24*1000 - time_on;
+				long time_on = (long)Math.floor(delay_time*60*1000);
 				while(day <= stop_time){
 					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
 					sleep(time_on);
 					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
-					sleep(time_off);
 				}
 			} catch (MqttException e) {
 				// TODO Auto-generated catch block
@@ -60,7 +68,7 @@ public class PublishService extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		
 		
 	}
 
@@ -109,8 +117,4 @@ public class PublishService extends Thread{
 	public void setStop_time(int stop_time) {
 		this.stop_time = stop_time;
 	}
-
-
-
-	
 }

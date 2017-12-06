@@ -12,6 +12,7 @@ import vn.com.nct.base.PasswordCryptService;
 //import vn.com.nct.base.TimerService;
 import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Devices;
+import vn.com.nct.model.Frame;
 import vn.com.nct.service.controlservice.AutomaticControlService;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -25,6 +26,13 @@ public class MqttAuthenticationService implements MqttCallback{
 	@Autowired
 	@Qualifier("subscribe")
 	private MqttClient subscribe;
+	
+	@Autowired
+	@Qualifier("publisher")
+	private MqttClient publisher;
+	
+	@Autowired
+	private ObjectService<Frame> frameService;
 	
 	@Autowired
 	private PasswordCryptService passService;
@@ -59,6 +67,8 @@ public class MqttAuthenticationService implements MqttCallback{
 				System.out.println("Passed");
 				authentication_result.publish("nct_authentication_result_"+id, ("OK\0").getBytes(),0,true);
 				if(("collect").equals(mes[2])){
+					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
+					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
 					subscribe.subscribe("nct_collect_"+id);
 					System.out.println("nct_collect_"+id);
 				}else {
