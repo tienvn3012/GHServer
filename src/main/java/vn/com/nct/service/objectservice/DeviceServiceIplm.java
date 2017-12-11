@@ -12,7 +12,7 @@ import vn.com.nct.model.response.Page;
 
 @Service
 @Transactional(readOnly = false)
-public class DeviceServiceIplm implements ObjectService<Devices>{
+public class DeviceServiceIplm implements ObjectService<Devices,Object>{
 	
 	@Autowired
 	private ObjectDaoSupport<Devices> deviceDao;
@@ -64,17 +64,6 @@ public class DeviceServiceIplm implements ObjectService<Devices>{
 		
 	}
 
-	@Override
-	public Devices saveOrUpdateE(Devices e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveOrUpdateManyE(List<Devices> lis) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public int countAll() {
@@ -89,7 +78,33 @@ public class DeviceServiceIplm implements ObjectService<Devices>{
 	}
 
 	@Override
-	public Page<Devices> getPage() {
+	public Page<Object> getPage(int page_number, int row) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Devices saveE(Devices e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Devices updateE(Devices e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<Object> parseAll(List<Devices> lis) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object parseResponse(Devices user) {
 		// TODO Auto-generated method stub
 		return null;
 	}

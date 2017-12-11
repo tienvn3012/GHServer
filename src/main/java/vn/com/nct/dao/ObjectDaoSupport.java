@@ -12,8 +12,8 @@ public interface ObjectDaoSupport <E>{
 	public E getOneByCondition(String... condition);
 	public void deleteE(int id);
 	public void deleteManyE(List<E> lis);
-	public E saveOrUpdateE(E e);
-	public void saveOrUpdateManyE(List<E> lis);
+	public E saveE(E e);
+	public E updateE(E e);
 	public int countAll();
 	public int countBy(String... condition);
 	

@@ -15,8 +15,12 @@
 <body>
 	<div class="wapper">
 		<jsp:include page="${topbar}"></jsp:include>
-		<jsp:include page="${sidebar}"></jsp:include>
-		<jsp:include page="${content}"></jsp:include>
+		<div class = "display-flex position-relative">
+			<jsp:include page="${sidebar}"></jsp:include>
+			<div id="content-width" class="content-width">
+				<jsp:include page="${content}"></jsp:include>
+			</div>
+		</div>
 		<jsp:include page="${footer}"></jsp:include>
 	</div>
 </body>

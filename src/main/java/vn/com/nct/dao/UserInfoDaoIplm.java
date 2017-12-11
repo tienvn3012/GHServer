@@ -60,7 +60,7 @@ public class UserInfoDaoIplm extends HibernateDaoSupport implements ObjectDaoSup
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public UserInfo saveOrUpdateE(UserInfo e) {
+	public UserInfo saveE(UserInfo e) {
 		save(e);
 		DetachedCriteria criteria = DetachedCriteria.forClass(UserInfo.class)
 			    .setProjection( Projections.max("id") );
@@ -69,11 +69,7 @@ public class UserInfoDaoIplm extends HibernateDaoSupport implements ObjectDaoSup
 		return getOneById(lis.get(0).intValue());
 	}
 
-	@Override
-	public void saveOrUpdateManyE(List<UserInfo> lis) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public int countAll() {
@@ -85,6 +81,12 @@ public class UserInfoDaoIplm extends HibernateDaoSupport implements ObjectDaoSup
 	public int countBy(String... condition) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public UserInfo updateE(UserInfo e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -31,6 +31,11 @@ p{margin:0px;padding:0px;}
 	margin: auto;
 }
 
+.main70{
+	width: 70%;
+	margin: auto;
+}
+
 .clear{
 	clear: both;
 }
@@ -39,6 +44,17 @@ p{margin:0px;padding:0px;}
 }
 .fl-r{
 	float: right;
+}
+
+.content-width{
+	width: 80%;
+}
+
+.width40px{
+	width: 40px !important;	
+}
+.width95{
+	width: 95% !important;
 }
 
 .text-limit{
@@ -54,6 +70,10 @@ p{margin:0px;padding:0px;}
 	display: none !important;
 }
 
+.display-flex{
+	display: flex;
+}
+
 .line{
 	width: 100%;
 	height: auto;
@@ -61,4 +81,8 @@ p{margin:0px;padding:0px;}
 
 .position-relative{
 	position: relative;
+}
+
+.position-absolute{
+	position: absolute;
 }

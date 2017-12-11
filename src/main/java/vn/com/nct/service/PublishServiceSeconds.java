@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-@Service("sync")
+@Service("seconds")
 @Scope("prototype")
-public class PublishService extends Thread{
+public class PublishServiceSeconds extends Thread{
 	
 	@Autowired
 	@Qualifier("publisher")
@@ -19,24 +19,21 @@ public class PublishService extends Thread{
 	private double delay_time;
 	private String message_on;
 	private String message_off;
-	private int stop_time;
 	
-
-	
-	
-	public PublishService() {
+	public PublishServiceSeconds() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	public PublishService(int did,double delay_time, String message_on, String message_off, int stop_time) {
+
+	public PublishServiceSeconds( int did, double delay_time, String message_on,
+			String message_off) {
 		super();
 		this.did = did;
 		this.delay_time = delay_time;
 		this.message_on = message_on;
 		this.message_off = message_off;
-		this.stop_time = stop_time;
 	}
 
 	@Override
@@ -44,15 +41,12 @@ public class PublishService extends Thread{
 		super.run();
 		synchronized (control_device) {
 			try {
-				int day = 1;
-				long time_on = (long)Math.floor(delay_time*60*60*1000);
-				long time_off = 24*60*60*1000 - time_on;
-				while(day <= stop_time){
-					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
-					sleep(time_on);
-					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
-					sleep(time_off);
-				}
+				long time_on = (long)Math.floor(delay_time*1000);
+				
+				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
+				sleep(time_on);
+				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
+
 			} catch (MqttException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,17 +58,13 @@ public class PublishService extends Thread{
 		
 	}
 
-
-
 	public int getDid() {
 		return did;
 	}
 
-
 	public void setDid(int did) {
 		this.did = did;
 	}
-
 
 	public double getDelay_time() {
 		return delay_time;
@@ -100,17 +90,7 @@ public class PublishService extends Thread{
 		this.message_off = message_off;
 	}
 
-
-	public int getStop_time() {
-		return stop_time;
-	}
-
-
-	public void setStop_time(int stop_time) {
-		this.stop_time = stop_time;
-	}
-
-
-
+	
+	
 	
 }

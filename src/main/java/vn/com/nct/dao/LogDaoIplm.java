@@ -58,18 +58,12 @@ public class LogDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public SystemLogActivity saveOrUpdateE(SystemLogActivity e) {
+	public SystemLogActivity saveE(SystemLogActivity e) {
 		this.save(e);
 		DetachedCriteria criteria = DetachedCriteria.forClass(SystemLogActivity.class)
 			    .setProjection( Projections.max("id") );
 		Integer i = ((List<Integer>)hibernateTemplate.findByCriteria(criteria)).get(0);
 		return getOneById(i.intValue());
-	}
-
-	@Override
-	public void saveOrUpdateManyE(List<SystemLogActivity> lis) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -82,6 +76,12 @@ public class LogDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<
 	public int countBy(String... condition) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public SystemLogActivity updateE(SystemLogActivity e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

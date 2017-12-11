@@ -12,7 +12,8 @@
 <spring:url value="/resources/css/lib/bootstrap-toggle.min.css" var="bootstrap_toggle_css"></spring:url>
 <spring:url value="/resources/lib/nvd3/build/nv.d3.min.css" var="nvd3css"></spring:url>
 <spring:url value="/resources/css/style.css" var="style"></spring:url>
-
+<spring:url value="/resources/css/layout/topbar.css" var="topbar_style"></spring:url>
+<spring:url value="/resources/css/layout/sidebar.css" var="sidebar_style"></spring:url>
 
 <spring:url value="/resources/js/lib/jquery-3.2.1.min.js" var="jquery"></spring:url>
 <spring:url value="/resources/js/lib/jquery-ui.js" var="jquery_ui"></spring:url>
@@ -32,6 +33,8 @@
 <link href="${font_awesome}" type="text/css" rel="stylesheet" />
 <link href="${nvd3css}" type="text/css" rel="stylesheet" />
 <link href="${style}" type="text/css" rel="stylesheet" />
+<link href="${topbar_style}" type="text/css" rel="stylesheet" />
+<link href="${sidebar_style}" type="text/css" rel="stylesheet" />
 
 <script src="${jquery}"></script>
 <script src="${jquery_ui}"></script>

@@ -7,4 +7,5 @@ public interface TimerService {
 	public String getCurrentDate();
 	public String getCompareDate(String date) throws ParseException ;
 	public String getCompareTime(String time) throws ParseException ;
+	public int 	  countDays(String time_begin)throws ParseException;
 }

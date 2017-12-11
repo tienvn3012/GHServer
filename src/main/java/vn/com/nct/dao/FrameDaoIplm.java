@@ -67,17 +67,6 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 		
 	}
 
-	@Override
-	public Frame saveOrUpdateE(Frame e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveOrUpdateManyE(List<Frame> lis) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public int countAll() {
@@ -89,6 +78,18 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 	public int countBy(String... condition) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Frame saveE(Frame e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Frame updateE(Frame e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

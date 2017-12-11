@@ -1,9 +1,26 @@
 var ansync_ajax_result = null;
 var interval_event_countdown;
+var isClose = false;
 
 $(document).ready(function(){
 	
 	jQuery.fn.extend({
+		
+		/*close menu*/
+		close_menu : function(){
+			$(".menu-collapse").addClass("display-none");
+			$("#gh-sidebar").addClass("width40px");
+			$("#content-width").width(screen.width - 40);
+			$("#collapse-icon").addClass("fa-arrow-right");
+		},
+		
+		/*open menu*/
+		open_menu : function(){
+			$(".menu-collapse").removeClass("display-none");
+			$("#gh-sidebar").removeClass("width40px");
+			$("#content-width").width(screen.width - screen.width*0.2);
+			$("#collapse-icon").removeClass("fa-arrow-right");
+		},
 		
 		/*error handle*/
 		error : function(jqXHR, exception){
@@ -57,4 +74,23 @@ $(document).ready(function(){
 		
 	});
 	
+	$("#collapse-item").click(function(e){
+		e.stopPropagation();
+		if(!isClose){
+			$(this).close_menu();
+			isClose = true;
+		}else{
+			$(this).open_menu();
+			isClose = false;
+		}
+		
+	});
+	
+	$("#gh-sidebar li.item:not(:last-child)").click(function(e) {
+		e.stopPropagation();
+		if(isClose){
+			$(this).open_menu();
+			isClose = false;
+		}
+	});
 });

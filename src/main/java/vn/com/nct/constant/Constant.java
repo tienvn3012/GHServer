@@ -16,7 +16,7 @@ public class Constant {
 	 * time unit : default is 'day'
 	 * 
 	 * authentication message : id;password;type
-	 * track message : token;temp;humid;co2;ph;time
+	 * track message : token;temp;humid;co2;ph;water;time;
 	 * 
 	 */
 	public static final String SPLIT_PATTERN = ";";

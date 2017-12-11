@@ -60,7 +60,7 @@ public class RoleDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Roles saveOrUpdateE(Roles e) {
+	public Roles saveE(Roles e) {
 		save(e);
 		DetachedCriteria criteria = DetachedCriteria.forClass(Roles.class)
 			    .setProjection( Projections.max("id") );
@@ -69,10 +69,6 @@ public class RoleDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 	}
 	
 
-	@Override
-	public void saveOrUpdateManyE(List<Roles> lis) {
-		
-	}
 
 	@Override
 	public int countAll() {
@@ -84,6 +80,12 @@ public class RoleDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 	public int countBy(String... condition) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Roles updateE(Roles e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

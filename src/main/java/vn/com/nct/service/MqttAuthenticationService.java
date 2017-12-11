@@ -32,7 +32,8 @@ public class MqttAuthenticationService implements MqttCallback{
 	private MqttClient publisher;
 	
 	@Autowired
-	private ObjectService<Frame> frameService;
+	@Qualifier(value = "frameService")
+	private ObjectService<Frame,Object> frameService;
 	
 	@Autowired
 	private PasswordCryptService passService;
@@ -41,7 +42,7 @@ public class MqttAuthenticationService implements MqttCallback{
 //	private TimerService timerService;
 	
 	@Autowired
-	private ObjectService<Devices> deviceService;
+	private ObjectService<Devices,Object> deviceService;
 	
 	
 	@Autowired

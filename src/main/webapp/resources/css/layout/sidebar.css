@@ -1,0 +1,39 @@
+@CHARSET "utf-8";
+
+#gh-sidebar{
+	width: 20%;
+	border-right: 1px solid #dddfe2;
+	background-color: #e1f3d5db;
+	box-sizing: border-box;
+}
+
+#gh-sidebar li.item{
+	width: 100%;
+	height: auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #dddfe2;
+	cursor: pointer;
+}
+
+#gh-sidebar li.item:last-child{
+	border: 0px;
+}
+
+#gh-sidebar li.item:hover{
+	color: #fff;
+	background-color: #753131;
+}
+
+#gh-sidebar li.item .menu-collapse{
+	margin-left: 10px;
+}
+
+#gh-sidebar li.item .content{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#gh-sidebar li.item .content .icon{
+	font-size: 24px;
+}

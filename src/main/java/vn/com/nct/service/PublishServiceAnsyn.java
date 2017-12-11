@@ -55,7 +55,7 @@ public class PublishServiceAnsyn extends Thread{
 		
 			try {
 				int day = 1;
-				long time_on = (long)Math.floor(delay_time*60*1000);
+				long time_on = (long)Math.floor(delay_time*60*60*1000);
 				while(day <= stop_time){
 					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
 					sleep(time_on);

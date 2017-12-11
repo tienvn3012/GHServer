@@ -1,5 +1,6 @@
 package vn.com.nct.service.objectservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.Roles;
+
 import vn.com.nct.model.response.Page;
+import vn.com.nct.model.response.RoleResponse;
 
 @Service
 @Transactional(readOnly = false)
-public class RoleServiceIplm implements ObjectService<Roles>{
+public class RoleServiceIplm implements ObjectService<Roles,RoleResponse>{
 
 	@Autowired
 	private ObjectDaoSupport<Roles> roleDao;
@@ -66,15 +69,12 @@ public class RoleServiceIplm implements ObjectService<Roles>{
 	}
 
 	@Override
-	public Roles saveOrUpdateE(Roles e) {
+	public Roles saveE(Roles e) {
 		// TODO Auto-generated method stub
-		return roleDao.saveOrUpdateE(e);
+		return roleDao.saveE(e);
 	}
 
-	@Override
-	public void saveOrUpdateManyE(List<Roles> lis) {
-		
-	}
+	
 
 	@Override
 	public int countAll() {
@@ -89,9 +89,38 @@ public class RoleServiceIplm implements ObjectService<Roles>{
 	}
 
 	@Override
-	public Page<Roles> getPage() {
+	public Page<RoleResponse> getPage(int page_number, int row) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Roles updateE(Roles e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<RoleResponse> parseAll(List<Roles> lis) {
+		List<RoleResponse> lisResponse = new ArrayList<>();
+		
+		for (int i = 0; i < lis.size(); i++) {
+			lisResponse.add(this.parseResponse(lis.get(i)));
+		}
+		
+		return lisResponse;
+	}
+
+	@Override
+	public RoleResponse parseResponse(Roles role) {
+		RoleResponse response = new RoleResponse();
+		
+		response.setId(role.getId());
+		response.setRole(role.getRole());
+		
+		return response;
 	}
 	
 }

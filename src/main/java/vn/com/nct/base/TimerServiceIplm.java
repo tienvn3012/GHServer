@@ -36,5 +36,13 @@ public class TimerServiceIplm implements TimerService{
 		return sdf_compare_time.format(sdf_time.parse(time));
 	}
 
+	@Override
+	public int countDays(String time_begin) throws ParseException {
+		Date begin = sdf_time.parse(time_begin);
+		Date now   = sdf_time.parse(this.getCurrentTime());
+		
+		return (int)( (now.getTime() - begin.getTime()) / (1000 * 60 * 60 * 24));
+	}
+
 	
 }

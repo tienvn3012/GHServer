@@ -57,12 +57,12 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 	public void deleteE(int id) {
 		Users user = getOneById(id);
 		user.setDeleted(1);
-		saveOrUpdateE(user);
+		saveE(user);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Users saveOrUpdateE(Users e) {
+	public Users saveE(Users e) {
 		save(e);
 		DetachedCriteria criteria = DetachedCriteria.forClass(Users.class)
 			    .setProjection( Projections.max("id") );
@@ -113,15 +113,16 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 	public void deleteManyE(List<Users> lis) {
 		for (int i = 0; i < lis.size(); i++) {
 			lis.get(i).setDeleted(1);
-			saveOrUpdateE(lis.get(i));
+			updateE(lis.get(i));
 		}
 	}
 
 	@Override
-	public void saveOrUpdateManyE(List<Users> lis) {
-		for (int i = 0; i < lis.size(); i++) {
-			saveOrUpdateE(lis.get(i));
-		}
+	public Users updateE(Users e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	
 
 }

@@ -1,0 +1,90 @@
+@CHARSET "utf-8";
+
+#gh-topbar{
+	width: 100%;
+	height: auto;
+	background-color: #000073;
+	color: #fff;
+	box-shadow: inset 0px -8px 13px -5px red;
+}
+
+#gh-topbar .logo{
+	float : left;
+	padding-top: 20px;
+	padding-bottom : 20px;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+#gh-topbar .logo >img{
+	width: 25px;
+	height: 35px;
+}
+
+#gh-topbar .user{
+	float: right;
+	padding-top: 15px;
+	width: auto;
+	padding-right: 30px;
+}
+
+#gh-topbar .user .avatar{
+	border-radius : 25%;
+	width: 40px;
+	height: 40px;
+	float: left;
+	margin-right: 10px;
+}
+
+#gh-topbar .user .username{
+	width: auto;
+	float: right;
+	margin-top: 10px;
+	cursor: pointer;
+	position: relative;
+}
+
+#gh-topbar .user .username:hover{
+	text-decoration: underline;
+}
+
+#gh-topbar .user .username .setting{
+	display: none;
+	width: 150px;
+	position: absolute;
+	left: 0px;
+	top: 100%;
+	border: 1px solid #dddfe2;
+	border-radius : 8px;
+	background-color: #fff;
+	z-index: 10000;
+}
+
+#gh-topbar .user .username:hover .setting{
+	display: block;
+}
+
+#gh-topbar .user .username .setting ul{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+#gh-topbar .user .username .setting li.list{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #dddfe2;
+	cursor: pointer;
+	width : 100%;
+	color: #4a4a4a;
+}
+
+#gh-topbar .user .username .setting li.list:last-child{
+	border: 0px;
+}
+
+#gh-topbar .user .username .setting li.list a{
+	color: #4a4a4a;
+}
+
+#gh-topbar .user .username .setting li.list:hover{
+	background-color: bisque;
+}

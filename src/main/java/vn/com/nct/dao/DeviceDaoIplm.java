@@ -57,17 +57,6 @@ public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppo
 		
 	}
 
-	@Override
-	public Devices saveOrUpdateE(Devices e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveOrUpdateManyE(List<Devices> lis) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public int countAll() {
@@ -79,6 +68,18 @@ public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppo
 	public int countBy(String... condition) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Devices saveE(Devices e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Devices updateE(Devices e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
