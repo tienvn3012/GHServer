@@ -115,7 +115,6 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	@Override
 	public void plantAnalysis(int id) {
 		Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
-		
 		this.lisFrame.add(frame);
 		
 		this.lightAnalysis(frame);
@@ -129,7 +128,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	@Override
 	public void trackParamsAnalysis(String msg, String topic) {
 		// from topic -> id   // ex : nct_collect_1
-		
+		System.out.println(msg);
 		String[] split_topic = topic.split(Constant.SPLIT_PATTERN_LEVEL2);
 		int t = this.findFrame(Integer.parseInt(split_topic[2]));
 		if(t == -1){
@@ -146,11 +145,11 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	
 	private void ecAnalysis(Frame frame){
 		String[] days = frame.getPlant().getPlant_info().getEc().split(Constant.SPLIT_PATTERN_LEVEL2);
-		
 		if(days.length == 1){
 			String[] split = frame.getPlant().getPlant_info().getEc().split(Constant.SPLIT_PATTERN);
 			if(0 == Integer.parseInt(split[2])){
 				this.controlOneTime("pumpA", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()), frame.getDevice_control().getId());
+				this.controlOneTime("pumpB", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()), frame.getDevice_control().getId());
 			}
 		}else {
 			
@@ -188,7 +187,8 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -253,7 +253,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		double avg_ec = (Double.parseDouble(split[0]) + Double.parseDouble(split[1]))/2;
 		double time = avg_ec*0.75/1.6;
 		
-		return time*1000;
+		return time;
 	}
 	
 }

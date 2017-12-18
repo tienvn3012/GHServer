@@ -31,6 +31,9 @@ public class Devices {
 	@Column(name = "device_task", nullable = false)
 	private boolean device_task;
 	
+	@Column(name = "device_status", nullable = false)
+	private boolean device_status;
+	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "device_type")
 	private DeviceType device_type;
@@ -95,6 +98,14 @@ public class Devices {
 
 	public void setFrames_colect(List<Frame> frames_colect) {
 		this.frames_colect = frames_colect;
+	}
+
+	public boolean isDevice_status() {
+		return device_status;
+	}
+
+	public void setDevice_status(boolean device_status) {
+		this.device_status = device_status;
 	}
 	
 	

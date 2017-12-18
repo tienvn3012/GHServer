@@ -2,17 +2,20 @@ package vn.com.nct.service;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import vn.com.nct.constant.Constant;
 
 @Service("seconds")
 @Scope("prototype")
 public class PublishServiceSeconds extends Thread{
 	
 	@Autowired
-	@Qualifier("publisher")
+	@Qualifier("publisher2")
 	private MqttClient control_device;
 	
 	private int did;
@@ -39,14 +42,34 @@ public class PublishServiceSeconds extends Thread{
 	@Override
 	public void run() {
 		super.run();
+		
+		int index = -1;
+		int thread_index = -1;
+		for (int i = 0; i < Constant.lis_deviceThread.size(); i++) {
+			if(Constant.lis_deviceThread.get(i).getId() == this.did){
+				Constant.lis_deviceThread.get(i).getLis().add(this);
+				thread_index = Constant.lis_deviceThread.get(i).getLis().size() - 1;
+				index = i;
+				break;
+			}
+		}
+		
+		if(index == -1)
+			this.interrupt();
+		
 		synchronized (control_device) {
 			try {
-				long time_on = (long)Math.floor(delay_time*1000);
-				
-				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
+				long time_on = (long)Math.floor(delay_time*1000*10);
+//				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, false);
+				sleep(3000);
+				control_device.publish("nct_control_"+this.did, new MqttMessage(message_on.getBytes()));
+				System.out.println(message_on);
 				sleep(time_on);
-				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
-
+//				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, false);
+				control_device.publish("nct_control_"+this.did, new MqttMessage(message_off.getBytes()));
+				sleep(2000);
+				
+				Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
 			} catch (MqttException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

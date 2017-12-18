@@ -27,13 +27,19 @@ public class MqttConfig implements MqttCallback{
 	private MqttCallback authenticationCallback;
 	
 	@Autowired
+	@Qualifier(value = "keepAlive_callback")
+	private MqttCallback keepAliveCcallback;
+	
+	@Autowired
 	private AutomaticControlService automatic;
 
-	private MqttClient subscriber = null;
-	private MqttClient publisher = null;
-	private MqttClient log = null;
-	private MqttClient authentication = null;
+	private MqttClient subscriber 			 = null;
+	private MqttClient publisher 			 = null; // for led
+	private MqttClient publisher2 			 = null; // for pump
+	private MqttClient log 					 = null;
+	private MqttClient authentication 		 = null;
 	private MqttClient authentication_result = null;
+	private MqttClient keep_alive 			 = null;
 	
 	
 	String content      = "Message from MqttPublishSample";
@@ -80,6 +86,18 @@ public class MqttConfig implements MqttCallback{
     	 return publisher;
     }
     
+    @Bean(name = "publisher2")
+    public MqttClient mqttPublisher2(){
+    	 try {
+			publisher2 = new MqttClient(broker, "publisher2");
+			publisher2.connect();
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 return publisher2;
+    }
+    
     @Bean(name = "log")
     public MqttClient mqttLog(){
     	try {
@@ -93,6 +111,21 @@ public class MqttConfig implements MqttCallback{
 			e.printStackTrace();
 		}
     	return log;
+    }
+    
+    @Bean(name = "keep_alive")
+    public MqttClient mqttKeepAlive(){
+    	try {
+			log = new MqttClient(broker, "keep_alive");
+			log.connect();
+			log.setCallback(keepAliveCcallback);
+			log.subscribe("nct_keep_alive");
+			System.out.println("Subscribed topic 'Keep alive'");
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return keep_alive;
     }
     
     @Bean(name = "authentication")
@@ -119,6 +152,7 @@ public class MqttConfig implements MqttCallback{
     	}
     	return authentication_result;
     }
+    
    
     
 	@Override
@@ -135,9 +169,9 @@ public class MqttConfig implements MqttCallback{
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message){
-		System.out.println("Receive message '"+message+"' from topic '"+topic+"'");
+		System.out.println("Receive message '"+message+"' from topic '"+topic+"' callback");
 		
-		automatic.trackParamsAnalysis(message.toString(), topic);
+//		automatic.trackParamsAnalysis(message.toString(), topic);
 		
 	}
 }

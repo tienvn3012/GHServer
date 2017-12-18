@@ -2,23 +2,32 @@ package vn.com.nct.dao;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Repository;
 
+import vn.com.nct.base.BaseMethods;
 import vn.com.nct.model.Devices;
 
 @Repository
 public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<Devices>{
 
+	private BaseMethods base = new BaseMethods();
+	
 	@Override
 	public List<Devices> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Devices> getAllBy(String... condition) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Devices.class,"devices");
+		criteria.createAlias("devices.device_type", "device_type");
+		
+		criteria = base.setCondition(criteria, condition);
+		
+		return (List<Devices>)hibernateTemplate.findByCriteria(criteria);
 	}
 
 	@Override

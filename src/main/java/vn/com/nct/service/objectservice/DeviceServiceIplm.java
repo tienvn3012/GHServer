@@ -10,7 +10,7 @@ import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.Devices;
 import vn.com.nct.model.response.Page;
 
-@Service
+@Service("devicesService")
 @Transactional(readOnly = false)
 public class DeviceServiceIplm implements ObjectService<Devices,Object>{
 	
@@ -26,7 +26,7 @@ public class DeviceServiceIplm implements ObjectService<Devices,Object>{
 	@Override
 	public List<Devices> getAllBy(String... condition) {
 		// TODO Auto-generated method stub
-		return null;
+		return deviceDao.getAllBy(condition);
 	}
 
 	@Override

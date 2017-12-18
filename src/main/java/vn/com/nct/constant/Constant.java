@@ -3,12 +3,18 @@ package vn.com.nct.constant;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.com.nct.model.DeviceThread;
 import vn.com.nct.model.ModelProperties;
 
 public class Constant {
 
-	public static boolean AUTOMATIC_MODE = false;
+	public static boolean AUTOMATIC_MODE = false; // ?
 	
+	
+	// keep_alive_message : id;password;nct
+	public static List<String> lis_keepAlive = new ArrayList<>();
+	
+	public static List<DeviceThread> lis_deviceThread = new ArrayList<>();
 	/*
 	 * condition standard : name_of_argument;value;compare;datatype
 	 * plant param standad : min;max;time_min2;max2;time2

@@ -50,7 +50,6 @@ public class FrameServiceIplm implements ObjectService<Frame,Object>{
 	@Override
 	public Frame getOneByCondition(String... condition) {
 		// TODO Auto-generated method stub
-		System.out.println("frame service");
 		return frameDao.getOneByCondition(condition);
 	}
 

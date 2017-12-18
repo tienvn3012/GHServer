@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-@Service("sync")
+import vn.com.nct.constant.Constant;
+
+@Service
 @Scope("prototype")
 public class PublishService extends Thread{
 	
@@ -42,17 +44,33 @@ public class PublishService extends Thread{
 	@Override
 	public void run() {
 		super.run();
+		int index = -1;
+		int thread_index = -1;
+		for (int i = 0; i < Constant.lis_deviceThread.size(); i++) {
+			if(Constant.lis_deviceThread.get(i).getId() == this.did){
+				Constant.lis_deviceThread.get(i).getLis().add(this);
+				thread_index = Constant.lis_deviceThread.get(i).getLis().size() - 1;
+				index = i;
+				break;
+			}
+		}
+		
+		if(index == -1)
+			this.interrupt();
+		
 		synchronized (control_device) {
 			try {
 				int day = 1;
-				long time_on = (long)Math.floor(delay_time*60*60*1000);
-				long time_off = 24*60*60*1000 - time_on;
+				long time_on = (long)Math.floor(delay_time*1000);
+				long time_off = 24*1000 - time_on;
 				while(day <= stop_time){
 					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
 					sleep(time_on);
 					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
 					sleep(time_off);
 				}
+				
+				Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
 			} catch (MqttException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,6 +79,7 @@ public class PublishService extends Thread{
 				e.printStackTrace();
 			}
 		}
+		
 		
 	}
 

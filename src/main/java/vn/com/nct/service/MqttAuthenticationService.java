@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import vn.com.nct.base.PasswordCryptService;
-//import vn.com.nct.base.TimerService;
+import vn.com.nct.base.TimerService;
 import vn.com.nct.constant.Constant;
+import vn.com.nct.model.DeviceThread;
 import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
 import vn.com.nct.service.controlservice.AutomaticControlService;
@@ -38,8 +39,8 @@ public class MqttAuthenticationService implements MqttCallback{
 	@Autowired
 	private PasswordCryptService passService;
 	
-//	@Autowired
-//	private TimerService timerService;
+	@Autowired
+	private TimerService timerService;
 	
 	@Autowired
 	private ObjectService<Devices,Object> deviceService;
@@ -66,10 +67,12 @@ public class MqttAuthenticationService implements MqttCallback{
 		}else{
 			if(passService.checkMd5Password(mes[1])){
 				System.out.println("Passed");
-				authentication_result.publish("nct_authentication_result_"+id, ("OK\0").getBytes(),0,true);
+				authentication_result.publish("nct_authentication_result_"+id, ("OK"+timerService.getCurrentTime()+"\0").getBytes(),0,true);
+				Constant.lis_deviceThread.add(new DeviceThread(id));
 				if(("collect").equals(mes[2])){
-					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
-					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
+//					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
+//					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
+//					publisher.publish("nct_info_"+id, new MqttMessage("60000".getBytes()));
 					subscribe.subscribe("nct_collect_"+id);
 					System.out.println("nct_collect_"+id);
 				}else {
