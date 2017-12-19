@@ -12,7 +12,7 @@ import vn.com.nct.model.UserInfo;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.UserInfoResponse;
 
-@Service
+@Service("userInfoService")
 @Transactional(readOnly = false)
 public class UserInfoServiceIplm implements ObjectService<UserInfo,UserInfoResponse>{
 

@@ -1,5 +1,6 @@
 package vn.com.nct.service;
 
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -49,6 +50,7 @@ public class MqttAuthenticationService implements MqttCallback{
 	@Autowired
 	private AutomaticControlService controlService;
 	
+	
 	@Override
 	public void connectionLost(Throwable cause) {
 		// TODO Auto-generated method stub
@@ -57,9 +59,9 @@ public class MqttAuthenticationService implements MqttCallback{
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
+		
 		if(!("nct_authentication").equals(topic))
 			return;
-		
 		String[] mes = message.toString().split(Constant.SPLIT_PATTERN);
 		int id = Integer.parseInt(mes[0]);
 		if(deviceService.getOneById(id) == null){
@@ -67,15 +69,18 @@ public class MqttAuthenticationService implements MqttCallback{
 		}else{
 			if(passService.checkMd5Password(mes[1])){
 				System.out.println("Passed");
-				authentication_result.publish("nct_authentication_result_"+id, ("OK"+timerService.getCurrentTime()+"\0").getBytes(),0,true);
+				
 				Constant.lis_deviceThread.add(new DeviceThread(id));
 				if(("collect").equals(mes[2])){
+					authentication_result.publish("nct_authentication_result_"+id, ("OK_"+timerService.getCurrentTime()+"\0").getBytes(),0,true);
 //					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
 //					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
 //					publisher.publish("nct_info_"+id, new MqttMessage("60000".getBytes()));
+					
 					subscribe.subscribe("nct_collect_"+id);
 					System.out.println("nct_collect_"+id);
 				}else {
+					authentication_result.publish("nct_authentication_result_"+id, ("PASS\0").getBytes(),0,true);
 					System.out.println("Device id "+id+" loged in !!!!");
 					// open automatic thread control
 					controlService.plantAnalysis(id);

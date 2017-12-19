@@ -52,10 +52,6 @@ public class MqttConfig implements MqttCallback{
     	 
          try {
         	 subscriber = new MqttClient(broker,"subscriber",persistence);
-        	
-//             MqttConnectOptions connOpts = new MqttConnectOptions();
-             
-//             connOpts.setCleanSession(true);
              System.out.println("Connecting to broker: "+broker);
              subscriber.connect();
             
@@ -64,8 +60,7 @@ public class MqttConfig implements MqttCallback{
              System.out.println("Publishing message: "+content);
              
              subscriber.setCallback(this);
-//             subscriber.subscribe("nct_collect");
-//             System.out.println("Subscribed topic 'nct_collect'");
+
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

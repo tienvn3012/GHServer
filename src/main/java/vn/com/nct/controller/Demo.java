@@ -24,6 +24,8 @@ import vn.com.nct.model.Message;
 import vn.com.nct.model.Roles;
 import vn.com.nct.model.UserInfo;
 import vn.com.nct.model.Users;
+import vn.com.nct.model.response.RoleResponse;
+import vn.com.nct.model.response.UserInfoResponse;
 import vn.com.nct.model.response.UserResponse;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -37,21 +39,23 @@ public class Demo {
 //	private PasswordCryptService pwCrypt;
 //	
 //	@Autowired
+//	@Qualifier(value = "userService")
 //	private ObjectService<Users,UserResponse> userService;
 //	
 //	@Autowired
-//	private ObjectService<UserInfo,Object> userInfoService;
+//	@Qualifier(value = "userInfoService")
+//	private ObjectService<UserInfo,UserInfoResponse> userInfoService;
 //	
 //	@Autowired
-//	private ObjectService<Roles,Object> roleService;
+//	@Qualifier("roleService")
+//	private ObjectService<Roles,RoleResponse> roleService;
 //	
 //	@Autowired
 //	@Qualifier("publisher")
 //	private MqttClient publisher;
 //	
 //	@RequestMapping(value="demo", method = RequestMethod.GET)
-//	public ModelAndView demo(@RequestParam(name = "id")String id,
-//			@RequestParam(name = "content")String content){
+//	public ModelAndView demo(){
 //	
 //		//init role
 //		Roles admin = new Roles(0,"ROLE_ADMIN");
@@ -129,6 +133,6 @@ public class Demo {
 //		System.out.println(mes);
 //		return new Message("Received !");
 //	}
-	
+//	
 	
 }

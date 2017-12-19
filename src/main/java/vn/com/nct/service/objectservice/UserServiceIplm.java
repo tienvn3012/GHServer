@@ -16,7 +16,7 @@ import vn.com.nct.model.response.RoleResponse;
 import vn.com.nct.model.response.UserInfoResponse;
 import vn.com.nct.model.response.UserResponse;
 
-@Service
+@Service("userService")
 @Transactional(readOnly = false)
 public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 

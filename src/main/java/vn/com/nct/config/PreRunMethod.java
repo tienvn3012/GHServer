@@ -2,20 +2,20 @@ package vn.com.nct.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import vn.com.nct.service.KeepAliveCountdownService;
 
-//@Configuration
+@Component
 public class PreRunMethod {
 	
 //	@Autowired
-//	private KeepAliveCountdownService keepAliveService;
-	
+//	private KeepAliveCountdownService keepAliveCountDownService;
+//	
 //	@Bean
 //	public String preRunMethod(){
-//		keepAliveService.run();
+//		keepAliveCountDownService.start();
 //		return "done";
 //	}
-	
+//	
 }

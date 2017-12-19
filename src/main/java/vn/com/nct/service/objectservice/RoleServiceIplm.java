@@ -13,7 +13,7 @@ import vn.com.nct.model.Roles;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.RoleResponse;
 
-@Service
+@Service("roleService")
 @Transactional(readOnly = false)
 public class RoleServiceIplm implements ObjectService<Roles,RoleResponse>{
 

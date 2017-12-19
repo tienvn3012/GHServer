@@ -7,20 +7,30 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Devices;
 import vn.com.nct.service.objectservice.ObjectService;
 
-@Service("keepAlive_countdown")
+@Component("keepAlive_countdown")
 @Transactional(readOnly = false)
 public class KeepAliveCountdownService extends Thread{
 	
 	@Autowired
 	@Qualifier("devicesService")
 	private ObjectService<Devices, Object> deviceService;
+
+	
+	
+	public KeepAliveCountdownService() {
+		super();
+		// TODO Auto-generated constructor stub
+		System.out.println("start running keep alive checker !!!!");
+		this.start();
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override

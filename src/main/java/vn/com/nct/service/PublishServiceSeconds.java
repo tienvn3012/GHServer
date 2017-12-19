@@ -39,6 +39,7 @@ public class PublishServiceSeconds extends Thread{
 		this.message_off = message_off;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		super.run();
@@ -55,7 +56,7 @@ public class PublishServiceSeconds extends Thread{
 		}
 		
 		if(index == -1)
-			this.interrupt();
+			this.stop();
 		
 		synchronized (control_device) {
 			try {
