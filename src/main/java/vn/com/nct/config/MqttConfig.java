@@ -40,6 +40,7 @@ public class MqttConfig implements MqttCallback{
 	private MqttClient authentication 		 = null;
 	private MqttClient authentication_result = null;
 	private MqttClient keep_alive 			 = null;
+	private MqttClient publisher3			 = null; // for one time
 	
 	
 	String content      = "Message from MqttPublishSample";
@@ -91,6 +92,18 @@ public class MqttConfig implements MqttCallback{
 			e.printStackTrace();
 		}
     	 return publisher2;
+    }
+    
+    @Bean(name = "publisher3")
+    public MqttClient mqttPublisher3(){
+    	 try {
+			publisher3 = new MqttClient(broker, "publisher3");
+			publisher3.connect();
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 return publisher3;
     }
     
     @Bean(name = "log")
@@ -166,7 +179,7 @@ public class MqttConfig implements MqttCallback{
 	public void messageArrived(String topic, MqttMessage message){
 		System.out.println("Receive message '"+message+"' from topic '"+topic+"' callback");
 		
-//		automatic.trackParamsAnalysis(message.toString(), topic);
+		automatic.trackParamsAnalysis(message.toString(), topic);
 		
 	}
 }

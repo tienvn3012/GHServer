@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import vn.com.nct.base.TimerService;
 import vn.com.nct.constant.Constant;
+import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
+import vn.com.nct.model.FrameDataColection;
 import vn.com.nct.service.PublishService;
+import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -29,6 +32,17 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	@Autowired
 	@Qualifier(value = "frameService")
 	private ObjectService<Frame,Object> frameService;
+	
+	@Autowired
+	@Qualifier("frameDataCollectionService")
+	private ObjectService<FrameDataColection, Object> frameDataCollectionService;
+	
+	@Autowired
+	@Qualifier("devicesService")
+	private ObjectService<Devices, Object> devicesService;
+	
+	@Autowired
+	private PublishServiceOneTime oneTime;
 	
 	@Autowired
 	private PublishService ledControlService;
@@ -136,6 +150,11 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		}
 		Frame frame = lisFrame.get(t);
 		
+		FrameDataColection fdc = new FrameDataColection(msg);
+		fdc.setFrame(frame);
+		frameDataCollectionService.saveE(fdc);
+		
+		
 		String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
 		temperatureAnalysis(msgSplit[1],frame);
 		humidityAnalysis(msgSplit[2],frame);
@@ -224,6 +243,48 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private String humidityAnalysis(String info, Frame frame){
+		
+		double humid = Double.parseDouble(info);
+		String[] split = frame.getPlant().getPlant_info().getHumidity().split(Constant.SPLIT_PATTERN_LEVEL2);
+		if(split.length == 1){
+			String[] s = split[0].split(Constant.SPLIT_PATTERN);
+			double min = Double.parseDouble(s[0]);
+			double max = Double.parseDouble(s[1]);
+			
+			if(humid < min){
+				// do st
+			}
+			
+			if(humid > max){
+				Devices d = devicesService.getOneByCondition(
+						"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
+						"device_type.id;3;=;int");
+				if(!d.isDevice_status()){
+					oneTime.setDid(frame.getDevice_control().getId());
+					oneTime.setMsg(Constant.FAN_ON);
+					oneTime.start();
+				}
+			}
+			
+			if(min <= humid && humid <= max){
+				Devices d = devicesService.getOneByCondition(
+						"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
+						"device_type.id;3;=;int");
+				if(!d.isDevice_status()){
+					
+				}else{
+					oneTime.setDid(frame.getDevice_control().getId());
+					oneTime.setMsg(Constant.FAN_OFF);
+					oneTime.start();
+				}
+			}
+			
+			
+		}else{
+			
+		}
+		
+		
 		return null;
 	}
 	

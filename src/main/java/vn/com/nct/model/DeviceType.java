@@ -16,7 +16,7 @@ public class DeviceType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id; //1:ESP; 2:LED; 3:FAN; 4:Pump A; 5:Pump B; 6:Pump Up; 7:Pump Down 
 	
 	@Column(name = "type_name",nullable = false)
 	private String type_name;

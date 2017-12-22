@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
+import vn.com.nct.constant.Constant;
 
 
 @Entity
@@ -50,16 +50,19 @@ public class FrameDataColection {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FrameDataColection(String json_data) {
+	public FrameDataColection(String msg) {
 		super();
 		
-		JSONObject obj = new JSONObject(json_data);
-		this.setCo2(obj.getDouble("co2"));
-		this.setHumidity(obj.getDouble("humidity"));
-		this.setTemperature(obj.getDouble("temperature"));
-		this.setpH(obj.getDouble("ph"));
-		this.setTime(obj.getString("time"));
-		this.setWater(obj.getBoolean("water"));
+		// track message : token;temp;humid;co2;ph;water;time;
+		String[] split = msg.split(Constant.SPLIT_PATTERN);
+		
+		this.setCo2(Double.parseDouble(split[3]));
+		this.setHumidity(Double.parseDouble(split[2]));
+		this.setpH(Double.parseDouble(split[4]));
+		this.setTemperature(Double.parseDouble(split[1]));
+		this.setWater(Boolean.parseBoolean(split[5]));
+		this.setTime(split[6]);
+		
 	}
 	
 	public int getId() {

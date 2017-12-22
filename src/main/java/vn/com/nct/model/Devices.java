@@ -24,11 +24,14 @@ public class Devices {
 	@Column(name = "device_name", nullable = false)
 	private String device_name;
 	
-	@Column(name = "password", nullable = false)
+	@Column(name = "control_device")
+	private int control_device;
+	
+	@Column(name = "password")
 	private String password;
 	
-	// false : collect; true : control
-	@Column(name = "device_task", nullable = false)
+	// false : collect; true : control ; null : none
+	@Column(name = "device_task")
 	private boolean device_task;
 	
 	@Column(name = "device_status", nullable = false)
@@ -107,6 +110,15 @@ public class Devices {
 	public void setDevice_status(boolean device_status) {
 		this.device_status = device_status;
 	}
+
+	public int getControl_device() {
+		return control_device;
+	}
+
+	public void setControl_device(int control_device) {
+		this.control_device = control_device;
+	}
+	
 	
 	
 }
