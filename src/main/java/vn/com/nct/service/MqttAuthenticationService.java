@@ -72,8 +72,10 @@ public class MqttAuthenticationService implements MqttCallback{
 				
 				Constant.lis_deviceThread.add(new DeviceThread(id));
 				if(("collect").equals(mes[2])){
-					authentication_result.publish("nct_authentication_result_"+id, ("OK_"+timerService.getCurrentTime()+"\0").getBytes(),0,true);
-//					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
+					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
+					authentication_result.publish("nct_authentication_result_"+id,
+							("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0").getBytes(),0,true);
+					System.out.println("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0");
 //					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
 //					publisher.publish("nct_info_"+id, new MqttMessage("60000".getBytes()));
 					

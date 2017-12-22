@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.json.JSONObject;
+
+
 @Entity
 @Table(name = "FrameDataColection")
 public class FrameDataColection {
@@ -39,7 +42,26 @@ public class FrameDataColection {
 	
 	@Column(name = "water", nullable = false)
 	private boolean water;
+	
+	
 
+	public FrameDataColection() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public FrameDataColection(String json_data) {
+		super();
+		
+		JSONObject obj = new JSONObject(json_data);
+		this.setCo2(obj.getDouble("co2"));
+		this.setHumidity(obj.getDouble("humidity"));
+		this.setTemperature(obj.getDouble("temperature"));
+		this.setpH(obj.getDouble("ph"));
+		this.setTime(obj.getString("time"));
+		this.setWater(obj.getBoolean("water"));
+	}
+	
 	public int getId() {
 		return id;
 	}
