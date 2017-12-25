@@ -87,7 +87,7 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub
-		return 0;
+		return userDao.countAll();
 	}
 
 	@Override

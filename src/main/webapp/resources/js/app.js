@@ -4,6 +4,8 @@ var isClose = false;
 
 $(document).ready(function(){
 	
+	$(".scroll").niceScroll();
+	
 	jQuery.fn.extend({
 		
 		/*close menu*/

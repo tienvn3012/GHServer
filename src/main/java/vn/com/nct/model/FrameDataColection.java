@@ -61,7 +61,7 @@ public class FrameDataColection {
 		this.setpH(Double.parseDouble(split[4]));
 		this.setTemperature(Double.parseDouble(split[1]));
 		this.setWater(Boolean.parseBoolean(split[5]));
-		this.setTime(split[6]);
+//		this.setTime(split[6]);
 		
 	}
 	

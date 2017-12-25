@@ -151,6 +151,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		Frame frame = lisFrame.get(t);
 		
 		FrameDataColection fdc = new FrameDataColection(msg);
+		fdc.setTime(timer.getCurrentTime());
 		fdc.setFrame(frame);
 		frameDataCollectionService.saveE(fdc);
 		

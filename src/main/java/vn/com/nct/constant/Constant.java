@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.com.nct.model.DeviceThread;
-import vn.com.nct.model.ModelProperties;
+import vn.com.nct.model.response.ModelProperties;
 
 public class Constant {
 
@@ -54,7 +54,6 @@ public class Constant {
 		add(new ModelProperties("avatar", "img"));
 		add(new ModelProperties("info", "Object"));
 		add(new ModelProperties("role", "Object"));
-		add(new ModelProperties("create_by", "String"));
 		add(new ModelProperties("create_by", "int"));
 		add(new ModelProperties("create_time", "String"));
 		add(new ModelProperties("last_login", "String"));
@@ -80,5 +79,20 @@ public class Constant {
 	{
 		add(new ModelProperties("id", "int"));
 		add(new ModelProperties("role", "String"));
+	}};
+	
+	//filter list
+	public static final List<ModelProperties> user_properties_filter = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+	{
+		add(new ModelProperties("username","String"));
+		add(new ModelProperties("info.fullname", "String"));
+		add(new ModelProperties("info.email", "String"));
+		add(new ModelProperties("info.phone", "String"));
+		add(new ModelProperties("info.address", "String"));
+		add(new ModelProperties("info.date_of_birth", "String"));
+		add(new ModelProperties("info.gender", "boolean"));
+		add(new ModelProperties("role.role", "String"));
+
 	}};
 }

@@ -1,4 +1,4 @@
-package vn.com.nct.model;
+package vn.com.nct.model.response;
 
 public class ModelProperties {
 	private String name;
