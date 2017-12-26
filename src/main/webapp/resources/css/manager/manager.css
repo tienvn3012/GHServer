@@ -6,7 +6,41 @@
 	color: #9f9f9f;
 }
 
+#manager .page-title{
+	font-weight: bold;
+	font-size : 20px;
+	margin-top : 5px;
+	margin-bottom : 5px;
+	width: 100%;
+	text-indent: 2%;
+	border-left: 3px solid #f5a52e;
+	position: relative;
+}
+
+#manager .page-title .add-record{
+	font-weight: normal;
+	font-size : 14px;
+	color: #b3d2f2;
+	position: absolute;
+	width: auto;
+	height: 100%;
+	top: 0px;
+	right: 0px;
+	cursor: pointer;
+}
+
+
+#manager .page-title .add-record:hover{
+	color: #000073;
+}
+
+#manager .page-title .add-record > i{
+	margin-right: 10px;
+	font-size: 18px;
+}
+
 #manager .table-manager{
+	margin-top : 5px;
 	width: 100%;
 	height: 200px;
 }

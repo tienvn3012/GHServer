@@ -17,7 +17,7 @@
 		<jsp:include page="${topbar}"></jsp:include>
 		<div class = "display-flex position-relative">
 			<jsp:include page="${sidebar}"></jsp:include>
-			<div id="content-width" class="content-width">
+			<div id="content-width" class="content-width mar-t-30px">
 				<jsp:include page="${content}"></jsp:include>
 			</div>
 		</div>

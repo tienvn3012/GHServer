@@ -11,6 +11,7 @@
 <spring:url value="/resources/css/lib/font-awesome-4.7.0/css/font-awesome.css" var="font_awesome"></spring:url>
 <spring:url value="/resources/css/lib/bootstrap-toggle.min.css" var="bootstrap_toggle_css"></spring:url>
 <spring:url value="/resources/lib/nvd3/build/nv.d3.min.css" var="nvd3css"></spring:url>
+<spring:url value="/resources/lib/toastr/build/toastr.min.css" var="toastr_css"></spring:url>
 <spring:url value="/resources/css/style.css" var="style"></spring:url>
 <spring:url value="/resources/css/layout/topbar.css" var="topbar_style"></spring:url>
 <spring:url value="/resources/css/layout/sidebar.css" var="sidebar_style"></spring:url>
@@ -26,12 +27,14 @@
 <spring:url value="/resources/js/lib/bootstrap-toggle.min.js" var="bootstrap_toggle_js"></spring:url>
 <spring:url value="/resources/js/lib/d3.min.js" var="d3js"></spring:url>
 <spring:url value="/resources/lib/nvd3/build/nv.d3.min.js" var="nvd3js"></spring:url>
+<spring:url value="/resources/lib/toastr/build/toastr.min.js" var="toastr_js"></spring:url>
 <spring:url value="/resources/js/app.js" var="app"></spring:url>
 
 <link href="${bootstrap}" type="text/css" rel="stylesheet" />
 <link href="${bootstrap_toggle_css}" type="text/css" rel="stylesheet" />
 <link href="${font_awesome}" type="text/css" rel="stylesheet" />
 <link href="${nvd3css}" type="text/css" rel="stylesheet" />
+<link href="${toastr_css}" type="text/css" rel="stylesheet" />
 <link href="${style}" type="text/css" rel="stylesheet" />
 <link href="${topbar_style}" type="text/css" rel="stylesheet" />
 <link href="${sidebar_style}" type="text/css" rel="stylesheet" />
@@ -47,5 +50,6 @@
 <script src="${bootstrap_toggle_js}"></script>
 <script src="${d3js}"></script>
 <script src="${nvd3js}"></script>
+<script src="${toastr_js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script src="${app}"></script>

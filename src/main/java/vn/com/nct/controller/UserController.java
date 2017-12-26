@@ -80,6 +80,8 @@ public class UserController extends LayoutController{
 		
 		PropertiesResponse p = new PropertiesResponse();
 		p.setName("Users");
+		p.setBase_url("/GHServer/manager/user");
+		p.setLink_url("manage/user");
 		p.setTotal_records(userService.countAll());
 		p.setDisplay_left(display_left);
 		p.setDisplay_mid(display_mid);

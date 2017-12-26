@@ -8,8 +8,15 @@ $(document).ready(function(){
 			state = "on";
 			var time = $("#led_time").val();
 			$("#led_time").val("");
+			$(this).parents("li").attr("state","1");
 			if(time.length != 0){
-				$(this).simple_ajax_request("control/led?led="+state,null,"GET",false);
+				ansync_ajax_result = null; // clear ajax result
+				$(this).simple_ajax_request("control/1/led?led="+state,null,"GET",false);
+				
+				if(ansync_ajax_result == null)
+					return;
+				
+				toastr.success('Led on !', 'Success');
 				$(this).parents("li").find(".time-countdown").removeClass("display-none");
 				$(this).parents("li").find(".input-time").addClass("display-none");
 				var distance = parseFloat(time)*1000*60;
@@ -28,17 +35,26 @@ $(document).ready(function(){
 				    }
 				    
 				},1000);
+			}else{
+				
+				
+				ansync_ajax_result = null; // clear ajax result
+				$(this).simple_ajax_request("control/1/led?led="+state,null,"GET",false);
+				if(ansync_ajax_result == null)
+					return;
+				
+				toastr.success('Led on !', 'Success');
 			}
-			$(this).parents("li").attr("state","1");
-			$(this).simple_ajax_request("control/led?led="+state,null,"GET",false);
+			
+			
 		}else {
 			state = "off";
-			$(this).off_activity(self,"control/led?led="+state,null,"GET",false);
+			ansync_ajax_result = null; // clear ajax result
+			$(this).off_activity(self,"control/1/led?led="+state,null,"GET",false);
+			if(ansync_ajax_result == null)
+				return;
+			toastr.success('Led off !', 'Success');
 		}
-		if(ansync_ajax_result){
-			console.log(ansync_ajax_result);
-		}
-		
 	});
 	
 	

@@ -104,3 +104,15 @@ p{margin:0px;padding:0px;}
 	color : #bdc9b6;
 	width: 100%;
 }
+
+.text-align-right{
+	text-align: right;
+}
+
+.mar-t-20px{
+	margin-top: 20px;
+}
+
+.mar-t-30px{
+	margin-top: 30px;
+}

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class PropertiesResponse {
 	private int 						   total_records;
+	private String 						   base_url;
+	private String 						   link_url;
 	private String						   name;
 	private List<ModelProperties>		   model_properties;
 	private List<ModelReferenceProperties> lis_model_reference_properties;
@@ -84,6 +86,22 @@ public class PropertiesResponse {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getBase_url() {
+		return base_url;
+	}
+
+	public void setBase_url(String base_url) {
+		this.base_url = base_url;
+	}
+
+	public String getLink_url() {
+		return link_url;
+	}
+
+	public void setLink_url(String link_url) {
+		this.link_url = link_url;
 	}
 	
 	

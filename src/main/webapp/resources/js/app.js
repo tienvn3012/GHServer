@@ -2,6 +2,24 @@ var ansync_ajax_result = null;
 var interval_event_countdown;
 var isClose = false;
 
+toastr.options = {
+		  "closeButton": true,
+		  "debug": false,
+		  "newestOnTop": true,
+		  "progressBar": true,
+		  "positionClass": "toast-top-right",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+
 $(document).ready(function(){
 	
 	$(".scroll").niceScroll();
@@ -27,19 +45,19 @@ $(document).ready(function(){
 		/*error handle*/
 		error : function(jqXHR, exception){
 			if (jqXHR.status === 0) {
-                alert('Không thể kết nối đến máy chủ !');
+				toastr.error("Can't connect to server !", "Error !");
             } else if (jqXHR.status == 404) {
-            	alert('Không tìm thấy máy chủ !');
+            	toastr.error("Server not found !", "Error !");
             } else if (jqXHR.status == 500) {
-            	alert('Lỗi máy chủ , xin thử lại sau !');
+            	toastr.error("Server error, please try again later !", "Error !");
             } else if (exception === 'parsererror') {
-            	alert('JSON parse error !!!! ');
+            	toastr.error("JSON parse error !", "Error !");
             } else if (exception === 'timeout') {
-            	alert('Máy chủ không phản hồi !!!!');
+            	toastr.error("Server not responding !", "Error !");
             } else if (exception === 'abort') {
-            	alert('Xảy ra lỗi khi gửi !!!!');
+            	toastr.error("Error sending !", "Error !");
             } else {
-            	alert('Đã xảy ra lỗi !!!!');
+            	toastr.error("Unexpected error, please try again later !", "Error !")
             }
 		},
 		

@@ -3,7 +3,19 @@
 	
 <div id="manager">
 	<div class="main">
-		
+	
+		<!-- page title -->
+		<div class="page-title">
+			<span id="pt"></span>
+			<div class="add-record">
+				<i class="fa fa-plus"></i>
+				<span> Add Record</span>
+			</div>
+		</div>
+		<!-- end page title -->
+	
+		<!-- table -->
+		<div class="line text-align-right mar-t-20px" id="total_records"></div>
 		<div class="table-manager scroll">
 			<ul>
 				<li class="item">
@@ -43,6 +55,7 @@
 				
 			</ul>
 		</div>
+		<!-- end table -->
 		
 	</div>
 </div> 
