@@ -24,7 +24,7 @@ public class Devices {
 	@Column(name = "device_name", nullable = false)
 	private String device_name;
 	
-	@Column(name = "control_device")
+	@Column(name = "control_device", nullable = true)
 	private int control_device;
 	
 	@Column(name = "password")

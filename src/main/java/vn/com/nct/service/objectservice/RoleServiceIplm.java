@@ -122,5 +122,11 @@ public class RoleServiceIplm implements ObjectService<Roles,RoleResponse>{
 		
 		return response;
 	}
+
+	@Override
+	public Page<RoleResponse> getPageBy(int page_number, int row, String... condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

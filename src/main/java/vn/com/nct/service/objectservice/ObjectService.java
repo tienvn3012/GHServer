@@ -19,6 +19,7 @@ public interface ObjectService <E,T>{
 	public int countAll();
 	public int countBy(String... condition);
 	public Page<T> getPage(int page_number, int row);
+	public Page<T> getPageBy(int page_number, int row, String... condition);
 	public List<T> parseAll(List<E> lis);
 	public T parseResponse(E e);
 }

@@ -6,11 +6,14 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Repository;
 
+import vn.com.nct.base.BaseMethods;
 import vn.com.nct.model.FrameDataColection;
 
 @Repository
 public class FrameDataCollectionDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<FrameDataColection>{
 
+	private BaseMethods base = new BaseMethods();
+	
 	@Override
 	public List<FrameDataColection> getAll() {
 		// TODO Auto-generated method stub
@@ -29,10 +32,15 @@ public class FrameDataCollectionDaoIplm extends HibernateDaoSupport implements O
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<FrameDataColection> getLimitBy(int index, int offset, String... condition) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(FrameDataColection.class, "framedatacolection");
+		criteria.createAlias("framedatacolection.frame", "frame");
+		
+		criteria = base.setCondition(criteria, condition);
+		
+		return (List<FrameDataColection>)hibernateTemplate.findByCriteria(criteria,index,offset);
 	}
 
 	@Override

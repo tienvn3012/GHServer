@@ -43,40 +43,41 @@ public class PublishServiceSeconds extends Thread{
 	@Override
 	public void run() {
 		super.run();
-		
-		int index = -1;
-		int thread_index = -1;
-		for (int i = 0; i < Constant.lis_deviceThread.size(); i++) {
-			if(Constant.lis_deviceThread.get(i).getId() == this.did){
-				Constant.lis_deviceThread.get(i).getLis().add(this);
-				thread_index = Constant.lis_deviceThread.get(i).getLis().size() - 1;
-				index = i;
-				break;
+		if(Constant.getItemFromSetFrameByControlId(did).isAutomatic_mode()){
+			int index = -1;
+			int thread_index = -1;
+			for (int i = 0; i < Constant.lis_deviceThread.size(); i++) {
+				if(Constant.lis_deviceThread.get(i).getId() == this.did){
+					Constant.lis_deviceThread.get(i).getLis().add(this);
+					thread_index = Constant.lis_deviceThread.get(i).getLis().size() - 1;
+					index = i;
+					break;
+				}
 			}
-		}
-		
-		if(index == -1)
-			this.stop();
-		
-		synchronized (control_device) {
-			try {
-				long time_on = (long)Math.floor(delay_time*1000*10);
-//				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, false);
-				sleep(3000);
-				control_device.publish("nct_control_"+this.did, new MqttMessage(message_on.getBytes()));
-				System.out.println(message_on);
-				sleep(time_on);
-//				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, false);
-				control_device.publish("nct_control_"+this.did, new MqttMessage(message_off.getBytes()));
-				sleep(2000);
-				
-				Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
-			} catch (MqttException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
+			if(index == -1)
+				this.stop();
+			
+			synchronized (control_device) {
+				try {
+					long time_on = (long)Math.floor(delay_time*1000*10);
+//					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, false);
+					sleep(3000);
+					control_device.publish("nct_control_"+this.did, new MqttMessage(message_on.getBytes()));
+					System.out.println(message_on);
+					sleep(time_on);
+//					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, false);
+					control_device.publish("nct_control_"+this.did, new MqttMessage(message_off.getBytes()));
+					sleep(2000);
+					System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
+					Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
+				} catch (MqttException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		

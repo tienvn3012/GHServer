@@ -1,21 +1,33 @@
 package vn.com.nct.service.objectservice;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.nct.base.TimerService;
 import vn.com.nct.dao.ObjectDaoSupport;
+import vn.com.nct.model.Frame;
 import vn.com.nct.model.FrameDataColection;
+import vn.com.nct.model.response.FrameDataCollectionResponse;
+import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.model.response.Page;
 
 @Service("frameDataCollectionService")
 @Transactional(readOnly = false)
-public class FrameDataCollectionServiceIplm implements ObjectService<FrameDataColection, Object>{
+public class FrameDataCollectionServiceIplm implements ObjectService<FrameDataColection, FrameDataCollectionResponse>{
 
 	@Autowired
 	private ObjectDaoSupport<FrameDataColection> frameDataCollectionDao;
+	
+	@Autowired
+	private ObjectService<Frame, FrameResponse> frameService;
+	
+	@Autowired
+	private TimerService timer;
 
 	@Override
 	public List<FrameDataColection> getAll() {
@@ -90,22 +102,48 @@ public class FrameDataCollectionServiceIplm implements ObjectService<FrameDataCo
 	}
 
 	@Override
-	public Page<Object> getPage(int page_number, int row) {
-		// TODO Auto-generated method stub
+	public Page<FrameDataCollectionResponse> getPage(int page_number, int row) {
+		
+		
 		return null;
+	}
+	
+	@Override
+	public Page<FrameDataCollectionResponse> getPageBy(int page_number, int row, String... condition) {
+		Page<FrameDataCollectionResponse> page = new Page<>();
+		page.setPage_number(page_number);
+		page.setRow(row);
+		//set role
+		
+		page.setLis(this.parseAll(frameDataCollectionDao.
+				getLimitBy(row*(page_number - 1), row, condition)));
+		return page;
 	}
 
 	@Override
-	public List<Object> parseAll(List<FrameDataColection> lis) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FrameDataCollectionResponse> parseAll(List<FrameDataColection> lis) {
+		List<FrameDataCollectionResponse> lis_res = new ArrayList<>();
+		for (int i = 0; i < lis.size(); i++) {
+			lis_res.add(this.parseResponse(lis.get(i)));
+		}
+		return lis_res;
 	}
 
 	@Override
-	public Object parseResponse(FrameDataColection e) {
-		// TODO Auto-generated method stub
+	public FrameDataCollectionResponse parseResponse(FrameDataColection e) {
+		try {
+			return new FrameDataCollectionResponse(e.getId(), timer.getMiliseconds(e.getTime()), e.getpH(),
+					e.getTemperature(), e.getHumidity(), e.getCo2(), frameService.parseResponse(e.getFrame()));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		return null;
 	}
+
+
+
+
 	
 	
 

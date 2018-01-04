@@ -39,6 +39,9 @@ public class Frame {
 	@Column(name = "harvested", nullable = false)
 	private boolean harvested;
 	
+	@Column(name = "automatic_mode",nullable = false)
+	private boolean automatic_mode;
+	
 	@OneToMany(mappedBy = "frame")
 	private List<FrameDataColection> frame_data;
 
@@ -118,6 +121,36 @@ public class Frame {
 
 	public void setLogs(List<SystemLogActivity> logs) {
 		this.logs = logs;
+	}
+
+	public boolean isAutomatic_mode() {
+		return automatic_mode;
+	}
+
+	public void setAutomatic_mode(boolean automatic_mode) {
+		this.automatic_mode = automatic_mode;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Frame other = (Frame) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 	
 	

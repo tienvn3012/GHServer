@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import vn.com.nct.base.BaseMethods;
 import vn.com.nct.model.Devices;
 
+
+
 @Repository
 public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<Devices>{
 
@@ -45,12 +47,26 @@ public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppo
 	@Override
 	public Devices getOneById(int id) {
 		// TODO Auto-generated method stub
-		return hibernateTemplate.get(Devices.class, id);
+		Devices d = hibernateTemplate.get(Devices.class, id);
+		return d;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Devices getOneByCondition(String... condition) {
-		// TODO Auto-generated method stub
+		DetachedCriteria criteria = DetachedCriteria.forClass(Devices.class,"devices");
+		criteria.createAlias("devices.device_type", "device_type");
+		
+		criteria = base.setCondition(criteria, condition);
+		
+		try{
+			List<Devices> lis = ((List<Devices>)hibernateTemplate.findByCriteria(criteria));
+			Devices d = lis.get(0);
+			return d;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
@@ -87,7 +103,8 @@ public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppo
 
 	@Override
 	public Devices updateE(Devices e) {
-		// TODO Auto-generated method stub
+		System.out.println("cascasc");
+		save(e);
 		return null;
 	}
 

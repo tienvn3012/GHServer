@@ -15,6 +15,8 @@ import vn.com.nct.constant.Constant;
 import vn.com.nct.model.DeviceThread;
 import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
+import vn.com.nct.model.response.DevicesResponse;
+import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.service.controlservice.AutomaticControlService;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -35,7 +37,7 @@ public class MqttAuthenticationService implements MqttCallback{
 	
 	@Autowired
 	@Qualifier(value = "frameService")
-	private ObjectService<Frame,Object> frameService;
+	private ObjectService<Frame,FrameResponse> frameService;
 	
 	@Autowired
 	private PasswordCryptService passService;
@@ -44,7 +46,8 @@ public class MqttAuthenticationService implements MqttCallback{
 	private TimerService timerService;
 	
 	@Autowired
-	private ObjectService<Devices,Object> deviceService;
+	@Qualifier("devicesService")
+	private ObjectService<Devices,DevicesResponse> deviceService;
 	
 	
 	@Autowired
@@ -59,33 +62,37 @@ public class MqttAuthenticationService implements MqttCallback{
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
-		
+
 		if(!("nct_authentication").equals(topic))
 			return;
 		String[] mes = message.toString().split(Constant.SPLIT_PATTERN);
+		
 		int id = Integer.parseInt(mes[0]);
+		System.out.println("Device "+id+" login !");
 		if(deviceService.getOneById(id) == null){
 			authentication_result.publish("nct_authentication_result_"+id, ("Device not found !").getBytes(),2,true);
 		}else{
 			if(passService.checkMd5Password(mes[1])){
-				System.out.println("Passed");
-				
+				System.out.println("Login success !");
 				Constant.lis_deviceThread.add(new DeviceThread(id));
 				if(("collect").equals(mes[2])){
-					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
-					authentication_result.publish("nct_authentication_result_"+id,
-							("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0").getBytes(),0,true);
+					authentication_result.publish("nct_authentication_result_"+id, ("PASS\0").getBytes(),0,true);
+					Frame frame = frameService.getOneByCondition("device_colect.id;"+id+";=;int","harvested;false;=;boolean");
+					Constant.set_frame.add(frame);
+//					authentication_result.publish("nct_authentication_result_"+id,
+//							("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0").getBytes(),0,true);
 					System.out.println("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0");
 //					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
 //					publisher.publish("nct_info_"+id, new MqttMessage("60000".getBytes()));
-					
 					subscribe.subscribe("nct_collect_"+id);
-					System.out.println("nct_collect_"+id);
+					System.out.println("subscribe topic : nct_collect_"+id);
 				}else {
 					authentication_result.publish("nct_authentication_result_"+id, ("PASS\0").getBytes(),0,true);
+					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int","harvested;false;=;boolean");
+					Constant.set_frame.add(frame);
 					System.out.println("Device id "+id+" loged in !!!!");
 					// open automatic thread control
-					controlService.plantAnalysis(id);
+					controlService.plantAnalysis(frame);
 				}
 					
 			}else {

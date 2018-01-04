@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.nct.constant.Constant;
+import vn.com.nct.model.Frame;
 import vn.com.nct.model.Layout;
+import vn.com.nct.model.response.FrameResponse;
+import vn.com.nct.service.objectservice.ObjectService;
 
 @RestController
 public class ControlController extends LayoutController{
@@ -21,6 +24,11 @@ public class ControlController extends LayoutController{
 	@Autowired
 	@Qualifier("publisher")
 	private MqttClient publisher;
+
+	@Autowired
+	@Qualifier("frameService")
+	private ObjectService<Frame, FrameResponse> frameService;
+	
 	
 	@RequestMapping(value = "control", method = RequestMethod.GET)
 	public ModelAndView getControlPage(){
@@ -32,6 +40,37 @@ public class ControlController extends LayoutController{
 		ModelAndView model = this.layout();
 		
 		return model;
+	}
+	
+	@RequestMapping(value = "control/{id}/mode", method = RequestMethod.GET)
+	public String modeControl(@PathVariable int id, @RequestParam(name = "mode")String mode){
+		Frame frame = Constant.getItemFromSetFrame(id);
+		
+		if("on".equals(mode)){
+			frame.setAutomatic_mode(true);
+		}else if("off".equals(mode)){
+			frame.setAutomatic_mode(false);
+			try {
+				publisher.publish("nct_control_"+id, (Constant.LED_OFF).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.PUMP_A_OFF).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.PUMP_B_OFF).getBytes(),2,true);
+			} catch (MqttPersistenceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MqttException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			return "{\"status\" : 1}";
+		}
+		
+		Constant.updateItemOfSetFrame(frame);
+		frameService.updateE(frame);
+		Constant.stopThreadByDeviceId(frame.getDevice_control().getId());
+		
+		
+		return "{\"status\" : 0}";
 	}
 	
 	@RequestMapping(value = "control/{id}/led", method = RequestMethod.GET)

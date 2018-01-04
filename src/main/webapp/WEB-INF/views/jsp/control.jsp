@@ -6,7 +6,7 @@
 		<div class="title">Control Page
 			<div class="switch-mode">
 				<label class="checkbox-inline control-led">
-  					<input id="mode_toggle" type="checkbox"  data-toggle="toggle"> Automatic mode
+  					<input id="mode_toggle" type="checkbox" checked  data-toggle="toggle"> Automatic mode
 				</label>
 			</div>
 		</div>

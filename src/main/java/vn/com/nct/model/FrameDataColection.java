@@ -52,7 +52,7 @@ public class FrameDataColection {
 
 	public FrameDataColection(String msg) {
 		super();
-		
+//		System.out.println("xxxx" + msg);
 		// track message : token;temp;humid;co2;ph;water;time;
 		String[] split = msg.split(Constant.SPLIT_PATTERN);
 		

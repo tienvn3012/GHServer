@@ -23,7 +23,7 @@ public class MqttKeepAliveService implements MqttCallback{
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
-		System.out.println("keep alive from "+message.toString());
+		System.out.println("keep alive from "+topic);
 		
 		String[] split = message.toString().split(Constant.SPLIT_PATTERN);
 		if(passService.checkMd5Password(split[1])){

@@ -2,6 +2,7 @@ package vn.com.nct.base;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
@@ -42,6 +43,14 @@ public class TimerServiceIplm implements TimerService{
 		Date now   = sdf_time.parse(this.getCurrentTime());
 		
 		return (int)( (now.getTime() - begin.getTime()) / (1000 * 60 * 60 * 24));
+	}
+
+	@Override
+	public long getMiliseconds(String time) throws ParseException {
+		Date date = sdf_time.parse(time);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.getTimeInMillis();
 	}
 
 	

@@ -3,6 +3,7 @@
 
 <div id="statistic">
 	<div class="main">
+
 		<div class="chart-box">
 			
 			<div class="line title position-relative">

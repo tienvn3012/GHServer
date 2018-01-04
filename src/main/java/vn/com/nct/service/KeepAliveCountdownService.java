@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Devices;
+import vn.com.nct.model.response.DevicesResponse;
 import vn.com.nct.service.objectservice.ObjectService;
 
 @Component("keepAlive_countdown")
@@ -21,7 +22,7 @@ public class KeepAliveCountdownService extends Thread{
 	
 	@Autowired
 	@Qualifier("devicesService")
-	private ObjectService<Devices, Object> deviceService;
+	private ObjectService<Devices, DevicesResponse> deviceService;
 
 	
 	

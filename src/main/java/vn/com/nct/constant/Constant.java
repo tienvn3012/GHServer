@@ -1,19 +1,22 @@
 package vn.com.nct.constant;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import vn.com.nct.model.DeviceThread;
+import vn.com.nct.model.Frame;
 import vn.com.nct.model.response.ModelProperties;
 
 public class Constant {
 
-	public static boolean AUTOMATIC_MODE = false; // ?
 	
 	
 	// keep_alive_message : id;password;nct
 	public static List<String> lis_keepAlive = new ArrayList<>();
 	
+	public static Set<Frame> set_frame = new HashSet<>();
 	public static List<DeviceThread> lis_deviceThread = new ArrayList<>();
 	/*
 	 * condition standard : name_of_argument;value;compare;datatype
@@ -22,7 +25,8 @@ public class Constant {
 	 * time unit : default is 'day'
 	 * 
 	 * authentication message : id;password;type
-	 * track message : token;temp;humid;co2;ph;water;time;
+	 * track message : token;temp;humid;co2;ph;water;time;token
+	 * log message : token;id;statement;token
 	 * 
 	 */
 	public static final String SPLIT_PATTERN = ";";
@@ -95,4 +99,40 @@ public class Constant {
 		add(new ModelProperties("role.role", "String"));
 
 	}};
+	
+	
+	public static void updateItemOfSetFrame(Frame frame){
+		set_frame.remove(frame);
+		set_frame.add(frame);
+	}
+	
+	public static Frame getItemFromSetFrame(int id){
+		List<Frame> lis = new ArrayList<>(set_frame);
+		for (int i = 0; i < lis.size(); i++) {
+			if(lis.get(i).getId() == id)
+				return lis.get(i);
+		}
+		return null;
+	}
+	
+	public static Frame getItemFromSetFrameByControlId(int id){
+		List<Frame> lis = new ArrayList<>(set_frame);
+		for (int i = 0; i < lis.size(); i++) {
+			if(lis.get(i).getDevice_control().getId() == id)
+				return lis.get(i);
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void stopThreadByDeviceId(int id){
+		for (int i = 0; i < lis_deviceThread.size(); i++) {
+			if(lis_deviceThread.get(i).getId() == id){
+				for (int j = 0; j < lis_deviceThread.get(i).getLis().size(); j++) {
+					System.out.println("stop" +i + "-" +j);
+					lis_deviceThread.get(i).getLis().get(j).stop();
+				}
+			}
+		}
+	}
 }

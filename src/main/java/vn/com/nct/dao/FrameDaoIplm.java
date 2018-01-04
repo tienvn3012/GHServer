@@ -50,7 +50,7 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 		criteria.createAlias("frame.plant", "plant")
 		.createAlias("frame.device_control", "device_control");
 		criteria = base.setCondition(criteria, condition);
-	
+
 		List<Frame> lis = (List<Frame>)hibernateTemplate.findByCriteria(criteria);
 		return lis.get(lis.size() - 1);
 	}

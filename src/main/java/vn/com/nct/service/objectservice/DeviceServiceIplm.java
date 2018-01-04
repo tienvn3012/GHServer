@@ -8,11 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.Devices;
+import vn.com.nct.model.response.DevicesResponse;
 import vn.com.nct.model.response.Page;
 
 @Service("devicesService")
 @Transactional(readOnly = false)
-public class DeviceServiceIplm implements ObjectService<Devices,Object>{
+public class DeviceServiceIplm implements ObjectService<Devices,DevicesResponse>{
 	
 	@Autowired
 	private ObjectDaoSupport<Devices> deviceDao;
@@ -49,7 +50,7 @@ public class DeviceServiceIplm implements ObjectService<Devices,Object>{
 	@Override
 	public Devices getOneByCondition(String... condition) {
 		// TODO Auto-generated method stub
-		return null;
+		return deviceDao.getOneByCondition(condition);
 	}
 
 	@Override
@@ -77,11 +78,6 @@ public class DeviceServiceIplm implements ObjectService<Devices,Object>{
 		return 0;
 	}
 
-	@Override
-	public Page<Object> getPage(int page_number, int row) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Devices saveE(Devices e) {
@@ -92,21 +88,33 @@ public class DeviceServiceIplm implements ObjectService<Devices,Object>{
 	@Override
 	public Devices updateE(Devices e) {
 		// TODO Auto-generated method stub
-		return null;
+		return deviceDao.updateE(e);
 	}
 
-
-
 	@Override
-	public List<Object> parseAll(List<Devices> lis) {
+	public Page<DevicesResponse> getPage(int page_number, int row) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object parseResponse(Devices user) {
+	public List<DevicesResponse> parseAll(List<Devices> lis) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public DevicesResponse parseResponse(Devices e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<DevicesResponse> getPageBy(int page_number, int row, String... condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

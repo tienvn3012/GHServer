@@ -126,5 +126,11 @@ public class UserInfoServiceIplm implements ObjectService<UserInfo,UserInfoRespo
 		return response;
 	}
 
+	@Override
+	public Page<UserInfoResponse> getPageBy(int page_number, int row, String... condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

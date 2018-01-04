@@ -1,5 +1,15 @@
 $(document).ready(function(){
 	
+	$("#mode_toggle").change(function(){
+		if (this.checked){
+			var state = "on";
+			$(this).simple_ajax_request("control/1/mode?mode="+state,null,"GET",false);
+		}else{
+			var state = "off";
+			$(this).simple_ajax_request("control/1/mode?mode="+state,null,"GET",false);
+		}
+	});
+	
 	$("#led_toggle").change(function() {
 		var state;
 		var self = this;

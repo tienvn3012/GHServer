@@ -102,8 +102,9 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 		Page<UserResponse> page = new Page<>();
 		page.setPage_number(page_number);
 		page.setRow(row);
+		//set role
 		
-		List<Users> lis = this.getLimit(page_number - 1, row);
+		List<Users> lis = this.getLimit(row*(page_number - 1), row);
 		page.setLis(parseAll(lis));
 		
 		return page;
@@ -139,6 +140,12 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 		ur.setRole(roleService.parseResponse(user.getRole()));
 		
 		return ur;
+	}
+
+	@Override
+	public Page<UserResponse> getPageBy(int page_number, int row, String... condition) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

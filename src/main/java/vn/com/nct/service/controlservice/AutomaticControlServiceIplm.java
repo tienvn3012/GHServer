@@ -13,6 +13,8 @@ import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
 import vn.com.nct.model.FrameDataColection;
+import vn.com.nct.model.response.FrameDataCollectionResponse;
+import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.service.PublishService;
 import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
@@ -24,18 +26,17 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	private String on;
 	private String off;
 	
-	private List<Frame> lisFrame = new ArrayList<>();
-	
+
 	@Autowired
 	private TimerService timer;
 	
 	@Autowired
 	@Qualifier(value = "frameService")
-	private ObjectService<Frame,Object> frameService;
+	private ObjectService<Frame,FrameResponse> frameService;
 	
 	@Autowired
 	@Qualifier("frameDataCollectionService")
-	private ObjectService<FrameDataColection, Object> frameDataCollectionService;
+	private ObjectService<FrameDataColection, FrameDataCollectionResponse> frameDataCollectionService;
 	
 	@Autowired
 	@Qualifier("devicesService")
@@ -127,9 +128,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 
 	@Override
-	public void plantAnalysis(int id) {
-		Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int");
-		this.lisFrame.add(frame);
+	public void plantAnalysis(Frame frame) {
 		
 		this.lightAnalysis(frame);
 		this.ecAnalysis(frame);
@@ -142,25 +141,29 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	@Override
 	public void trackParamsAnalysis(String msg, String topic) {
 		// from topic -> id   // ex : nct_collect_1
-		System.out.println(msg);
+		
 		String[] split_topic = topic.split(Constant.SPLIT_PATTERN_LEVEL2);
 		int t = this.findFrame(Integer.parseInt(split_topic[2]));
 		if(t == -1){
 			//exception here
+			System.out.println("Not found");
 		}
-		Frame frame = lisFrame.get(t);
+		Frame frame = (new ArrayList<>(Constant.set_frame)).get(t);
 		
 		FrameDataColection fdc = new FrameDataColection(msg);
 		fdc.setTime(timer.getCurrentTime());
 		fdc.setFrame(frame);
+
 		frameDataCollectionService.saveE(fdc);
 		
 		
-		String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
-		temperatureAnalysis(msgSplit[1],frame);
-		humidityAnalysis(msgSplit[2],frame);
-		co2Analysis(msgSplit[3],frame);
-		phAnalysis(msgSplit[4],frame);
+		if(frame.isAutomatic_mode()){
+			String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
+			temperatureAnalysis(msgSplit[1],frame);
+			humidityAnalysis(msgSplit[2],frame);
+			co2Analysis(msgSplit[3],frame);
+			phAnalysis(msgSplit[4],frame);
+		}
 	}
 	
 	private void ecAnalysis(Frame frame){
@@ -302,9 +305,11 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private int findFrame(int id){
-		for (int i = 0; i < lisFrame.size(); i++) {
-			if(lisFrame.get(i).getId() == id)
+		List<Frame> lis = new ArrayList<>(Constant.set_frame);
+		for (int i = 0; i < lis.size(); i++) {
+			if(lis.get(i).getDevice_colect().getId() == id){
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -317,5 +322,6 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		
 		return time;
 	}
+
 	
 }
