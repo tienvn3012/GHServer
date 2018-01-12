@@ -27,6 +27,7 @@ public class StatisticController extends LayoutController{
 		this.clear_style();
 		this.more_css.add(new Layout("css", "/GHServer/resources/css/statistic/statistic.css"));
 		this.more_js.add(new Layout("barjs", "/GHServer/resources/js/statistic/bar-chart/bar-chart.js"));
+		this.more_js.add(new Layout("linejs", "/GHServer/resources/js/statistic/line-chart/line-chart.js"));
 		this.more_js.add(new Layout("statisticjs", "/GHServer/resources/js/statistic/statistic.js"));
 		
 		this.set_other_layout("content", "../statistic.jsp");

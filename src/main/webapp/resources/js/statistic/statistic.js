@@ -10,6 +10,17 @@ var data = [
 	            }
 	       ];
 
+var line_data = [
+            {
+            	key : 'temp',
+            	values : []
+            },
+            {
+            	key : 'humid',
+            	values : []
+            }
+       ];
+
 var client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
 
 client.onConnectionLost = onConnectionLost;
@@ -39,10 +50,27 @@ function onMessageArrived(message) {
 			x : time,
 			y : parseFloat(split[1])
 		});
-		data[1]['values'].push({
+	  data[0]['values'].shift();
+	  data[1]['values'].push({
 			x : time,
 			y : parseFloat(split[2])
 		});
+	  data[1]['values'].shift();
+		
+		line_data[0]['values'].push([time,parseFloat(split[1])]);
+		line_data[1]['values'].push([time,parseFloat(split[2])]);
 	  
 	  draw_bar_chart(null,null,data);
+	  draw_line_chart(null,null,line_data);
 }
+
+$(document).ready(function(){
+	
+	$(this).simple_ajax_request("1/data/0?row=10",null,"GET",false);
+	var data = parse_data_for_bar_chart(ansync_ajax_result['lis']);
+//	var line = parse_data_for_line_chart(ansync_ajax_result['lis']);
+	draw_bar_chart(null,null,data);
+//	draw_line_chart(null,null,line);
+	
+	
+});

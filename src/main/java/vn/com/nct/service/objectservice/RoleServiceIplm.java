@@ -23,7 +23,7 @@ public class RoleServiceIplm implements ObjectService<Roles,RoleResponse>{
 	@Override
 	public List<Roles> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return roleDao.getAll();
 	}
 
 	@Override

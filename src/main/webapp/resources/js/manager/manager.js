@@ -34,10 +34,67 @@ var table = '';
 
 
 var manager_properties = null;
+var obj_name = "";
+var modal_html = "";
+
 
 $(document).ready(function(){
 	
 	jQuery.fn.extend({
+		
+		// add html for modal add
+		set_modal_add_html : function(lis){
+			for(var i = 0;i<lis.length;i++){
+				if("ignore" == lis[i]['rule']){
+					continue;
+				} 
+				
+				modal_html += "<p>"+lis[i]['name']+" :</p>";
+				var t = lis[i]['input'].split("_");
+				switch(t[0]){
+				 case "inputtext" : 
+					 modal_html += "<input type='text'" +
+					 		" placeholder='"+(lis[i]['notification'] == null ? lis[i]['name'] : lis[i]['notification'])+"'" +
+					 		" class='form-control' name='"+lis[i]['name']+"' />"
+					 break;
+				 case "select":
+					 modal_html += " <select class='form-control'>";
+					 if(t[1] == "values"){
+						 var t2 = t[2].split(";");
+						 for(var j=0;j<t2.length;j++){
+							 modal_html += "<option>"+t2[j]+"</option>"
+						 }
+						 modal_html += "</select>"
+					 }else if(t[1] == "link"){
+						 $(this).simple_ajax_request(t[2],null,'GET',false);
+						 for(var j=0;j<ansync_ajax_result.length;j++){
+							 modal_html += "<option value='"+ansync_ajax_result[j]['id']+"'>"+ansync_ajax_result[j]['value']+"</option>"
+						 }
+						 modal_html += "</select>"
+					 }else{
+						 
+					 }
+					 break;
+				 case "img":
+					 modal_html += '<div class="file-tab panel-body">' +
+						 '<div class="imageupload panel panel-default">'+
+						 '<label class="btn btn-default btn-file">'+
+			            '<span>Browse</span>'+
+			            '<input type="file" name="'+lis[i]['name']+'">'+
+			            '</label>'+
+			            '<button type="button" class="btn btn-default" style="display:none;">Remove</button>'+
+			            '</div></div>';
+					 break;
+				 case "radio":
+					 break;
+				 case "checkbox":
+					 break;
+				 default : 
+					 break;
+				};
+				
+			}
+		},
 		
 		// clear old table
 		clear_table : function(){
@@ -139,6 +196,20 @@ $(document).ready(function(){
 				$(this).set_tail();
 			}
 		}
+		
+	});
+	
+	$("#add-record").click(function(){
+		$("#modal_header").html("Add new " + obj_name);
+		$("#modal_action").html("Add");
+		
+		$(this).set_modal_add_html(manager_properties['model_properties']);
+		
+		for(var i = 0;i<manager_properties['lis_model_reference_properties'].length;i++){
+			$(this).set_modal_add_html(manager_properties['lis_model_reference_properties'][i]['lis']);
+		}
+		
+		$("#modal_body").html(modal_html);
 		
 	});
 	

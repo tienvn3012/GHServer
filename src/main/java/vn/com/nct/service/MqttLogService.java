@@ -48,6 +48,10 @@ public class MqttLogService implements MqttCallback{
 			device = "LED";
 			status = true;
 			break;
+		case "F_1":
+			device = "FAN";
+			status = true;
+			break;
 		case "PA_1":
 			device = "Pump A";
 			status = true;
@@ -66,6 +70,10 @@ public class MqttLogService implements MqttCallback{
 //			break;
 		case "L_0":
 			device = "LED";
+			status = false;
+			break;
+		case "F_0":
+			device = "FAN";
 			status = false;
 			break;
 		case "PA_0":

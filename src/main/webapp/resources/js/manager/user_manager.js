@@ -13,7 +13,8 @@ $(document).ready(function(){
         
         success : function (result) {            	
         	$("head").find("title").html(result['name'] + "Manager");
-        	$("#pt").html(result['name'] + "Manage");
+        	obj_name = result['name']
+        	$("#pt").html(obj_name + "Manage");
         	manager_properties = result;
         	$("#total_records").html("Total records : "+result['total_records']+" records");
         	$(this).simple_ajax_request("user/1?row=5",null,'GET',false);

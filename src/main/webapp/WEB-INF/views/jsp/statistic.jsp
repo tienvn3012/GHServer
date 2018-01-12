@@ -20,6 +20,24 @@
 			</div>
 			
 		</div>
+		
+		<div class="chart-box">
+			
+			<div class="line title position-relative">
+			Line graph
+				<div class="activity">
+					<i class="fa fa-table"></i>
+					<i class="fa fa-window-minimize"></i>
+					<i class="fa fa-times"></i>
+				</div>
+			</div>
+			
+			<div id="line-chart">
+				<svg></svg>
+			</div>
+			
+		</div>
+		
 	</div>
 </div>
 

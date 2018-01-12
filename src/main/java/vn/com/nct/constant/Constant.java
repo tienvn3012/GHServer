@@ -53,36 +53,36 @@ public class Constant {
 	public static final List<ModelProperties> user_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("id", "int"));
-		add(new ModelProperties("username","String"));
-		add(new ModelProperties("avatar", "img"));
-		add(new ModelProperties("info", "Object"));
-		add(new ModelProperties("role", "Object"));
-		add(new ModelProperties("create_by", "int"));
-		add(new ModelProperties("create_time", "String"));
-		add(new ModelProperties("last_login", "String"));
-		add(new ModelProperties("active", "boolean"));
-		add(new ModelProperties("create_to", "boolean"));
+		add(new ModelProperties("id", "int", "ignore", "ignore"));
+		add(new ModelProperties("username","String","inputtext","required"));
+		add(new ModelProperties("avatar", "img","img","notrequired"));
+		add(new ModelProperties("info", "Object", "object", "ignore"));
+		add(new ModelProperties("role", "Object", "object", "ignore"));
+		add(new ModelProperties("create_by", "int", "ignore", "ignore"));
+		add(new ModelProperties("create_time", "String", "ignore", "ignore"));
+		add(new ModelProperties("last_login", "String", "ignore", "ignore"));
+		add(new ModelProperties("active", "boolean", "ignore", "ignore"));
+		add(new ModelProperties("create_to", "boolean", "ignore", "ignore"));
 	}};
 	
 	public static final List<ModelProperties> info_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("id", "int"));
-		add(new ModelProperties("level", "int"));
-		add(new ModelProperties("fullname", "String"));
-		add(new ModelProperties("email", "String"));
-		add(new ModelProperties("phone", "String"));
-		add(new ModelProperties("address", "String"));
-		add(new ModelProperties("date_of_birth", "String"));
-		add(new ModelProperties("gender", "boolean"));
+		add(new ModelProperties("id", "int", "ignore", "ignore"));
+		add(new ModelProperties("level", "int", "select_values_1;2;3", "required"));
+		add(new ModelProperties("fullname", "String", "inputtext", "required"));
+		add(new ModelProperties("email", "String", "inputtext", "required"));
+		add(new ModelProperties("phone", "String", "inputtext", "required;minlength_9;maxlength_12"));
+		add(new ModelProperties("address", "String", "inputtext", "required"));
+		add(new ModelProperties("date_of_birth", "String", "inputtext", "required", "ex : 01/10/1995"));
+		add(new ModelProperties("gender", "boolean", "select_values_male;female", "required"));
 	}};
 	
 	public static final List<ModelProperties> role_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("id", "int"));
-		add(new ModelProperties("role", "String"));
+		add(new ModelProperties("id", "int", "ignore", "ignore"));
+		add(new ModelProperties("role", "String", "select_link_/GHServer/manager/role/select", "required"));
 	}};
 	
 	//filter list

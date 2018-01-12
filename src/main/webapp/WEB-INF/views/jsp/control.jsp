@@ -136,10 +136,10 @@
 							<div class="control-button">
 								<div class="main">
 									<div class="line text">Fan</div>
-									<input type="text" class="form-control input-time" placeholder="Time" />
+									<input id="fan_time" type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
-  									<input id="led_toggle" type="checkbox"  data-toggle="toggle">
+  									<input id="fan_toggle" type="checkbox"  data-toggle="toggle">
 								</label>
 							</div>
 							<div class="clear"></div>

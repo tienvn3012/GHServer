@@ -103,6 +103,7 @@ public class PropertiesResponse {
 	public void setLink_url(String link_url) {
 		this.link_url = link_url;
 	}
+
 	
 	
 }

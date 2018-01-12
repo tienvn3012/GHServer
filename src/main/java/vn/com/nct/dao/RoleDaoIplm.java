@@ -11,10 +11,11 @@ import vn.com.nct.model.Roles;
 @Repository
 public class RoleDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<Roles>{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Roles> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Roles.class);
+		return (List<Roles>)hibernateTemplate.findByCriteria(criteria);
 	}
 
 	@Override
