@@ -137,6 +137,7 @@
 								<div class="main">
 									<div class="line text">Fan</div>
 									<input id="fan_time" type="text" class="form-control input-time" placeholder="Time" />
+									<div class="time-countdown display-none">Start</div>
 								</div>
 								<label class="checkbox-inline control-led">
   									<input id="fan_toggle" type="checkbox"  data-toggle="toggle">

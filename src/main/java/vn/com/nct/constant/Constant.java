@@ -78,6 +78,27 @@ public class Constant {
 		add(new ModelProperties("gender", "boolean", "select_values_male;female", "required"));
 	}};
 	
+	public static final List<ModelProperties> frame_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore"));
+			add(new ModelProperties("plant", "Object", "object", "ignore"));
+			add(new ModelProperties("time_begin", "String", "ignore", "ignore"));
+			add(new ModelProperties("device_control", "Object", "object", "ignore"));
+			add(new ModelProperties("device_colect", "Object", "object", "ignore"));
+			add(new ModelProperties("automatic_mode", "boolean", "radio_values_on;off", "required"));
+			add(new ModelProperties("harvested", "boolean", "ignore", "ignore"));
+		}
+	};
+	
+	public static final List<ModelProperties> plant_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore"));
+			add(new ModelProperties("plant_name", "String", "select_link_/GHServer/manager/plant/select", "required"));
+		}
+	};
+	
 	public static final List<ModelProperties> role_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
