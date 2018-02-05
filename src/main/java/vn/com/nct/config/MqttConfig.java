@@ -178,7 +178,7 @@ public class MqttConfig implements MqttCallback{
 	@Override
 	public void messageArrived(String topic, MqttMessage message){
 //		String msg = message.toString() + ";"+timer.getCurrentTime()+";nct";
-//		System.out.println("Receive message '"+msg+"' from topic '"+topic+"'");
+		System.out.println("Receive message '"+message+"' from topic '"+topic+"'");
 		
 		automatic.trackParamsAnalysis(message.toString(), topic);
 		
