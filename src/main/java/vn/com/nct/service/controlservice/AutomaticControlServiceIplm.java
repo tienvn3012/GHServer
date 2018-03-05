@@ -16,6 +16,8 @@ import vn.com.nct.model.FrameDataColection;
 import vn.com.nct.model.response.FrameDataCollectionResponse;
 import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.service.PublishService;
+import vn.com.nct.service.PublishServiceAnsyn;
+import vn.com.nct.service.PublishServiceMinutes;
 import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
 import vn.com.nct.service.objectservice.ObjectService;
@@ -64,7 +66,13 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	private PublishServiceSeconds pumpPHUpControlService;
 	
 	@Autowired
-	private PublishService pumpPHDownControlService;
+	private PublishServiceSeconds pumpPHDownControlService;
+	
+	@Autowired
+	private PublishServiceAnsyn pumpUpControlService;
+	
+	@Autowired
+	private PublishServiceMinutes pumpWaterControlService;
 
 	@Override
 	public PublishService control(String type, double time, int did, int harvest_time) {
@@ -92,6 +100,30 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		return control;
 	}
 	
+	@Override
+	public PublishServiceAnsyn controlAnsyn(String type, double time, int did) {
+		PublishServiceAnsyn control = (PublishServiceAnsyn)this.identifyControl(type);
+		control.setDelay_time(time);
+		control.setDid(did);
+		control.setMessage_on(this.on);
+		control.setMessage_off(this.off);
+		control.start();
+		
+		return control;
+	}
+	
+	@Override
+	public PublishServiceMinutes controlMinutes(String type, double time, int did) {
+		PublishServiceMinutes control = (PublishServiceMinutes)this.identifyControl(type);
+		control.setDelay_time(time);
+		control.setDid(did);
+		control.setMsg_on(this.on);
+		control.setMsg_off(this.off);
+		control.start();
+		
+		return control;
+	}
+	
 	private Thread identifyControl(String type){
 		switch (type){
 			case "led" :
@@ -114,24 +146,49 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				this.on = Constant.PUMP_B_ON;
 				this.off = Constant.PUMP_B_OFF;
 				return this.pumpBControlservice;
+			case "pumpPhUp" :
+				this.on = Constant.PUMP_PH_UP_ON;
+				this.off = Constant.PUMP_PH_UP_OFF;
+				return this.pumpPHUpControlService;
+			case "pumpPhDown" :
+				this.on = Constant.PUMP_PH_DOWN_ON;
+				this.off = Constant.PUMP_PH_UP_OFF;
+				return this.pumpPHDownControlService;
 			case "pumpUp" :
 				this.on = Constant.PUMP_UP_ON;
 				this.off = Constant.PUMP_UP_OFF;
-				return this.pumpPHUpControlService;
-			case "pumpDown" :
-				this.on = Constant.PUMP_DOWN_ON;
-				this.off = Constant.PUMP_UP_OFF;
-				return this.pumpPHDownControlService;
+				return this.pumpUpControlService;
+			case "pumpWater" :
+				this.on = Constant.PUMP_WATER_ON;
+				this.off = Constant.PUMP_WATER_OFF;
+				return this.pumpWaterControlService;
 			default :
 				return null;
+		}
+	}
+	
+	@Override
+	public void pumpWaterToFrame(Frame frame,int water) {
+		if(water < 10){
+			this.controlMinutes("pumpWater",5, frame.getDevice_control().getId());
+		}
+		Devices pumpup =  devicesService.getOneByCondition(
+				"control_device;"+frame.getDevice_control().getId()+";=;int",
+				"device_name;Pump up;=;String");
+		if(!pumpup.isDevice_status()){
+			this.controlAnsyn("pumpUp",300, frame.getDevice_control().getId());
 		}
 	}
 
 	@Override
 	public void plantAnalysis(Frame frame) {
 		
-		this.lightAnalysis(frame);
-		this.ecAnalysis(frame);
+		if(frame.isAutomatic_mode()){
+			this.lightAnalysis(frame);
+			this.ecAnalysis(frame);
+		}
+		
+		
 //		this.humidityAnalysis(plant.getPlant_info().getHumidity());
 //		this.temperatureAnalysis(plant.getPlant_info().getTemperature());
 //		this.co2Analysis(plant.getPlant_info().getCo2());
@@ -140,10 +197,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 	@Override
 	public void trackParamsAnalysis(String msg, String topic) {
-		// from topic -> id   // ex : nct_collect_1
+		String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
 		
-		String[] split_topic = topic.split(Constant.SPLIT_PATTERN_LEVEL2);
-		int t = this.findFrame(Integer.parseInt(split_topic[2]));
+//		String[] split_topic = topic.split(Constant.SPLIT_PATTERN_LEVEL2);
+		int t = this.findFrame(Integer.parseInt(msgSplit[0]));
 		if(t == -1){
 			//exception here
 			System.out.println("Not found");
@@ -156,9 +213,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 		frameDataCollectionService.saveE(fdc);
 		
+		this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
 		
 		if(frame.isAutomatic_mode()){
-			String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
+			
 			temperatureAnalysis(msgSplit[1],frame);
 			humidityAnalysis(msgSplit[2],frame);
 			co2Analysis(msgSplit[3],frame);
@@ -322,6 +380,12 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		
 		return time;
 	}
+
+	
+
+	
+
+	
 
 	
 }

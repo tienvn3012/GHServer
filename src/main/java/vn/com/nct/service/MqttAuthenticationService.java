@@ -84,8 +84,8 @@ public class MqttAuthenticationService implements MqttCallback{
 					System.out.println("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0");
 //					publisher.publish("nct_info_"+id, (frame.getPlant().getPlant_info().getTrack_time()+"").getBytes(), 2, true);
 //					publisher.publish("nct_info_"+id, new MqttMessage("60000".getBytes()));
-					subscribe.subscribe("nct_collect_"+id);
-					System.out.println("subscribe topic : nct_collect_"+id);
+//					subscribe.subscribe("nct_collect_"+id);
+//					System.out.println("subscribe topic : nct_collect_"+id);
 				}else {
 					authentication_result.publish("nct_authentication_result_"+id, ("PASS\0").getBytes(),0,true);
 					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int","harvested;false;=;boolean");

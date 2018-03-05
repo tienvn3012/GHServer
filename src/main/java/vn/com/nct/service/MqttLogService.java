@@ -42,7 +42,6 @@ public class MqttLogService implements MqttCallback{
 		String[] split = msg.split(Constant.SPLIT_PATTERN);
 		boolean status = false;
 		String device = "";
-		System.out.println("sssss" + split[2]);
 		switch (split[2]) {
 		case "L_1":
 			device = "LED";

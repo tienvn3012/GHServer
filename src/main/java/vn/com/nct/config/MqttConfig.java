@@ -59,7 +59,7 @@ public class MqttConfig implements MqttCallback{
              
              System.out.println("Connected");
              System.out.println("Publishing message: "+content);
-             
+             subscriber.subscribe("nct_collect");
              subscriber.setCallback(this);
 
 		} catch (MqttException e) {
@@ -71,7 +71,7 @@ public class MqttConfig implements MqttCallback{
     }
 
     @Bean(name = "publisher")
-    public MqttClient mqttPublisher(){
+    public MqttClient mqttPublisher(){ // service for light, control by hours
     	 try {
 			publisher = new MqttClient(broker, "publisher");
 			publisher.connect();
@@ -83,7 +83,7 @@ public class MqttConfig implements MqttCallback{
     }
     
     @Bean(name = "publisher2")
-    public MqttClient mqttPublisher2(){
+    public MqttClient mqttPublisher2(){ // service for pump, control by seconds
     	 try {
 			publisher2 = new MqttClient(broker, "publisher2");
 			publisher2.connect();
@@ -95,7 +95,7 @@ public class MqttConfig implements MqttCallback{
     }
     
     @Bean(name = "publisher3")
-    public MqttClient mqttPublisher3(){
+    public MqttClient mqttPublisher3(){ // service for control onetime
     	 try {
 			publisher3 = new MqttClient(broker, "publisher3");
 			publisher3.connect();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service("ansync")
 @Scope("prototype")
-public class PublishServiceAnsyn extends Thread{
+public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 	@Autowired
 	@Qualifier("publisher")
 	private MqttClient control_device;
@@ -28,6 +28,24 @@ public class PublishServiceAnsyn extends Thread{
 	public PublishServiceAnsyn() {
 		super();
 		// TODO Auto-generated constructor stub
+		long time_on = (long)Math.floor(delay_time*1000);
+		long time_off = time_on;
+		while(true){
+			try {
+				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
+				sleep(time_on);
+				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
+				sleep(time_off);
+			} catch (MqttException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 	}
 
 

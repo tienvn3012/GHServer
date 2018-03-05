@@ -131,9 +131,9 @@ public class ControlController extends LayoutController{
 	public String pumpUpControl(@PathVariable int id, @RequestParam(name="pumpup")String pumpup){
 		try{
 			if("on".equals(pumpup)){
-				publisher.publish("nct_control_"+id, (Constant.PUMP_UP_ON).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_ON).getBytes(),2,true);
 			}else {
-				publisher.publish("nct_control_"+id, (Constant.PUMP_UP_OFF).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
 			// TODO Auto-generated catch block
@@ -149,9 +149,9 @@ public class ControlController extends LayoutController{
 	public String pumpDownControl(@PathVariable int id, @RequestParam(name="pumpdown")String pumpdown){
 		try{
 			if("on".equals(pumpdown)){
-				publisher.publish("nct_control_"+id, (Constant.PUMP_DOWN_ON).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_ON).getBytes(),2,true);
 			}else {
-				publisher.publish("nct_control_"+id, (Constant.PUMP_DOWN_OFF).getBytes(),2,true);
+				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
 			// TODO Auto-generated catch block
