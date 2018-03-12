@@ -92,6 +92,7 @@ public class MqttAuthenticationService implements MqttCallback{
 					Constant.set_frame.add(frame);
 					System.out.println("Device id "+id+" loged in !!!!");
 					// open automatic thread control
+					controlService.pumpWaterToFrame(frame, 0);
 					controlService.plantAnalysis(frame);
 				}
 					

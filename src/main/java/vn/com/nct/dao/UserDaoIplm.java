@@ -119,8 +119,11 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 
 	@Override
 	public Users updateE(Users e) {
-		// TODO Auto-generated method stub
-		return null;
+		int id = e.getId();
+		
+		this.save(e);
+		
+		return this.getOneById(id);
 	}
 
 	

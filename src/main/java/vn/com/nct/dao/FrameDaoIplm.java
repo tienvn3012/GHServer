@@ -88,8 +88,9 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 
 	@Override
 	public Frame updateE(Frame e) {
-		// TODO Auto-generated method stub
-		return null;
+		int id = e.getId();
+		this.save(e);
+		return this.getOneById(id);
 	}
 
 }

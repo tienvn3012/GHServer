@@ -155,8 +155,22 @@ public class Constant {
 			if(lis_deviceThread.get(i).getId() == id){
 				for (int j = 0; j < lis_deviceThread.get(i).getLis().size(); j++) {
 					System.out.println("stop" +i + "-" +j);
-					lis_deviceThread.get(i).getLis().get(j).stop();
+					lis_deviceThread.get(i).getLis().get(j).suspend();
 				}
+				System.out.println("thread : "+lis_deviceThread.get(i).getLis().size());
+			}
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void startThreadByDeviceId(int id){
+		for (int i = 0; i < lis_deviceThread.size(); i++) {
+			if(lis_deviceThread.get(i).getId() == id){
+				for (int j = 0; j < lis_deviceThread.get(i).getLis().size(); j++) {
+					System.out.println("start" +i + "-" +j);
+					lis_deviceThread.get(i).getLis().get(j).resume();
+				}
+				System.out.println("thread : "+lis_deviceThread.get(i).getLis().size());
 			}
 		}
 	}

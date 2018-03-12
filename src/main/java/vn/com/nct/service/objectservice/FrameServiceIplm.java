@@ -90,7 +90,7 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	@Override
 	public Frame updateE(Frame e) {
 		// TODO Auto-generated method stub
-		return null;
+		return frameDao.updateE(e);
 	}
 
 	@Override

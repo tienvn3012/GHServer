@@ -48,6 +48,9 @@ public class ControlController extends LayoutController{
 		
 		if("on".equals(mode)){
 			frame.setAutomatic_mode(true);
+			Constant.updateItemOfSetFrame(frame);
+			Constant.startThreadByDeviceId(frame.getDevice_control().getId());
+			
 		}else if("off".equals(mode)){
 			frame.setAutomatic_mode(false);
 			try {
@@ -61,13 +64,16 @@ public class ControlController extends LayoutController{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			Constant.updateItemOfSetFrame(frame);
+			Constant.stopThreadByDeviceId(frame.getDevice_control().getId());
 		}else{
 			return "{\"status\" : 1}";
 		}
 		
-		Constant.updateItemOfSetFrame(frame);
+		
 		frameService.updateE(frame);
-		Constant.stopThreadByDeviceId(frame.getDevice_control().getId());
+		
 		
 		
 		return "{\"status\" : 0}";
