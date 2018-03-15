@@ -31,6 +31,7 @@ public class MqttConfig implements MqttCallback{
 	private MqttCallback keepAliveCcallback;
 	
 	@Autowired
+	@Qualifier(value = "automaticControl")
 	private AutomaticControlService automatic;
 
 	private MqttClient subscriber 			 = null;
@@ -58,8 +59,9 @@ public class MqttConfig implements MqttCallback{
             
              
              System.out.println("Connected");
-             System.out.println("Publishing message: "+content);
+ 
              subscriber.subscribe("nct_collect");
+             System.out.println("subscribe topic : nct_colect !!!!!");
              subscriber.setCallback(this);
 
 		} catch (MqttException e) {

@@ -74,7 +74,7 @@
         <p>Some text in the modal.</p>
       </div>
       <div class="modal-footer" id="modal_footer">
-      	<button id="modal_action" type="button" class="btn btn-success">something</button>
+      	<button id="modal_action" type="button" action="" class="btn btn-success">something</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

@@ -20,14 +20,27 @@ public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 	private String message_off;
 	private int stop_time;
 	
-
-	
-	
-	
-
 	public PublishServiceAnsyn() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public PublishServiceAnsyn(MqttClient control_device, int did, double delay_time, String message_on,
+			String message_off, int stop_time) {
+		super();
+		this.control_device = control_device;
+		this.did = did;
+		this.delay_time = delay_time;
+		this.message_on = message_on;
+		this.message_off = message_off;
+		this.stop_time = stop_time;
+	}
+
+
+	@Override
+	public void run() {
+		super.run();
+		
 		long time_on = (long)Math.floor(delay_time*1000);
 		long time_off = time_on;
 		while(true){
@@ -44,48 +57,6 @@ public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 				e.printStackTrace();
 			}
 		}
-		
-		
-	}
-
-
-
-
-
-	public PublishServiceAnsyn(MqttClient control_device, int did, double delay_time, String message_on,
-			String message_off, int stop_time) {
-		super();
-		this.control_device = control_device;
-		this.did = did;
-		this.delay_time = delay_time;
-		this.message_on = message_on;
-		this.message_off = message_off;
-		this.stop_time = stop_time;
-	}
-
-
-
-
-
-	@Override
-	public void run() {
-		super.run();
-		
-			try {
-				int day = 1;
-				long time_on = (long)Math.floor(delay_time*60*60*1000);
-				while(day <= stop_time){
-					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
-					sleep(time_on);
-					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
-				}
-			} catch (MqttException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		
 		
 	}

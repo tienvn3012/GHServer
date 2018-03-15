@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,6 +74,16 @@ public class UserController extends LayoutController{
 		
 		Page<UserResponse> p = userService.getPage(page, row);
 		return new ResponseEntity<>(p, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "manager/user/add", method = RequestMethod.POST)
+	public String addUser(@RequestBody UserResponse user){
+		
+		System.out.println(user.getUsername());
+		System.out.println(user.getRole().getRole());
+		System.out.println(user.getInfo().getDate_of_birth());
+		
+		return null;
 	}
 	
 	@RequestMapping(value = "manager/user/properties", method = RequestMethod.GET)

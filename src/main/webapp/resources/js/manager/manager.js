@@ -58,11 +58,11 @@ $(document).ready(function(){
 					 		" class='form-control' name='"+lis[i]['name']+"' />"
 					 break;
 				 case "select":
-					 modal_html += " <select class='form-control'>";
+					 modal_html += " <select class='form-control' name ='"+lis[i]['name']+"'>";
 					 if(t[1] == "values"){
 						 var t2 = t[2].split(";");
 						 for(var j=0;j<t2.length;j++){
-							 modal_html += "<option>"+t2[j]+"</option>"
+							 modal_html += "<option value='"+t2[j]+"'>"+t2[j]+"</option>"
 						 }
 						 modal_html += "</select>"
 					 }else if(t[1] == "link"){
@@ -94,6 +94,11 @@ $(document).ready(function(){
 				};
 				
 			}
+		},
+		
+		//clear modal
+		clear_modal : function(){
+			modal_html = "";
 		},
 		
 		// clear old table
@@ -200,8 +205,10 @@ $(document).ready(function(){
 	});
 	
 	$("#add-record").click(function(){
+		$(this).clear_modal();
 		$("#modal_header").html("Add new " + obj_name);
 		$("#modal_action").html("Add");
+		$("#modal_action").attr("action","add");
 		
 		$(this).set_modal_add_html(manager_properties['model_properties']);
 		
@@ -212,5 +219,55 @@ $(document).ready(function(){
 		$("#modal_body").html(modal_html);
 		
 	});
+	
+	
+	$("#delete-record").click(function(){
+		$(this).clear_modal();
+		$("#modal_header").html("Delete new " + obj_name);
+		$("#modal_action").html("Delete");
+		$("#modal_action").attr("action","delete");
+		
+//		$(this).set_modal_add_html(manager_properties['model_properties']);
+//		
+//		for(var i = 0;i<manager_properties['lis_model_reference_properties'].length;i++){
+//			$(this).set_modal_add_html(manager_properties['lis_model_reference_properties'][i]['lis']);
+//		}
+		
+		$("#modal_body").html(modal_html);
+		
+	});
+	
+	$("#edit-record").click(function(){
+		$(this).clear_modal();
+		$("#modal_header").html("Edit new " + obj_name);
+		$("#modal_action").html("Edit");
+		$("#modal_action").attr("action","edit");
+		
+//		$(this).set_modal_add_html(manager_properties['model_properties']);
+//		
+//		for(var i = 0;i<manager_properties['lis_model_reference_properties'].length;i++){
+//			$(this).set_modal_add_html(manager_properties['lis_model_reference_properties'][i]['lis']);
+//		}
+		
+		$("#modal_body").html(modal_html);
+		
+	});
+	
+	
+	$("#modal_action").click(function(){
+		var action = $(this).attr("action");
+		
+		if(action === "add"){
+			$(this).add_record_action();
+		}else if(action === "delete"){
+			
+		}else if(action === "edit"){
+			
+		}else{
+			
+		}
+		
+	});
+	
 	
 });

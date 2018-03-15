@@ -22,7 +22,7 @@ import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
 import vn.com.nct.service.objectservice.ObjectService;
 
-@Service
+@Service("automaticControl")
 public class AutomaticControlServiceIplm implements AutomaticControlService{
 	
 	private String on;
