@@ -132,5 +132,21 @@ public class UserInfoServiceIplm implements ObjectService<UserInfo,UserInfoRespo
 		return null;
 	}
 
+	@Override
+	public UserInfo parseToStandar(UserInfoResponse t) {
+		UserInfo info = new UserInfo();
+		
+		info.setAddress(t.getAddress());
+		info.setDate_of_birth(t.getDate_of_birth());
+		info.setDeleted(0);
+		info.setEmail(t.getEmail());
+		info.setFullname(t.getFullname());
+		info.setGender(t.isGender());
+		info.setLevel(t.getLevel());
+		info.setPhone(t.getPhone());
+		
+		return info;
+	}
+
 
 }

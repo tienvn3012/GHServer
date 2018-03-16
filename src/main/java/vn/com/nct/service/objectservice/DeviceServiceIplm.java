@@ -115,6 +115,12 @@ public class DeviceServiceIplm implements ObjectService<Devices,DevicesResponse>
 		return null;
 	}
 
+	@Override
+	public Devices parseToStandar(DevicesResponse t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

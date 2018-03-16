@@ -121,6 +121,12 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 		return null;
 	}
 
+	@Override
+	public Frame parseToStandar(FrameResponse t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 }

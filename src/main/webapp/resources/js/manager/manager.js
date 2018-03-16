@@ -258,7 +258,14 @@ $(document).ready(function(){
 		var action = $(this).attr("action");
 		
 		if(action === "add"){
+			ansync_ajax_result = null; // clear ajax result
 			$(this).add_record_action();
+			if(ansync_ajax_result == null)
+				return;
+			toastr.success('Record added !', 'Success');
+			
+			$(this).reload_table(manager_properties);
+			
 		}else if(action === "delete"){
 			
 		}else if(action === "edit"){

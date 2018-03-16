@@ -10,6 +10,7 @@ public class UserResponse {
 	private String			 avatar;
 	private boolean 		 active;
 	private boolean 		 create_to;
+	private boolean			 state; //1 : existed, 2
 	private RoleResponse 	 role;
 	private UserInfoResponse info;
 	
@@ -80,6 +81,14 @@ public class UserResponse {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
 	}
 	
 	

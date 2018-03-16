@@ -128,5 +128,11 @@ public class RoleServiceIplm implements ObjectService<Roles,RoleResponse>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Roles parseToStandar(RoleResponse t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

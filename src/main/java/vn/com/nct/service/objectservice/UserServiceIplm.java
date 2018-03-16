@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.nct.base.PasswordCryptService;
 import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.Roles;
 import vn.com.nct.model.UserInfo;
@@ -28,6 +29,9 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 	
 	@Autowired
 	private ObjectService<Roles, RoleResponse> roleService;
+	
+	@Autowired
+	private PasswordCryptService pwCrypt;
 	
 	@Override
 	public List<Users> getAll() {
@@ -135,6 +139,7 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 		ur.setId(user.getId());
 		ur.setLast_login(user.getLast_login());
 		ur.setUsername(user.getUsername());
+		ur.setState(true);
 		
 		ur.setInfo(userInfoService.parseResponse(user.getInfo()));
 		ur.setRole(roleService.parseResponse(user.getRole()));
@@ -146,6 +151,26 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 	public Page<UserResponse> getPageBy(int page_number, int row, String... condition) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Users parseToStandar(UserResponse t) {
+		Users user = new Users();
+		
+		user.setActive(true);
+		user.setAvatar(t.getAvatar());
+		user.setCreate_by(t.getCreate_by());
+		user.setCreate_time(t.getCreate_time());
+		user.setCreate_to(false);
+		user.setDeleted(0);
+		user.setLast_login(t.getLast_login());
+		user.setUsername(t.getUsername());
+		
+		if(!t.isState()){
+			user.setPassword(pwCrypt.encryptPassword("123456"));
+		}
+		
+		return user;
 	}
 	
 }

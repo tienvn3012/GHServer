@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.com.nct.base.TimerService;
 import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Layout;
+import vn.com.nct.model.Roles;
+import vn.com.nct.model.UserInfo;
 import vn.com.nct.model.Users;
 import vn.com.nct.model.response.ModelProperties;
 import vn.com.nct.model.response.ModelReferenceProperties;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PropertiesResponse;
+import vn.com.nct.model.response.UserInfoResponse;
 import vn.com.nct.model.response.UserResponse;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -29,6 +33,12 @@ public class UserController extends LayoutController{
 	
 	@Autowired
 	private ObjectService<Users, UserResponse> userService;
+	
+	@Autowired
+	private ObjectService<UserInfo, UserInfoResponse> userInfoService;
+	
+	@Autowired
+	private TimerService timerService;
 	
 	private List<ModelProperties> display_left = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
@@ -79,11 +89,21 @@ public class UserController extends LayoutController{
 	@RequestMapping(value = "manager/user/add", method = RequestMethod.POST)
 	public String addUser(@RequestBody UserResponse user){
 		
-		System.out.println(user.getUsername());
-		System.out.println(user.getRole().getRole());
-		System.out.println(user.getInfo().getDate_of_birth());
+		UserInfo info = userInfoService.parseToStandar(user.getInfo());
+		info = userInfoService.saveE(info);
 		
-		return null;
+		
+		user.setActive(true);
+		user.setCreate_by(1);
+		user.setCreate_time(timerService.getCurrentTime());
+		
+		Users u = userService.parseToStandar(user);
+		u.setInfo(info);
+		u.setRole(new Roles(user.getRole().getId(), user.getRole().getRole()));
+		
+		userService.saveE(u);
+		
+		return "{\"status\" : 0}";
 	}
 	
 	@RequestMapping(value = "manager/user/properties", method = RequestMethod.GET)

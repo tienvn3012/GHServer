@@ -141,6 +141,12 @@ public class FrameDataCollectionServiceIplm implements ObjectService<FrameDataCo
 		return null;
 	}
 
+	@Override
+	public FrameDataColection parseToStandar(FrameDataCollectionResponse t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

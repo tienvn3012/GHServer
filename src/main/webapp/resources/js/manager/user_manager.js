@@ -21,7 +21,6 @@ $(document).ready(function(){
         	$(this).set_display(ansync_ajax_result);
         	
         	$("#manager").find("ul").html(table);
-        	
         },
         
         error : function (jqXHR, exception) {
@@ -31,6 +30,14 @@ $(document).ready(function(){
 	
 	
 	jQuery.fn.extend({
+		reload_table : function(manager_properties){
+			manager_properties['total_records']+=1;
+			$("#total_records").html("Total records : "+manager_properties['total_records']+" records");
+        	$(this).simple_ajax_request("user/1?row=5",null,'GET',false);
+        	$(this).set_display(ansync_ajax_result);
+        	
+        	$("#manager").find("ul").html(table);
+		},
 		
 		add_record_action : function(){
 			var user = {};
@@ -40,9 +47,11 @@ $(document).ready(function(){
 			user['username']  				= $("#modal_body input[name='username']").val();
 			user['active']    				= true;
 			user['create_to'] 				= false;
+			user['create_by'] 				= 1;
 			user['create_time'] 			= null;
 			user['last_login'] 				= null;
 			user['avatar'] 					= null;
+			user['state'] 					= false;
 			
 			user['info']['level'] 			= parseInt($("#modal_body select[name='level']").val());
 			user['info']['fullname']		= $("#modal_body input[name='fullname']").val();

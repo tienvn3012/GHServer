@@ -22,4 +22,5 @@ public interface ObjectService <E,T>{
 	public Page<T> getPageBy(int page_number, int row, String... condition);
 	public List<T> parseAll(List<E> lis);
 	public T parseResponse(E e);
+	public E parseToStandar(T t);
 }
