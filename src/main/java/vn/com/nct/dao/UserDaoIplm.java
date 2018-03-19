@@ -30,6 +30,7 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 		DetachedCriteria criteria = DetachedCriteria.forClass(Users.class,"users");
 		criteria.createAlias("users.role", "role")
 		.createAlias("users.info", "userinfo");
+		criteria.add(Restrictions.eq("users.deleted",0));
 		
 		criteria = base.setCondition(criteria, condition);
 		
@@ -47,6 +48,7 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 		DetachedCriteria criteria = DetachedCriteria.forClass(Users.class,"users");
 		criteria.createAlias("users.role", "role")
 		.createAlias("users.info", "userinfo");
+		criteria.add(Restrictions.eq("users.deleted",0));
 		
 		criteria = base.setCondition(criteria, condition);
 		
@@ -72,7 +74,9 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 
 	@Override
 	public int countAll() {
-		Criteria criteria = getSession().getCurrentSession().createCriteria(Users.class);
+		Criteria criteria = getSession().getCurrentSession().createCriteria(Users.class,"users");
+		criteria.add(Restrictions.eq("users.deleted",0));
+		
 		Integer count = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 		return count;
 	}
@@ -82,6 +86,7 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 		Criteria criteria = getSession().getCurrentSession().createCriteria(Users.class,"users");
 		criteria.createAlias("users.role", "role")
 		.createAlias("users.info", "userinfo");
+		criteria.add(Restrictions.eq("users.deleted",0));
 		
 		criteria = base.setConditionCriteria(criteria, condition);
 		Integer count = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
@@ -103,6 +108,7 @@ public class UserDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport
 		DetachedCriteria criteria = DetachedCriteria.forClass(Users.class,"users");
 		criteria.createAlias("users.role", "role")
 		.createAlias("users.info", "userinfo");
+		criteria.add(Restrictions.eq("users.deleted",0));
 		
 		criteria = base.setCondition(criteria, condition);
 		

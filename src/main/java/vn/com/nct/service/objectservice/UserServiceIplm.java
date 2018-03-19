@@ -71,7 +71,7 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 	@Override
 	public void deleteE(int id) {
 		// TODO Auto-generated method stub
-		
+		userDao.deleteE(id);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class UserServiceIplm implements ObjectService<Users,UserResponse>{
 	@Override
 	public Users updateE(Users e) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.updateE(e);
 	}
 
 	public List<UserResponse> parseAll(List<Users> lis){

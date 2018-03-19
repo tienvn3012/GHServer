@@ -106,6 +106,36 @@ public class UserController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
+	@RequestMapping(value = "manager/user/edit", method = RequestMethod.POST)
+	public String editUser(@RequestBody UserResponse user,
+			@RequestParam(value = "id", required = true)int id){
+		
+		Users u = userService.getOneById(id);
+		
+		
+		
+		u.setUsername(user.getUsername());
+		u.getInfo().setAddress(user.getInfo().getAddress());
+		u.getInfo().setDate_of_birth(user.getInfo().getDate_of_birth());
+		u.getInfo().setEmail(user.getInfo().getEmail());
+		u.getInfo().setFullname(user.getInfo().getFullname());
+		u.getInfo().setGender(user.getInfo().isGender());
+		u.getInfo().setLevel(user.getInfo().getLevel());
+		u.getInfo().setPhone(user.getInfo().getPhone());
+		
+		u.getRole().setId(user.getRole().getId());
+		u.getRole().setRole(user.getRole().getRole());
+		
+		userInfoService.updateE(u.getInfo());
+		return "{\"status\" : 0}";
+	}
+	
+	@RequestMapping(value = "manager/user/delete/{id}", method = RequestMethod.GET)
+	public String deleteUser(@PathVariable int id){
+		userService.deleteE(id);
+		return "{\"status\" : 0}";
+	}
+	
 	@RequestMapping(value = "manager/user/properties", method = RequestMethod.GET)
 	public ResponseEntity<PropertiesResponse> getUserProperties(){
 		

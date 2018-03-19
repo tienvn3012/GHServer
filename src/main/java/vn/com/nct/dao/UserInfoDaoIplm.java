@@ -85,7 +85,7 @@ public class UserInfoDaoIplm extends HibernateDaoSupport implements ObjectDaoSup
 
 	@Override
 	public UserInfo updateE(UserInfo e) {
-		// TODO Auto-generated method stub
+		save(e);
 		return null;
 	}
 

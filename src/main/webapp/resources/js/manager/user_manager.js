@@ -21,6 +21,8 @@ $(document).ready(function(){
         	$(this).set_display(ansync_ajax_result);
         	
         	$("#manager").find("ul").html(table);
+        	
+        	data = ansync_ajax_result;
         },
         
         error : function (jqXHR, exception) {
@@ -37,9 +39,12 @@ $(document).ready(function(){
         	$(this).set_display(ansync_ajax_result);
         	
         	$("#manager").find("ul").html(table);
+        	
+        	data = ansync_ajax_result;
 		},
 		
-		add_record_action : function(){
+		//add or edit record 
+		add_or_edit_record : function(action){
 			var user = {};
 			user['info'] = {};
 			user['role'] = {};
@@ -64,16 +69,20 @@ $(document).ready(function(){
 			user['role']['id'] 				= $("#modal_body select[name='role']").val();
 			user['role']['role']			= $("#modal_body select[name='role'] :selected").text();
 		
-			$(this).simple_ajax_request("user/add",user,"POST",false);
+			$(this).simple_ajax_request("user/"+action,user,"POST",false);
+		},
+		
+		add_record_action : function(){
+			$(this).add_or_edit_record("add");
 		
 		},
 		
-		delete_record_action : function(){
-			
+		delete_record_action : function(id){
+			$(this).simple_ajax_request("user/delete/"+id,null,"GET",false);
 		},
 		
-		edit_record_action : function(){
-			
+		edit_record_action : function(id){
+			$(this).add_or_edit_record("edit?id="+id);
 		}
 		
 	});

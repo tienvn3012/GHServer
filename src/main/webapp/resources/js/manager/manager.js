@@ -36,11 +36,71 @@ var table = '';
 var manager_properties = null;
 var obj_name = "";
 var modal_html = "";
+var data = {};
 
 
 $(document).ready(function(){
 	
 	jQuery.fn.extend({
+		// delete html for modal
+		set_modal_delete_html : function(){
+			modal_html += "<h3 style='color:#4a4a4a;'>Are you sure want to delete this "+obj_name+" ?</h3>";
+		},
+		
+		// edit html for modal
+		set_modal_edit_html : function(lis, obj, ref){
+			for(var i = 0;i<lis.length;i++){
+				if("ignore" == lis[i]['rule']){
+					continue;
+				} 
+				
+				modal_html += "<p>"+lis[i]['name']+" :</p>";
+				var t = lis[i]['input'].split("_");
+				switch(t[0]){
+				 case "inputtext" : 
+					 modal_html += "<input type='text'" +
+					 		" placeholder='"+(lis[i]['notification'] == null ? lis[i]['name'] : lis[i]['notification'])+"'" +
+					 		" class='form-control' name='"+lis[i]['name']+"' value='"+(ref == null ? obj[lis[i]['name']]:obj[ref][lis[i]['name']])+"' />"
+					 break;
+				 case "select":
+					 modal_html += " <select class='form-control' name ='"+lis[i]['name']+"'>";
+					 if(t[1] == "values"){
+						 var t2 = t[2].split(";");
+						 for(var j=0;j<t2.length;j++){
+							 modal_html += "<option value='"+t2[j]+"' "+(t2[j] == (ref == null ? obj[lis[i]['name']]:obj[ref][lis[i]['name']])?"selected":"")+">"+t2[j]+"</option>"
+						 }
+						 modal_html += "</select>"
+					 }else if(t[1] == "link"){
+						 $(this).simple_ajax_request(t[2],null,'GET',false);
+						 for(var j=0;j<ansync_ajax_result.length;j++){
+							 modal_html += "<option value='"+ansync_ajax_result[j]['id']+"' "+(ansync_ajax_result[j]['value'] == (ref == null ? obj[lis[i]['name']]:obj[ref][lis[i]['name']])?"selected":"")+">" +
+							 		""+ansync_ajax_result[j]['value']+"</option>"
+						 }
+						 modal_html += "</select>"
+					 }else{
+						 
+					 }
+					 break;
+				 case "img":
+//					 modal_html += '<div class="file-tab panel-body">' +
+//						 '<div class="imageupload panel panel-default">'+
+//						 '<label class="btn btn-default btn-file">'+
+//			            '<span>Browse</span>'+
+//			            '<input type="file" name="'+lis[i]['name']+'">'+
+//			            '</label>'+
+//			            '<button type="button" class="btn btn-default" style="display:none;">Remove</button>'+
+//			            '</div></div>';
+					 break;
+				 case "radio":
+					 break;
+				 case "checkbox":
+					 break;
+				 default : 
+					 break;
+				};
+				
+			}
+		},
 		
 		// add html for modal add
 		set_modal_add_html : function(lis){
@@ -108,7 +168,7 @@ $(document).ready(function(){
 		
 		// table set head
 		set_header : function(id){
-			table += '<li class="item">'
+			table += '<li class="item" obj-id="'+id+'">'
 				+'<div class="main display-flex">';
 			table += '<div class="select-item">'
 				+'				<input obj-id="'+id+'" type="checkbox" />'
@@ -184,17 +244,17 @@ $(document).ready(function(){
 		
 		set_right : function(){
 			table +=				'<div class="display-right">'
-				+'					<div class="action"><i class="fa fa-trash"></i></div>'
-				+'					<div class="action"><i class="fa fa-edit"></i></div>';
+				+'					<div class="action delete-record" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash"></i></div>'
+				+'					<div class="action edit-record" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i></div>';
 			if(manager_properties['display_right'].length == 3)
-				table+= '<div class="action"><i class="fa fa-arrow-right"></i></div>';
+				table+= '<div class="action" ><i class="fa fa-arrow-right"></i></div>';
 			table += '</div>';
 		},
 		
 		set_display : function(result){
 			$(this).clear_table();
 			for (var i= 0; i < result['lis'].length; i++){
-				$(this).set_header();
+				$(this).set_header(result['lis'][i]['id']);
 				$(this).set_left(result['lis'][i]);
 				$(this).set_mid(result['lis'][i]);
 				$(this).set_right();
@@ -221,33 +281,36 @@ $(document).ready(function(){
 	});
 	
 	
-	$("#delete-record").click(function(){
+	$(document).on("click", "#manager .table-manager li .delete-record",function() {
 		$(this).clear_modal();
 		$("#modal_header").html("Delete new " + obj_name);
 		$("#modal_action").html("Delete");
 		$("#modal_action").attr("action","delete");
 		
-//		$(this).set_modal_add_html(manager_properties['model_properties']);
-//		
-//		for(var i = 0;i<manager_properties['lis_model_reference_properties'].length;i++){
-//			$(this).set_modal_add_html(manager_properties['lis_model_reference_properties'][i]['lis']);
-//		}
+		var id	= $(this).parents("li.item").attr("obj-id");
+		$("#modal_action").attr("obj-id",id);
+		
+		$(this).set_modal_delete_html();
 		
 		$("#modal_body").html(modal_html);
-		
-	});
+		});
 	
-	$("#edit-record").click(function(){
+	$(document).on("click", "#manager .table-manager li .edit-record",function() {
 		$(this).clear_modal();
 		$("#modal_header").html("Edit new " + obj_name);
 		$("#modal_action").html("Edit");
 		$("#modal_action").attr("action","edit");
+
+		var id	= $(this).parents("li.item").attr("obj-id");
+		$("#modal_action").attr("obj-id",id);
+		var obj = find_obj_by_id(data['lis'],id);
 		
-//		$(this).set_modal_add_html(manager_properties['model_properties']);
-//		
-//		for(var i = 0;i<manager_properties['lis_model_reference_properties'].length;i++){
-//			$(this).set_modal_add_html(manager_properties['lis_model_reference_properties'][i]['lis']);
-//		}
+		$(this).set_modal_edit_html(manager_properties['model_properties'],obj,null);
+		
+		for(var i = 0;i<manager_properties['lis_model_reference_properties'].length;i++){
+			$(this).set_modal_edit_html(manager_properties['lis_model_reference_properties'][i]['lis'],obj,
+					manager_properties['lis_model_reference_properties'][i]['name']);
+		}
 		
 		$("#modal_body").html(modal_html);
 		
@@ -267,9 +330,21 @@ $(document).ready(function(){
 			$(this).reload_table(manager_properties);
 			
 		}else if(action === "delete"){
+			ansync_ajax_result = null; // clear ajax result
+			$(this).delete_record_action($(this).attr("obj-id"));
+			if(ansync_ajax_result == null)
+				return;
+			toastr.success('Record deleted !', 'Success');
 			
+			$(this).reload_table(manager_properties);
 		}else if(action === "edit"){
+			ansync_ajax_result = null; // clear ajax result
+			$(this).edit_record_action($(this).attr("obj-id"));
+			if(ansync_ajax_result == null)
+				return;
+			toastr.success('Record edited !', 'Success');
 			
+			$(this).reload_table(manager_properties);
 		}else{
 			
 		}

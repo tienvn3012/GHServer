@@ -96,7 +96,7 @@ public class UserInfoServiceIplm implements ObjectService<UserInfo,UserInfoRespo
 	@Override
 	public UserInfo updateE(UserInfo e) {
 		// TODO Auto-generated method stub
-		return null;
+		return userInfoDao.updateE(e);
 	}
 
 	@Override

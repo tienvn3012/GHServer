@@ -20,6 +20,19 @@ toastr.options = {
 		  "hideMethod": "fadeOut"
 		}
 
+/*base function*/
+function find_obj_by_id(array, id){
+	if(!Array.isArray(array)) return null;
+	
+	for (var i = 0; i < array.length; i++) {
+		if(parseInt(array[i]['id']) == parseInt(id))
+			return array[i];
+	}
+	
+	return null;
+}
+/*end base function*/
+
 $(document).ready(function(){
 	
 	$(".scroll").niceScroll();
