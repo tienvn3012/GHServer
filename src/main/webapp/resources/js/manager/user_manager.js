@@ -1,47 +1,6 @@
 $(document).ready(function(){
 	
-	$.ajax({
-    	headers: { 
-            Accept: 'application/json'
-        },
-        contentType	: "application/json; charset=utf-8",
-        type 		: "GET",
-        url 		: "user/properties",
-        timeout		: 6000,
-        dataType 	: 'json',
-        async 		: false,
-        
-        success : function (result) {            	
-        	$("head").find("title").html(result['name'] + "Manager");
-        	obj_name = result['name']
-        	$("#pt").html(obj_name + "Manage");
-        	manager_properties = result;
-        	$("#total_records").html("Total records : "+result['total_records']+" records");
-        	$(this).simple_ajax_request("user/1?row=5",null,'GET',false);
-        	$(this).set_display(ansync_ajax_result);
-        	
-        	$("#manager").find("#tbl-ul").html(table);
-        	
-        	data = ansync_ajax_result;
-        },
-        
-        error : function (jqXHR, exception) {
-        	$(this).error(jqXHR, exception);
-        }
-    });
-	
-	
 	jQuery.fn.extend({
-		reload_table : function(manager_properties){
-			manager_properties['total_records']+=1;
-			$("#total_records").html("Total records : "+manager_properties['total_records']+" records");
-        	$(this).simple_ajax_request("user/1?row=5",null,'GET',false);
-        	$(this).set_display(ansync_ajax_result);
-        	
-        	$("#manager").find("ul").html(table);
-        	
-        	data = ansync_ajax_result;
-		},
 		
 		//add or edit record 
 		add_or_edit_record : function(action){
@@ -74,11 +33,20 @@ $(document).ready(function(){
 		
 		add_record_action : function(){
 			$(this).add_or_edit_record("add");
-		
+			if(!error){
+				manager_properties['total_records']+=1;
+				
+				$(this).reload_pager();
+			}
 		},
 		
 		delete_record_action : function(id){
 			$(this).simple_ajax_request("user/delete/"+id,null,"GET",false);
+			if(!error){
+				manager_properties['total_records']-=1;
+				
+				$(this).reload_pager();
+			}
 		},
 		
 		edit_record_action : function(id){

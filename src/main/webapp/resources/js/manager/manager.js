@@ -34,8 +34,10 @@ var table = '';
 
 
 var manager_properties = null;
+var num_page = 0;
 var obj_name = "";
 var modal_html = "";
+var pager = "";
 var data = {};
 var page = 1;
 var row = 5;
@@ -161,6 +163,58 @@ $(document).ready(function(){
 		//clear modal
 		clear_modal : function(){
 			modal_html = "";
+		},
+		
+		//clear pager
+		clear_pager : function(){
+			pager = "";
+		},
+		
+		//reload pager
+		reload_pager : function(){
+			num_page = (manager_properties['total_records']%row == 0 ? 
+					Math.floor(manager_properties['total_records']/row) : Math.floor(manager_properties['total_records']/row) + 1);
+			
+			$("#manager").find("#pager").empty();
+			$(this).clear_pager();
+			if(num_page <= 5){
+				for (var i = 1; i <= num_page; i++) {
+					pager+="<li class='page-item' " +
+					"state='"+(i==page ? "active":"")+"'>"+i+"</li>";
+				}
+			}else{
+				if(num_page - 5 < page){
+					for (var i = num_page-5; i < num_page; i++) {
+						pager+="<li class='page-item' " +
+						"state='"+(i==page ? "active":"")+"'>"+i+"</li>";
+					}
+				}else{
+					if(page == 1){
+						for (var i = page; i < page+5; i++) {
+							pager+="<li class='page-item' " +
+							"state='"+(i==page ? "active":"")+"'>"+i+"</li>";
+						}
+					}else{
+						for (var i = page-1; i < page+4; i++) {
+							pager+="<li class='page-item' " +
+							"state='"+(i==page ? "active":"")+"'>"+i+"</li>";
+						}
+					}
+				}
+			}
+			
+			$("#pager").html(pager);
+		},
+		
+		//reload table
+		reload_table : function(){
+			$("#total_records").html("Total records : "+manager_properties['total_records']+" records");
+        	$(this).simple_ajax_request(obj_name+"/"+page+"?row="+row,null,'GET',false);
+        	$(this).set_display(ansync_ajax_result);
+        	
+        	$("#manager").find("#tbl-ul").html(table);
+        	
+        	data = ansync_ajax_result;
 		},
 		
 		// clear old table
@@ -329,7 +383,7 @@ $(document).ready(function(){
 				return;
 			toastr.success('Record added !', 'Success');
 			
-			$(this).reload_table(manager_properties);
+			$(this).reload_table();
 			
 		}else if(action === "delete"){
 			ansync_ajax_result = null; // clear ajax result
@@ -338,7 +392,7 @@ $(document).ready(function(){
 				return;
 			toastr.success('Record deleted !', 'Success');
 			
-			$(this).reload_table(manager_properties);
+			$(this).reload_table();
 		}else if(action === "edit"){
 			ansync_ajax_result = null; // clear ajax result
 			$(this).edit_record_action($(this).attr("obj-id"));
@@ -346,7 +400,7 @@ $(document).ready(function(){
 				return;
 			toastr.success('Record edited !', 'Success');
 			
-			$(this).reload_table(manager_properties);
+			$(this).reload_table();
 		}else{
 			
 		}
@@ -355,8 +409,59 @@ $(document).ready(function(){
 	
 	$(document).on("click", "#manager .pager li.page-item[state!='active']",function() {
 		page = parseInt($(this).text());
-		alert("dm");
-//		$(this)
-		
+		$(this).reload_table();
+		$(this).reload_pager();
 	});
+	
+	$(document).on("change", "#manager #num_row",function() {
+		row = parseInt($(this).val());
+		page = 1;
+		$(this).reload_table();
+		$(this).reload_pager();
+	});
+	
+	$("#first_page").click(function(){
+		page = 1;
+		$(this).reload_table();
+		$(this).reload_pager();
+	});
+	$("#last_page").click(function(){
+		page = num_page;
+		$(this).reload_table();
+		$(this).reload_pager();
+	});
+	
+	$.ajax({
+    	headers: { 
+            Accept: 'application/json'
+        },
+        contentType	: "application/json; charset=utf-8",
+        type 		: "GET",
+        url 		: "user/properties",
+        timeout		: 6000,
+        dataType 	: 'json',
+        async 		: false,
+        
+        success : function (result) {            	
+        	$("head").find("title").html(result['name'] + "Manager");
+        	obj_name = result['name']
+        	$("#pt").html(obj_name + "Manage");
+        	manager_properties = result;
+        	$("#total_records").html("Total records : "+result['total_records']+" records");
+        	$(this).simple_ajax_request(obj_name+"/"+page+"?row="+row,null,'GET',false);
+        	$(this).set_display(ansync_ajax_result);
+        	
+        	$("#manager").find("#tbl-ul").html(table);
+        	
+        	data = ansync_ajax_result;
+        	
+			
+			$(this).reload_pager();
+        },
+        
+        error : function (jqXHR, exception) {
+        	$(this).error(jqXHR, exception);
+        }
+    });
+	
 });

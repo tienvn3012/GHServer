@@ -17,8 +17,8 @@
 		<!-- pager -->
 		<div class="line mar-t-20px">
 			<div class="column">
-				<select class="form-control">
-					<option value="0">---Select row---</option>
+				<div class = "fl-l mar-t-7px mar-r-10px">Select row : </div>
+				<select class="form-control width-auto" id="num_row">
 					<option value="5">5 rows</option>
 					<option value="10">10 rows</option>
 					<option value="20">20 rows</option>
@@ -28,15 +28,15 @@
 			</div>
 			
 			<div class="pager">
-				<div class="end">First</div>
-				<ul class="fl-l">
+				<div class="end" id="first_page">First</div>
+				<ul class="fl-l" id="pager">
 					<li class="page-item" state="active">1</li>
 					<li class="page-item">1</li>
 					<li class="page-item">1</li>
 					<li class="page-item">1</li>
 					<li class="page-item">1</li>
 				</ul>
-				<div class="end">Last</div>
+				<div class="end" id="last_page">Last</div>
 			</div>
 			
 			<div class="clear"></div>

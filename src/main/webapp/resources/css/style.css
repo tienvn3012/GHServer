@@ -50,6 +50,10 @@ p{margin:0px;padding:0px;}
 	width: 80%;
 }
 
+.width-auto{
+	width: auto;
+}
+
 .width40px{
 	width: 40px !important;	
 }
@@ -109,10 +113,24 @@ p{margin:0px;padding:0px;}
 	text-align: right;
 }
 
+.mar-t-7px{
+	margin-top: 7px;
+}
 .mar-t-20px{
 	margin-top: 20px;
 }
 
 .mar-t-30px{
 	margin-top: 30px;
+}
+
+.mar-r-10px{
+	margin-right: 10px;
+}
+
+.nicescroll-rails{
+	width: 10px !important;
+}
+.nicescroll-rails > div{
+	width: 10px !important;
 }

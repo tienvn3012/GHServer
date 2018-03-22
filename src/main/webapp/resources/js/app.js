@@ -1,6 +1,7 @@
 var ansync_ajax_result = null;
 var interval_event_countdown;
 var isClose = false;
+var error = false;
 
 toastr.options = {
 		  "closeButton": true,
@@ -89,10 +90,12 @@ $(document).ready(function(){
 	            
 	            success : function (result) {            	
 	            	ansync_ajax_result = result;
+	            	error = false;
 	            },
 	            
 	            error : function (jqXHR, exception) {
 	            	$(this).error(jqXHR, exception);
+	            	error = true;
 	            }
 	        });
 		},
