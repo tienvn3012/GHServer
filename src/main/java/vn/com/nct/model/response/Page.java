@@ -5,6 +5,7 @@ import java.util.List;
 public class Page <E>{
 	
 	private int page_number;
+	private int total_page;
 	private int row;
 	private int role;
 	private List<E> lis;
@@ -33,6 +34,12 @@ public class Page <E>{
 	}
 	public void setLis(List<E> lis) {
 		this.lis = lis;
+	}
+	public int getTotal_page() {
+		return total_page;
+	}
+	public void setTotal_page(int total_page) {
+		this.total_page = total_page;
 	}
 	
 	

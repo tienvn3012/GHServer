@@ -83,6 +83,11 @@ public class UserController extends LayoutController{
 			@RequestParam(value = "row", required = true)int row){
 		
 		Page<UserResponse> p = userService.getPage(page, row);
+		this.slove_page_info();
+		p.setTotal_page(this.total_page);
+		this.page_number = page;
+		this.row = row;
+		
 		return new ResponseEntity<>(p, HttpStatus.OK);
 	}
 	
@@ -102,6 +107,8 @@ public class UserController extends LayoutController{
 		u.setRole(new Roles(user.getRole().getId(), user.getRole().getRole()));
 		
 		userService.saveE(u);
+		
+		this.total_records+=1;
 		
 		return "{\"status\" : 0}";
 	}
@@ -152,6 +159,7 @@ public class UserController extends LayoutController{
 		p.getLis_model_reference_properties().add(new ModelReferenceProperties("info", Constant.info_properties));
 		p.getLis_model_reference_properties().add(new ModelReferenceProperties("role", Constant.role_properties));
 		
+		this.total_records = p.getTotal_records();
 		
 		return new ResponseEntity<PropertiesResponse>(p, HttpStatus.OK);
 	}

@@ -39,6 +39,60 @@
 	font-size: 18px;
 }
 
+
+/*pager*/
+#manager .column{
+	width: auto;
+	height: auto;
+	float: left;
+	margin-left: 5%;
+	cursor: pointer;
+}
+
+#manager .pager{
+	width: auto;
+	float: right;
+	margin: 0px;
+}
+
+#manager .pager .end{
+	float: left;
+	color: #1177e0;
+	margin-left: 5px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+#manager .pager .end:hover{
+	color: #123150;
+}
+
+#manager .pager li.page-item{
+	float: left;
+	background-color: #fff;
+	border: 1px solid #617d9a;
+	padding: 4px;
+	margin-left: 5px;
+	cursor: pointer;
+	border-radius : 4px;
+	color: #617d9a;
+}
+
+#manager .pager li.page-item:hover{
+	background-color: #4b627982;
+}
+
+#manager .pager li.page-item[state='active']{
+	background-color: #1177e0;
+	color: #fff;
+	font-weight: bold;
+}
+
+#manager .pager li.page-item[state='active']:hover{
+	background-color: #1177e0;
+}
+
+/*table*/
 #manager .table-manager{
 	margin-top : 5px;
 	width: 100%;

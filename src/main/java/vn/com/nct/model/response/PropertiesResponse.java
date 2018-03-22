@@ -14,7 +14,7 @@ public class PropertiesResponse {
 	private List<ModelProperties> 		   display_left;
 	private List<ModelProperties> 		   display_mid;
 	private List<String> 				   display_right;
-
+	
 	
 	
 	

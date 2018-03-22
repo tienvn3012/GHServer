@@ -37,6 +37,8 @@ var manager_properties = null;
 var obj_name = "";
 var modal_html = "";
 var data = {};
+var page = 1;
+var row = 5;
 
 
 $(document).ready(function(){
@@ -351,5 +353,10 @@ $(document).ready(function(){
 		
 	});
 	
-	
+	$(document).on("click", "#manager .pager li.page-item[state!='active']",function() {
+		page = parseInt($(this).text());
+		alert("dm");
+//		$(this)
+		
+	});
 });

@@ -20,7 +20,7 @@ $(document).ready(function(){
         	$(this).simple_ajax_request("user/1?row=5",null,'GET',false);
         	$(this).set_display(ansync_ajax_result);
         	
-        	$("#manager").find("ul").html(table);
+        	$("#manager").find("#tbl-ul").html(table);
         	
         	data = ansync_ajax_result;
         },

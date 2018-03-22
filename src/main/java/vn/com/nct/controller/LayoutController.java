@@ -14,6 +14,10 @@ public class LayoutController {
 	protected List<Layout> lis_layout = new ArrayList<>();
 	protected List<Layout> more_css   = new ArrayList<>();
 	protected List<Layout> more_js 	  = new ArrayList<>();
+	protected int row = 5;
+	protected int total_page = 0;
+	protected int total_records = 0;
+	protected int page_number = 1;
 	
 	@PostConstruct
 	public void init_layout(){
@@ -73,4 +77,7 @@ public class LayoutController {
 		more_js.clear();
 	}
 	
+	protected void slove_page_info() {
+		this.total_page = (total_records%row == 0 ? total_records/row:total_records/row + 1);
+	}
 }

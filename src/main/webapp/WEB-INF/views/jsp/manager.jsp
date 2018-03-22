@@ -14,10 +14,39 @@
 		</div>
 		<!-- end page title -->
 	
+		<!-- pager -->
+		<div class="line mar-t-20px">
+			<div class="column">
+				<select class="form-control">
+					<option value="0">---Select row---</option>
+					<option value="5">5 rows</option>
+					<option value="10">10 rows</option>
+					<option value="20">20 rows</option>
+					<option value="50">50 rows</option>
+					<option value="100">100 rows</option>
+				</select>
+			</div>
+			
+			<div class="pager">
+				<div class="end">First</div>
+				<ul class="fl-l">
+					<li class="page-item" state="active">1</li>
+					<li class="page-item">1</li>
+					<li class="page-item">1</li>
+					<li class="page-item">1</li>
+					<li class="page-item">1</li>
+				</ul>
+				<div class="end">Last</div>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		<!-- end pager -->
+	
 		<!-- table -->
 		<div class="line text-align-right mar-t-20px" id="total_records"></div>
 		<div class="table-manager scroll">
-			<ul>
+			<ul id="tbl-ul">
 				<li class="item">
 					<div class="main display-flex">
 						<div class="select-item">
