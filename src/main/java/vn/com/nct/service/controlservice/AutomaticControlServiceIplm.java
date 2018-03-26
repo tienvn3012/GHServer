@@ -277,6 +277,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private void lightAnalysis(Frame frame){
+		System.out.println("light");
 		String[] days = frame.getPlant().getPlant_info().getLight_time().split(Constant.SPLIT_PATTERN_LEVEL2);
 		if(days.length == 1){
 			String[] split = frame.getPlant().getPlant_info().getLight_time().split(Constant.SPLIT_PATTERN);

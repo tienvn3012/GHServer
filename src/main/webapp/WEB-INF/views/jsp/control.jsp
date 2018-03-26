@@ -67,10 +67,10 @@
 							<div class="control-button">
 								<div class="main">
 									<div class="line text">Pump of A liquid</div>
-									<input type="text" class="form-control input-time" placeholder="Time" />
+									<input id="pumpa_time" type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
-  									<input id="led_toggle" type="checkbox"  data-toggle="toggle">
+  									<input id="pumpa_toggle" type="checkbox"  data-toggle="toggle">
 								</label>
 							</div>
 							<div class="clear"></div>
@@ -81,10 +81,10 @@
 							<div class="control-button">
 								<div class="main">
 									<div class="line text">Pump of B liquid</div>
-									<input type="text" class="form-control input-time" placeholder="Time" />
+									<input id="pumpb_time" type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
-  									<input id="led_toggle" type="checkbox"  data-toggle="toggle">
+  									<input id="pumpb_toggle" type="checkbox"  data-toggle="toggle">
 								</label>
 							</div>
 							<div class="clear"></div>
@@ -95,10 +95,10 @@
 							<div class="control-button">
 								<div class="main">
 									<div class="line text">Pump of pH up</div>
-									<input type="text" class="form-control input-time" placeholder="Time" />
+									<input id="pumppu_time" type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
-  									<input id="led_toggle" type="checkbox"  data-toggle="toggle">
+  									<input id="pumppu_toggle" type="checkbox"  data-toggle="toggle">
 								</label>
 							</div>
 							<div class="clear"></div>
@@ -109,10 +109,10 @@
 							<div class="control-button">
 								<div class="main">
 									<div class="line text">Pump of pH down</div>
-									<input type="text" class="form-control input-time" placeholder="Time" />
+									<input id="pumppd_time" type="text" class="form-control input-time" placeholder="Time" />
 								</div>
 								<label class="checkbox-inline control-led">
-  									<input id="led_toggle" type="checkbox"  data-toggle="toggle">
+  									<input id="pumppd_toggle" type="checkbox"  data-toggle="toggle">
 								</label>
 							</div>
 							<div class="clear"></div>

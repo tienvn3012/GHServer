@@ -59,10 +59,22 @@ public class MqttLogService implements MqttCallback{
 			device = "Pump B";
 			status = true;
 			break;
-//		case Constant.PUMP_UP_ON:
-//			device = "Pump B";
-//			status = true;
-//			break;
+		case "PU_1":
+			device = "Pump ph up";
+			status = true;
+			break;
+		case "PD_1":
+			device = "Pump ph down";
+			status = true;
+			break;
+		case "UP_1":
+			device = "Pump up";
+			status = true;
+			break;
+		case "PW_1":
+			device = "Pump water";
+			status = true;
+			break;
 //		case Constant.PUMP_DOWN_ON:
 //			device = "Pump B";
 //			status = true;
@@ -81,6 +93,22 @@ public class MqttLogService implements MqttCallback{
 			break;
 		case "PB_0":
 			device = "Pump B";
+			status = false;
+			break;
+		case "PU_0":
+			device = "Pump ph up";
+			status = false;
+			break;
+		case "PD_0":
+			device = "Pump ph down";
+			status = false;
+			break;
+		case "UP_0":
+			device = "Pump up";
+			status = false;
+			break;
+		case "PW_0":
+			device = "Pump water";
 			status = false;
 			break;
 		default:

@@ -46,6 +46,7 @@ public class ControlController extends LayoutController{
 	public String modeControl(@PathVariable int id, @RequestParam(name = "mode")String mode){
 		Frame frame = Constant.getItemFromSetFrame(id);
 		
+		
 		if("on".equals(mode)){
 			frame.setAutomatic_mode(true);
 			Constant.updateItemOfSetFrame(frame);
@@ -99,6 +100,7 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "control/{id}/pumpa", method = RequestMethod.GET)
 	public String pumpAControl(@PathVariable int id, @RequestParam(name="pumpa")String pumpa){
+		System.out.println("pumpa");
 		try{
 			if("on".equals(pumpa)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_A_ON).getBytes(),2,true);
@@ -117,6 +119,7 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "control/{id}/pumpb", method = RequestMethod.GET)
 	public String pumpBControl(@PathVariable int id, @RequestParam(name="pumpb")String pumpb){
+		System.out.println("pumpb");
 		try{
 			if("on".equals(pumpb)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_B_ON).getBytes(),2,true);
@@ -133,10 +136,11 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/pumpup", method = RequestMethod.GET)
-	public String pumpUpControl(@PathVariable int id, @RequestParam(name="pumpup")String pumpup){
+	@RequestMapping(value = "control/{id}/pumppu", method = RequestMethod.GET)
+	public String pumpUpControl(@PathVariable int id, @RequestParam(name="pumppu")String pumppu){
+		System.out.println("pumppu");
 		try{
-			if("on".equals(pumpup)){
+			if("on".equals(pumppu)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_ON).getBytes(),2,true);
 			}else {
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_OFF).getBytes(),2,true);
@@ -151,10 +155,11 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/pumpdown", method = RequestMethod.GET)
-	public String pumpDownControl(@PathVariable int id, @RequestParam(name="pumpdown")String pumpdown){
+	@RequestMapping(value = "control/{id}/pumppd", method = RequestMethod.GET)
+	public String pumpDownControl(@PathVariable int id, @RequestParam(name="pumppd")String pumppd){
+		System.out.println("pumppd");
 		try{
-			if("on".equals(pumpdown)){
+			if("on".equals(pumppd)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_ON).getBytes(),2,true);
 			}else {
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_OFF).getBytes(),2,true);
