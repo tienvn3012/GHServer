@@ -45,9 +45,11 @@ public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 		long time_off = time_on;
 		while(true){
 			try {
+				sleep(5*1000);
 				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
 				sleep(time_on);
 				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
+				System.out.println("off");
 				sleep(time_off);
 			} catch (MqttException e) {
 				// TODO Auto-generated catch block

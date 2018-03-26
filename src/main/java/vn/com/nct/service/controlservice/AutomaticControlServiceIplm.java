@@ -169,15 +169,18 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	
 	@Override
 	public void pumpWaterToFrame(Frame frame,int water) {
+		System.out.println("pump begin - "+water);
 		if(water < 10){
 			this.controlMinutes("pumpWater",5, frame.getDevice_control().getId());
 		}
 		Devices pumpup =  devicesService.getOneByCondition(
 				"control_device;"+frame.getDevice_control().getId()+";=;int",
 				"device_name;Pump up;=;String");
+		System.out.println(pumpup.getId());
 		if(!pumpup.isDevice_status()){
 			this.controlAnsyn("pumpUp",300, frame.getDevice_control().getId());
 		}
+		System.out.println("pump end");
 	}
 
 	@Override
@@ -197,6 +200,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 	@Override
 	public void trackParamsAnalysis(String msg, String topic) {
+		
 		String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
 		
 //		String[] split_topic = topic.split(Constant.SPLIT_PATTERN_LEVEL2);
@@ -204,19 +208,19 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		if(t == -1){
 			//exception here
 			System.out.println("Not found");
+			return;
 		}
 		Frame frame = (new ArrayList<>(Constant.set_frame)).get(t);
-		
 		FrameDataColection fdc = new FrameDataColection(msg);
+		
 		fdc.setTime(timer.getCurrentTime());
 		fdc.setFrame(frame);
-
 		frameDataCollectionService.saveE(fdc);
+
+		System.out.println("save data");
 		
 		this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
-		
 		if(frame.isAutomatic_mode()){
-			
 			temperatureAnalysis(msgSplit[1],frame);
 			humidityAnalysis(msgSplit[2],frame);
 			co2Analysis(msgSplit[3],frame);
@@ -306,7 +310,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private String humidityAnalysis(String info, Frame frame){
-		
+		System.out.println("humid function begin");
 		double humid = Double.parseDouble(info);
 		String[] split = frame.getPlant().getPlant_info().getHumidity().split(Constant.SPLIT_PATTERN_LEVEL2);
 		if(split.length == 1){
@@ -347,7 +351,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			
 		}
 		
-		
+		System.out.println("humid function end");
 		return null;
 	}
 	
