@@ -11,7 +11,7 @@ public interface AutomaticControlService {
 	public void plantAnalysis(Frame frame);
 	public void trackParamsAnalysis(String msg,String topic);
 	public PublishService control(String type, double time, int did,  int harvest_time);
-	public PublishServiceSeconds controlOneTime(String type, double time, int did);
+	public PublishServiceSeconds controlSeconds(String type, double time, int did, boolean ansyn);
 	public PublishServiceAnsyn controlAnsyn(String type, double time, int did);
 	public PublishServiceMinutes controlMinutes(String type, double time, int did);
 }

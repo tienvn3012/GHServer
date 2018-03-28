@@ -20,6 +20,7 @@ import vn.com.nct.service.PublishServiceAnsyn;
 import vn.com.nct.service.PublishServiceMinutes;
 import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
+import vn.com.nct.service.analysisservice.PlantAnalysisService;
 import vn.com.nct.service.objectservice.ObjectService;
 
 @Service("automaticControl")
@@ -31,6 +32,9 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 	@Autowired
 	private TimerService timer;
+	
+	@Autowired
+	private PlantAnalysisService analysisService;
 	
 	@Autowired
 	@Qualifier(value = "frameService")
@@ -88,13 +92,14 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	@Override
-	public PublishServiceSeconds controlOneTime(String type, double time, int did) {
+	public PublishServiceSeconds controlSeconds(String type, double time, int did, boolean ansyn) {
 		
 		PublishServiceSeconds control = (PublishServiceSeconds)this.identifyControl(type);
 		control.setDelay_time(time);
 		control.setDid(did);
 		control.setMessage_on(this.on);
 		control.setMessage_off(this.off);
+		control.setAnsyn(ansyn);
 		control.start();
 		
 		return control;
@@ -191,11 +196,6 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			this.ecAnalysis(frame);
 		}
 		
-		
-//		this.humidityAnalysis(plant.getPlant_info().getHumidity());
-//		this.temperatureAnalysis(plant.getPlant_info().getTemperature());
-//		this.co2Analysis(plant.getPlant_info().getCo2());
-//		this.phAnalysis(plant.getPlant_info().getpH());
 	}
 
 	@Override
@@ -203,11 +203,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		
 		String[] msgSplit = msg.split(Constant.SPLIT_PATTERN);
 		
-//		String[] split_topic = topic.split(Constant.SPLIT_PATTERN_LEVEL2);
 		int t = this.findFrame(Integer.parseInt(msgSplit[0]));
 		if(t == -1){
 			//exception here
-			System.out.println("Not found");
+			System.out.println("Frame not found !!!!");
 			return;
 		}
 		Frame frame = (new ArrayList<>(Constant.set_frame)).get(t);
@@ -217,7 +216,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		fdc.setFrame(frame);
 		frameDataCollectionService.saveE(fdc);
 
-		System.out.println("save data");
+		System.out.println("Data saved !!!!");
 		
 		this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
 		if(frame.isAutomatic_mode()){
@@ -233,8 +232,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		if(days.length == 1){
 			String[] split = frame.getPlant().getPlant_info().getEc().split(Constant.SPLIT_PATTERN);
 			if(0 == Integer.parseInt(split[2])){
-				this.controlOneTime("pumpA", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()), frame.getDevice_control().getId());
-				this.controlOneTime("pumpB", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()), frame.getDevice_control().getId());
+				this.controlSeconds("pumpA", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()), 
+						frame.getDevice_control().getId(),false);
+				this.controlSeconds("pumpB", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()),
+						frame.getDevice_control().getId(),false);
 			}
 		}else {
 			
@@ -250,20 +251,20 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 						continue;
 					else{
 						flag = true;
-						PublishServiceSeconds pa = this.controlOneTime("pumpA", this.sloveTimeForEC(days[i]),
-								frame.getDevice_control().getId());
-						PublishServiceSeconds pb = this.controlOneTime("pumpB", this.sloveTimeForEC(days[i]),
-								frame.getDevice_control().getId());
+						PublishServiceSeconds pa = this.controlSeconds("pumpA", this.sloveTimeForEC(days[i]),
+								frame.getDevice_control().getId(),false);
+						PublishServiceSeconds pb = this.controlSeconds("pumpB", this.sloveTimeForEC(days[i]),
+								frame.getDevice_control().getId(),false);
 						pa.join();
 						pb.join();
 					}
 				}
 				
 				if(!flag){
-					PublishServiceSeconds pa = this.controlOneTime("pumpA", 
-							this.sloveTimeForEC(days[days.length - 1]), frame.getDevice_control().getId());
-					PublishServiceSeconds pb = this.controlOneTime("pumpB", 
-							this.sloveTimeForEC(days[days.length - 1]), frame.getDevice_control().getId());
+					PublishServiceSeconds pa = this.controlSeconds("pumpA", this.sloveTimeForEC(days[days.length - 1]),
+							frame.getDevice_control().getId(), false);
+					PublishServiceSeconds pb = this.controlSeconds("pumpB", this.sloveTimeForEC(days[days.length - 1]),
+							frame.getDevice_control().getId(), false);
 					pa.join();
 					pb.join();
 				}
@@ -286,14 +287,16 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		if(days.length == 1){
 			String[] split = frame.getPlant().getPlant_info().getLight_time().split(Constant.SPLIT_PATTERN);
 			if(0 == Integer.parseInt(split[2])){
-				this.control("led", Double.parseDouble(split[1]), frame.getDevice_control().getId(), frame.getPlant().getPlant_info().getTime_harvest()+30);
+				this.control("led", Double.parseDouble(split[1]), frame.getDevice_control().getId(),
+						frame.getPlant().getPlant_info().getTime_harvest()+30);
 			}
 		}else{
 			List<Thread> lis = new ArrayList<>();
 			for (int i = 0; i < days.length; i++) {
 				String[] split = frame.getPlant().getPlant_info().getLight_time().split(Constant.SPLIT_PATTERN);
 				if(0 != Integer.parseInt(split[2])){
-					lis.add(this.control("led", Double.parseDouble(split[1]), frame.getDevice_control().getId(), Integer.parseInt(split[2])));
+					lis.add(this.control("led", Double.parseDouble(split[1]),
+							frame.getDevice_control().getId(), Integer.parseInt(split[2])));
 				}else {
 					lis.add(this.control("led", Double.parseDouble(split[1]), frame.getDevice_control().getId(), 30));
 				}
@@ -310,48 +313,36 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private String humidityAnalysis(String info, Frame frame){
-		System.out.println("humid function begin");
 		double humid = Double.parseDouble(info);
 		String[] split = frame.getPlant().getPlant_info().getHumidity().split(Constant.SPLIT_PATTERN_LEVEL2);
 		if(split.length == 1){
-			String[] s = split[0].split(Constant.SPLIT_PATTERN);
-			double min = Double.parseDouble(s[0]);
-			double max = Double.parseDouble(s[1]);
-			
-			if(humid < min){
-				// do st
-			}
-			
-			if(humid > max){
-				Devices d = devicesService.getOneByCondition(
-						"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
-						"device_type.id;3;=;int");
-				if(!d.isDevice_status()){
-					oneTime.setDid(frame.getDevice_control().getId());
-					oneTime.setMsg(Constant.FAN_ON);
-					oneTime.start();
-				}
-			}
-			
-			if(min <= humid && humid <= max){
-				Devices d = devicesService.getOneByCondition(
-						"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
-						"device_type.id;3;=;int");
-				if(!d.isDevice_status()){
-					
-				}else{
-					oneTime.setDid(frame.getDevice_control().getId());
-					oneTime.setMsg(Constant.FAN_OFF);
-					oneTime.start();
-				}
-			}
-			
-			
+			this.controlFanByHumidity(split[0], frame, humid);
 		}else{
-			
+			try {
+				int day = timer.countDays(frame.getTime_begin());
+				
+				if(day > frame.getPlant().getPlant_info().getTime_harvest()){
+					this.controlFanByHumidity(split[split.length - 1], frame, humid);
+				}else{
+					int now = 0;
+					int stage = 0;
+					for (int i = 0; i < split.length - 1; i++) {
+						now += Integer.parseInt(split[i].split(Constant.SPLIT_PATTERN)[2]);
+						if(now >= day){
+							stage = i;
+							break;
+						}
+					}
+					
+					this.controlFanByHumidity(split[stage], frame, humid);
+				}
+				
+			} catch (ParseException e) {
+				System.out.println("Error while count day !!!!");
+				e.printStackTrace();
+			}
 		}
 		
-		System.out.println("humid function end");
 		return null;
 	}
 	
@@ -360,6 +351,40 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private String phAnalysis(String info, Frame frame){
+		double ph = Double.parseDouble(info);
+		
+		String[] split = frame.getPlant().getPlant_info().getpH().split(Constant.SPLIT_PATTERN_LEVEL2);
+		if(split.length == 1){
+			int action = analysisService.phAnalysisService(split[0], ph);
+			this.controlPumpPhByAction(action, frame);
+		}else{
+			try {
+				int day = timer.countDays(frame.getTime_begin());
+				
+				if(day > frame.getPlant().getPlant_info().getTime_harvest()){
+					int action = analysisService.phAnalysisService(split[split.length - 1], ph);
+					this.controlPumpPhByAction(action, frame);
+				}else{
+					int now = 0;
+					int stage = 0;
+					for (int i = 0; i < split.length - 1; i++) {
+						now += Integer.parseInt(split[i].split(Constant.SPLIT_PATTERN)[2]);
+						if(now >= day){
+							stage = i;
+							break;
+						}
+					}
+					int action = analysisService.phAnalysisService(split[stage], ph);
+					this.controlPumpPhByAction(action, frame);
+				}
+				
+			} catch (ParseException e) {
+				System.out.println("Error while count day !!!!");
+				e.printStackTrace();
+			}
+		}
+		
+		
 		return null;
 	}
 
@@ -386,9 +411,64 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		return time;
 	}
 
-	
+	private void controlFanByHumidity(String split, Frame frame, double humid){
+		String[] s = split.split(Constant.SPLIT_PATTERN);
+		double min = Double.parseDouble(s[0]);
+		double max = Double.parseDouble(s[1]);
+		
+		if(humid < min){
+			// do st we still don't know =)))
+		}
+		
+		if(humid > max){
+			Devices d = devicesService.getOneByCondition(
+					"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
+					"device_type.id;3;=;int");
+			if(!d.isDevice_status()){
+				oneTime.setDid(frame.getDevice_control().getId());
+				oneTime.setMsg(Constant.FAN_ON);
+				oneTime.start();
+			}
+		}
+		
+		if(min <= humid && humid <= max){
+			Devices d = devicesService.getOneByCondition(
+					"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
+					"device_type.id;3;=;int");
+			if(!d.isDevice_status()){
+				// nothing will happend ^^
+			}else{
+				oneTime.setDid(frame.getDevice_control().getId());
+				oneTime.setMsg(Constant.FAN_OFF);
+				oneTime.start();
+			}
+		}
+	}
 
-	
+	private void controlPumpPhByAction(int action, Frame frame){
+		switch	(action){
+			case 0: // don't pump
+				break;
+			case 1: // pump ph up litle
+				this.controlSeconds("pumpPhUp", 10, 
+						frame.getDevice_control().getId(), true);
+				break;
+			case 2: // pump ph up much
+				this.controlSeconds("pumpPhUp", 20, 
+						frame.getDevice_control().getId(), true);
+				break;
+			case 3: // pump ph down litle
+				this.controlSeconds("pumpPhDown", 10, 
+						frame.getDevice_control().getId(), true);
+				break;
+			case 4: // pump ph down much
+				this.controlSeconds("pumpPhDown", 20, 
+						frame.getDevice_control().getId(), true);
+				break;
+			default :
+				break;
+		}
+	}
 
 	
 

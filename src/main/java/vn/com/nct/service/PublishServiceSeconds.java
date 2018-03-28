@@ -3,6 +3,7 @@ package vn.com.nct.service;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -18,10 +19,11 @@ public class PublishServiceSeconds extends Thread{
 	@Qualifier("publisher2")
 	private MqttClient control_device;
 	
-	private int did;
-	private double delay_time;
-	private String message_on;
-	private String message_off;
+	private int 	did;
+	private double  delay_time;
+	private String  message_on;
+	private String  message_off;
+	private boolean ansyn;
 	
 	public PublishServiceSeconds() {
 		super();
@@ -31,12 +33,13 @@ public class PublishServiceSeconds extends Thread{
 	
 
 	public PublishServiceSeconds( int did, double delay_time, String message_on,
-			String message_off) {
+			String message_off, boolean ansyn) {
 		super();
 		this.did = did;
 		this.delay_time = delay_time;
 		this.message_on = message_on;
 		this.message_off = message_off;
+		this.ansyn = ansyn;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -58,25 +61,45 @@ public class PublishServiceSeconds extends Thread{
 			if(index == -1)
 				this.stop();
 			
-			synchronized (control_device) {
+			if(ansyn){
+				long time_on = (long)Math.floor(delay_time*1000);
 				try {
-					long time_on = (long)Math.floor(delay_time*1000*10);
-//					control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, false);
 					sleep(3000);
 					control_device.publish("nct_control_"+this.did, new MqttMessage(message_on.getBytes()));
-					System.out.println(message_on);
 					sleep(time_on);
-//					control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, false);
 					control_device.publish("nct_control_"+this.did, new MqttMessage(message_off.getBytes()));
 					sleep(2000);
-					System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
-					Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
-				} catch (MqttException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (MqttPersistenceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MqttException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
+				synchronized (control_device) {
+					try {
+						long time_on = (long)Math.floor(delay_time*1000);
+//						control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, false);
+						sleep(3000);
+						control_device.publish("nct_control_"+this.did, new MqttMessage(message_on.getBytes()));
+						System.out.println(message_on);
+						sleep(time_on);
+//						control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, false);
+						control_device.publish("nct_control_"+this.did, new MqttMessage(message_off.getBytes()));
+						sleep(2000);
+						System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
+						Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
+					} catch (MqttException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -113,6 +136,18 @@ public class PublishServiceSeconds extends Thread{
 
 	public void setMessage_off(String message_off) {
 		this.message_off = message_off;
+	}
+
+
+
+	public boolean isAnsyn() {
+		return ansyn;
+	}
+
+
+
+	public void setAnsyn(boolean ansyn) {
+		this.ansyn = ansyn;
 	}
 
 	
