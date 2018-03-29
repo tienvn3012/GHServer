@@ -16,7 +16,7 @@ public class PlantAnalysisServiceIplm implements PlantAnalysisService{
 		String info[] = split.split(Constant.SPLIT_PATTERN);
 		double min = Double.parseDouble(info[0]);
 		double max = Double.parseDouble(info[1]);
-		double reward = 0;
+		double reward = -100;
 		int action = 0;
 		
 		if(cur_ph < min){
@@ -32,17 +32,18 @@ public class PlantAnalysisServiceIplm implements PlantAnalysisService{
 			double ph_next = cur_ph + this.phByAction(i) - differrence;
 			int pen = ((ph_next >= min) && (ph_next <= max)) ? 0:7;
 			
-			double alpha = i<3 ? ((this.phByAction(2) - this.phByAction(1))/differrence):
-				((this.phByAction(4) - this.phByAction(3))/differrence);
+			double alpha = i<3 ? ((this.phByAction(2) - this.phByAction(1))/0.5):
+				((this.phByAction(4) - this.phByAction(3))/0.5);
 			
 			double r = -1*alpha*stage*differrence*i - this.phByAction(i) - pen;
+			System.out.println("stage : "+stage+" - ph next : "+ph_next+" - cur ph : "+cur_ph+" - anpha : "+alpha+" reward : "+(r>reward?true:false));
 			if(r > reward){
 				reward = r;
 				action = i;
 			}
 		}
 		
-		
+		pre_ph = cur_ph;
 		return action;
 	}
 	

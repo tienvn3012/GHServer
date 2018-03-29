@@ -70,10 +70,8 @@ public class PublishService extends Thread{
 					while(day <= stop_time){
 						sleep(10*1000);
 						control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
-						System.out.println("send1");
 						sleep(time_on);
 						control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
-						System.out.println("send2");
 						sleep(time_off);
 						
 					}

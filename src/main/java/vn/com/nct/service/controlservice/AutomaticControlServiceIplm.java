@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,7 @@ import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.service.PublishService;
 import vn.com.nct.service.PublishServiceAnsyn;
 import vn.com.nct.service.PublishServiceMinutes;
-import vn.com.nct.service.PublishServiceOneTime;
+//import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
 import vn.com.nct.service.analysisservice.PlantAnalysisService;
 import vn.com.nct.service.objectservice.ObjectService;
@@ -29,9 +32,15 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	private String on;
 	private String off;
 	
+	@Autowired
+	@Qualifier("publisher3")
+	private MqttClient control_device;
 
 	@Autowired
 	private TimerService timer;
+	
+//	@Autowired
+//	private PublishServiceOneTime oneTime;
 	
 	@Autowired
 	private PlantAnalysisService analysisService;
@@ -48,8 +57,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	@Qualifier("devicesService")
 	private ObjectService<Devices, Object> devicesService;
 	
-	@Autowired
-	private PublishServiceOneTime oneTime;
+	
 	
 	@Autowired
 	private PublishService ledControlService;
@@ -342,7 +350,6 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				e.printStackTrace();
 			}
 		}
-		
 		return null;
 	}
 	
@@ -357,6 +364,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		if(split.length == 1){
 			int action = analysisService.phAnalysisService(split[0], ph);
 			this.controlPumpPhByAction(action, frame);
+			System.out.println("action "+action);
 		}else{
 			try {
 				int day = timer.countDays(frame.getTime_begin());
@@ -383,7 +391,6 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				e.printStackTrace();
 			}
 		}
-		
 		
 		return null;
 	}
@@ -416,6 +423,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		double min = Double.parseDouble(s[0]);
 		double max = Double.parseDouble(s[1]);
 		
+		
 		if(humid < min){
 			// do st we still don't know =)))
 		}
@@ -425,9 +433,18 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 					"devices.control_device;"+frame.getDevice_control().getId()+";=;int",
 					"device_type.id;3;=;int");
 			if(!d.isDevice_status()){
-				oneTime.setDid(frame.getDevice_control().getId());
-				oneTime.setMsg(Constant.FAN_ON);
-				oneTime.start();
+//				oneTime.setDid(frame.getDevice_control().getId());
+//				oneTime.setMsg(Constant.FAN_ON);
+//				oneTime.start();
+				try {
+					control_device.publish("nct_control_"+frame.getDevice_control().getId(), (Constant.FAN_ON).getBytes(), 0, true);
+				} catch (MqttPersistenceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MqttException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -438,9 +455,18 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			if(!d.isDevice_status()){
 				// nothing will happend ^^
 			}else{
-				oneTime.setDid(frame.getDevice_control().getId());
-				oneTime.setMsg(Constant.FAN_OFF);
-				oneTime.start();
+//				oneTime.setDid(frame.getDevice_control().getId());
+//				oneTime.setMsg(Constant.FAN_OFF);
+//				oneTime.start();
+				try {
+					control_device.publish("nct_control_"+frame.getDevice_control().getId(), (Constant.FAN_OFF).getBytes(), 0, true);
+				} catch (MqttPersistenceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MqttException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -469,8 +495,5 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				break;
 		}
 	}
-
-	
-
 	
 }

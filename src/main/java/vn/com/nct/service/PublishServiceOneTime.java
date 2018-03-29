@@ -25,11 +25,17 @@ public class PublishServiceOneTime extends Thread{
 		// TODO Auto-generated method stub
 		super.run();
 		try {
+			System.out.println("run");
+			sleep(2000);
 			control_device.publish("nct_control_"+this.did, (this.msg).getBytes(), 0, true);
+			System.out.println("done");
 		} catch (MqttPersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
