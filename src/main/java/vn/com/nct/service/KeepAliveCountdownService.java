@@ -46,7 +46,8 @@ public class KeepAliveCountdownService extends Thread{
 				Set<String> set = new HashSet<>();
 				set.addAll(Constant.lis_keepAlive);
 				
-				List<Devices> lis = deviceService.getAllBy("devices.device_status;true;=;boolean");
+				List<Devices> lis = deviceService.getAllBy("devices.device_status;true;=;boolean",
+						"devices.control_device;-1;=;int");
 				
 				if(lis.size() != 0){
 					lis = this.checkKeepAlive(lis, set);

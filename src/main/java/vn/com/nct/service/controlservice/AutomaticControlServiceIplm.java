@@ -1,5 +1,6 @@
 package vn.com.nct.service.controlservice;
 
+import java.lang.Thread.State;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import vn.com.nct.service.PublishServiceAnsyn;
 import vn.com.nct.service.PublishServiceMinutes;
 //import vn.com.nct.service.PublishServiceOneTime;
 import vn.com.nct.service.PublishServiceSeconds;
+import vn.com.nct.service.PublishServiceSecondsAnsyn;
 import vn.com.nct.service.analysisservice.PlantAnalysisService;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -75,10 +77,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	private PublishServiceSeconds pumpBControlservice;
 	
 	@Autowired
-	private PublishServiceSeconds pumpPHUpControlService;
+	private PublishServiceSecondsAnsyn pumpPHUpControlService;
 	
 	@Autowired
-	private PublishServiceSeconds pumpPHDownControlService;
+	private PublishServiceSecondsAnsyn pumpPHDownControlService;
 	
 	@Autowired
 	private PublishServiceAnsyn pumpUpControlService;
@@ -100,15 +102,28 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	@Override
-	public PublishServiceSeconds controlSeconds(String type, double time, int did, boolean ansyn) {
+	public PublishServiceSeconds controlSeconds(String type, double time, int did) {
 		
 		PublishServiceSeconds control = (PublishServiceSeconds)this.identifyControl(type);
 		control.setDelay_time(time);
 		control.setDid(did);
 		control.setMessage_on(this.on);
 		control.setMessage_off(this.off);
-		control.setAnsyn(ansyn);
 		control.start();
+		
+		return control;
+	}
+	
+	@Override
+	public PublishServiceSecondsAnsyn controlSecondsAnsyn(String type, double time, int did) {
+		PublishServiceSecondsAnsyn control = (PublishServiceSecondsAnsyn)this.identifyControl(type);
+		control.setDelay_time(time);
+		control.setDid(did);
+		control.setMsg_on(this.on);
+		control.setMsg_off(this.off);
+		if(control.getState() == State.NEW)
+			control.start();
+		control.setActive(true);
 		
 		return control;
 	}
@@ -226,12 +241,15 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 		System.out.println("Data saved !!!!");
 		
-		this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
-		if(frame.isAutomatic_mode()){
-			temperatureAnalysis(msgSplit[1],frame);
-			humidityAnalysis(msgSplit[2],frame);
-			co2Analysis(msgSplit[3],frame);
-			phAnalysis(msgSplit[4],frame);
+		Devices d = devicesService.getOneById(frame.getDevice_control().getId());
+		if(d.isDevice_status()){
+			this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
+			if(frame.isAutomatic_mode()){
+				temperatureAnalysis(msgSplit[1],frame);
+				humidityAnalysis(msgSplit[2],frame);
+				co2Analysis(msgSplit[3],frame);
+				phAnalysis(msgSplit[4],frame);
+			}
 		}
 	}
 	
@@ -241,9 +259,9 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			String[] split = frame.getPlant().getPlant_info().getEc().split(Constant.SPLIT_PATTERN);
 			if(0 == Integer.parseInt(split[2])){
 				this.controlSeconds("pumpA", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()), 
-						frame.getDevice_control().getId(),false);
+						frame.getDevice_control().getId());
 				this.controlSeconds("pumpB", this.sloveTimeForEC(frame.getPlant().getPlant_info().getEc()),
-						frame.getDevice_control().getId(),false);
+						frame.getDevice_control().getId());
 			}
 		}else {
 			
@@ -260,9 +278,9 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 					else{
 						flag = true;
 						PublishServiceSeconds pa = this.controlSeconds("pumpA", this.sloveTimeForEC(days[i]),
-								frame.getDevice_control().getId(),false);
+								frame.getDevice_control().getId());
 						PublishServiceSeconds pb = this.controlSeconds("pumpB", this.sloveTimeForEC(days[i]),
-								frame.getDevice_control().getId(),false);
+								frame.getDevice_control().getId());
 						pa.join();
 						pb.join();
 					}
@@ -270,9 +288,9 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				
 				if(!flag){
 					PublishServiceSeconds pa = this.controlSeconds("pumpA", this.sloveTimeForEC(days[days.length - 1]),
-							frame.getDevice_control().getId(), false);
+							frame.getDevice_control().getId());
 					PublishServiceSeconds pb = this.controlSeconds("pumpB", this.sloveTimeForEC(days[days.length - 1]),
-							frame.getDevice_control().getId(), false);
+							frame.getDevice_control().getId());
 					pa.join();
 					pb.join();
 				}
@@ -477,23 +495,25 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				break;
 			case 1: // pump ph up litle
 				this.controlSeconds("pumpPhUp", 10, 
-						frame.getDevice_control().getId(), true);
+						frame.getDevice_control().getId());
 				break;
 			case 2: // pump ph up much
 				this.controlSeconds("pumpPhUp", 20, 
-						frame.getDevice_control().getId(), true);
+						frame.getDevice_control().getId());
 				break;
 			case 3: // pump ph down litle
 				this.controlSeconds("pumpPhDown", 10, 
-						frame.getDevice_control().getId(), true);
+						frame.getDevice_control().getId());
 				break;
 			case 4: // pump ph down much
 				this.controlSeconds("pumpPhDown", 20, 
-						frame.getDevice_control().getId(), true);
+						frame.getDevice_control().getId());
 				break;
 			default :
 				break;
 		}
 	}
+
+	
 	
 }

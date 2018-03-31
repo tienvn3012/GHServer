@@ -80,6 +80,9 @@ public class MqttAuthenticationService implements MqttCallback{
 					authentication_result.publish("nct_authentication_result_"+id, ("PASS\0").getBytes(),0,true);
 					Frame frame = frameService.getOneByCondition("device_colect.id;"+id+";=;int","harvested;false;=;boolean");
 					Constant.set_frame.add(frame);
+					Devices d = frame.getDevice_colect();
+					d.setDevice_status(true);
+					deviceService.saveE(d);
 //					authentication_result.publish("nct_authentication_result_"+id,
 //							("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0").getBytes(),0,true);
 					System.out.println("PASS_"+timerService.getCurrentTime()+"_"+frame.getPlant().getPlant_info().getTrack_time()+"\0");
@@ -90,6 +93,10 @@ public class MqttAuthenticationService implements MqttCallback{
 					Frame frame = frameService.getOneByCondition("device_control.id;"+id+";=;int","harvested;false;=;boolean");
 					Constant.set_frame.add(frame);
 
+					Devices d = frame.getDevice_control();
+					d.setDevice_status(true);
+					deviceService.saveE(d);
+					
 					// open automatic thread control
 					controlService.pumpWaterToFrame(frame, 0);
 					controlService.plantAnalysis(frame);

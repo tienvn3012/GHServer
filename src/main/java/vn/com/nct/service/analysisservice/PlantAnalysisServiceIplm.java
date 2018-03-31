@@ -36,7 +36,7 @@ public class PlantAnalysisServiceIplm implements PlantAnalysisService{
 				((this.phByAction(4) - this.phByAction(3))/0.5);
 			
 			double r = -1*alpha*stage*differrence*i - this.phByAction(i) - pen;
-			System.out.println("stage : "+stage+" - ph next : "+ph_next+" - cur ph : "+cur_ph+" - anpha : "+alpha+" reward : "+(r>reward?true:false));
+//			System.out.println("stage : "+stage+" - ph next : "+ph_next+" - cur ph : "+cur_ph+" - anpha : "+alpha+" reward : "+(r>reward?true:false));
 			if(r > reward){
 				reward = r;
 				action = i;

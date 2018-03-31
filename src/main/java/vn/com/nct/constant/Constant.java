@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import vn.com.nct.model.DeviceActive;
 import vn.com.nct.model.DeviceThread;
 import vn.com.nct.model.Frame;
 import vn.com.nct.model.response.ModelProperties;
@@ -17,6 +18,7 @@ public class Constant {
 	public static List<String> lis_keepAlive = new ArrayList<>();
 	
 	public static Set<Frame> set_frame = new HashSet<>();
+	public static Set<DeviceActive> device_active = new HashSet<>();
 	public static List<DeviceThread> lis_deviceThread = new ArrayList<>();
 	/*
 	 * condition standard : name_of_argument;value;compare;datatype
@@ -52,6 +54,8 @@ public class Constant {
 	public static final String PUMP_PH_DOWN_OFF = "PD_0\0";
 	public static final String PUMP_UP_OFF		= "UP_0\0";
 	public static final String PUMP_WATER_OFF	= "PW_0\0";
+	
+	
 	
 	//model
 	public static final List<ModelProperties> user_properties = new ArrayList<ModelProperties>(){
@@ -174,4 +178,15 @@ public class Constant {
 			}
 		}
 	}
+	
+	public static DeviceActive getDeviceActiveById(int id){
+		List<DeviceActive> lis = new ArrayList<>(device_active);
+		for (DeviceActive deviceActive : lis) {
+			if(deviceActive.getId() == id)
+				return deviceActive;
+		}
+		
+		return null;
+	}
+	
 }
