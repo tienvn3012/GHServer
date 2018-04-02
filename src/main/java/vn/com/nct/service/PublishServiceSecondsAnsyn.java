@@ -14,7 +14,7 @@ public class PublishServiceSecondsAnsyn extends Thread{
 	@Qualifier("publisher3")
 	private MqttClient control_device;
 	
-	private boolean active;
+	private boolean active = false;
 	private int did;
 	private String msg_on;
 	private String msg_off;
@@ -24,16 +24,23 @@ public class PublishServiceSecondsAnsyn extends Thread{
 	@Override
 	public void run() {
 		super.run();
-		
 		while(true){
+			try {
+				sleep(2000);
+				System.out.println(active);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if(active){
+				System.out.println("run");
 				try {
 					long time_on = (long)Math.floor(delay_time*1000);
-					sleep(1000);
+					sleep(2000);
 					control_device.publish("nct_control_"+this.did, new MqttMessage(msg_on.getBytes()));
 					sleep(time_on);
 					control_device.publish("nct_control_"+this.did, new MqttMessage(msg_off.getBytes()));
-					sleep(1000);
+					sleep(2000);
 					this.active = false;
 				} catch (MqttException e) {
 					// TODO Auto-generated catch block

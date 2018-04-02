@@ -88,6 +88,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	@Autowired
 	private PublishServiceMinutes pumpWaterControlService;
 
+	
 	@Override
 	public PublishService control(String type, double time, int did, int harvest_time) {
 		PublishService control = (PublishService)this.identifyControl(type);
@@ -121,9 +122,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		control.setDid(did);
 		control.setMsg_on(this.on);
 		control.setMsg_off(this.off);
+		control.setActive(true);
+		System.out.println(control.isActive());
 		if(control.getState() == State.NEW)
 			control.start();
-		control.setActive(true);
 		
 		return control;
 	}
@@ -242,6 +244,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		System.out.println("Data saved !!!!");
 		
 		Devices d = devicesService.getOneById(frame.getDevice_control().getId());
+
 		if(d.isDevice_status()){
 			this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
 			if(frame.isAutomatic_mode()){
@@ -376,6 +379,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 	}
 	
 	private String phAnalysis(String info, Frame frame){
+		System.out.println("ph begin");
 		double ph = Double.parseDouble(info);
 		
 		String[] split = frame.getPlant().getPlant_info().getpH().split(Constant.SPLIT_PATTERN_LEVEL2);
@@ -409,7 +413,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				e.printStackTrace();
 			}
 		}
-		
+		System.out.println("ph end");
 		return null;
 	}
 
@@ -494,19 +498,19 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			case 0: // don't pump
 				break;
 			case 1: // pump ph up litle
-				this.controlSeconds("pumpPhUp", 10, 
+				this.controlSecondsAnsyn("pumpPhUp", 10, 
 						frame.getDevice_control().getId());
 				break;
 			case 2: // pump ph up much
-				this.controlSeconds("pumpPhUp", 20, 
+				this.controlSecondsAnsyn("pumpPhUp", 20, 
 						frame.getDevice_control().getId());
 				break;
 			case 3: // pump ph down litle
-				this.controlSeconds("pumpPhDown", 10, 
+				this.controlSecondsAnsyn("pumpPhDown", 10, 
 						frame.getDevice_control().getId());
 				break;
 			case 4: // pump ph down much
-				this.controlSeconds("pumpPhDown", 20, 
+				this.controlSecondsAnsyn("pumpPhDown", 20, 
 						frame.getDevice_control().getId());
 				break;
 			default :

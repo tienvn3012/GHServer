@@ -36,6 +36,7 @@ public class ControlController extends LayoutController{
 	private ObjectService<Frame, FrameResponse> frameService;
 	
 	@Autowired
+	@Qualifier("devicesService")
 	private ObjectService<Devices, DevicesResponse> deviceService;
 	
 	
