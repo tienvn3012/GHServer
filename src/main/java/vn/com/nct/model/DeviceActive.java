@@ -1,11 +1,21 @@
 package vn.com.nct.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceActive {
 	
 	private int id;
 	private List<DeviceStage> lis;
+	
+	
+	
+	public DeviceActive() {
+		super();
+		// TODO Auto-generated constructor stub
+		this.lis = new ArrayList<>();
+	}
+	
 	public int getId() {
 		return id;
 	}

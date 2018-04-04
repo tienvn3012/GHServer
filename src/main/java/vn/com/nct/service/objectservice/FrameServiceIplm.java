@@ -46,7 +46,7 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	@Override
 	public Frame getOneById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return frameDao.getOneById(id);
 	}
 
 	@Override

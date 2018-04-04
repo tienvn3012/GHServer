@@ -56,7 +56,8 @@ public class ControlController extends LayoutController{
 	@RequestMapping(value = "control/{id}/mode", method = RequestMethod.GET)
 	public String modeControl(@PathVariable int id, @RequestParam(name = "mode")String mode){
 		Frame frame = Constant.getItemFromSetFrame(id);
-		
+		 frame = frameService.getOneById(1);
+		 
 		
 		if("on".equals(mode)){
 			frame.setAutomatic_mode(true);
@@ -90,8 +91,8 @@ public class ControlController extends LayoutController{
 				e.printStackTrace();
 			}
 			
-			Constant.updateItemOfSetFrame(frame);
-			Constant.stopThreadByDeviceId(frame.getDevice_control().getId());
+//			Constant.updateItemOfSetFrame(frame);
+//			Constant.stopThreadByDeviceId(frame.getDevice_control().getId());
 		}else{
 			return "{\"status\" : 1}";
 		}

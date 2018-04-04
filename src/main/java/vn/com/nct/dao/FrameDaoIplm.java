@@ -40,7 +40,7 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 	@Override
 	public Frame getOneById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return hibernateTemplate.get(Frame.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
