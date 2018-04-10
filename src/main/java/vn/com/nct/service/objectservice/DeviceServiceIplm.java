@@ -1,5 +1,6 @@
 package vn.com.nct.service.objectservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,14 +100,28 @@ public class DeviceServiceIplm implements ObjectService<Devices,DevicesResponse>
 
 	@Override
 	public List<DevicesResponse> parseAll(List<Devices> lis) {
-		// TODO Auto-generated method stub
-		return null;
+		List<DevicesResponse> ls = new ArrayList<>();
+		
+		for (Devices device : lis) {
+			ls.add(this.parseResponse(device));
+		}
+		
+		return ls;
 	}
 
 	@Override
 	public DevicesResponse parseResponse(Devices e) {
-		// TODO Auto-generated method stub
-		return null;
+		DevicesResponse dr = new DevicesResponse();
+		
+		dr.setId(e.getId());
+		dr.setControl_device(e.getControl_device());
+		dr.setDescription(e.getDevice_type().getDescription());
+		dr.setDevice_name(e.getDevice_name());
+		dr.setDevice_status(e.isDevice_status());
+		dr.setDevice_task(e.isDevice_task());
+		dr.setType_name(e.getDevice_type().getType_name());
+		
+		return dr;
 	}
 
 	@Override
@@ -120,7 +135,5 @@ public class DeviceServiceIplm implements ObjectService<Devices,DevicesResponse>
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

@@ -107,6 +107,14 @@ public class Constant {
 		}
 	};
 	
+	public static final List<ModelProperties> device_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore"));
+			add(new ModelProperties("device_name", "String", "select_values_ESP32;LED;Pump A;Pump B;FAN;Pump ph up;Pump ph down;Pump up;Pump water", "requires"));
+		}
+	};
+	
 	public static final List<ModelProperties> role_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{

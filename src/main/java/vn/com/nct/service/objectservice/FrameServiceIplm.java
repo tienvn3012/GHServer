@@ -22,25 +22,25 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	@Override
 	public List<Frame> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return frameDao.getAll();
 	}
 
 	@Override
 	public List<Frame> getAllBy(String... condition) {
 		// TODO Auto-generated method stub
-		return null;
+		return frameDao.getAllBy(condition);
 	}
 
 	@Override
 	public List<Frame> getLimit(int index, int offset) {
 		// TODO Auto-generated method stub
-		return null;
+		return frameDao.getLimit(index, offset);
 	}
 
 	@Override
 	public List<Frame> getLimitBy(int index, int offset, String... condition) {
 		// TODO Auto-generated method stub
-		return null;
+		return frameDao.getLimitBy(index, offset, condition);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub
-		return 0;
+		return frameDao.countAll();
 	}
 
 	@Override
@@ -112,6 +112,12 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	public FrameResponse parseResponse(Frame e) {
 		FrameResponse fr = new FrameResponse();
 		fr.setId(e.getId());
+		fr.setAutomatic_mode(e.isAutomatic_mode());
+		fr.setHarvested(e.isHarvested());
+		fr.setTime_begin(e.getTime_begin());
+		
+		
+		
 		return fr;
 	}
 
