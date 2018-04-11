@@ -13,10 +13,11 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 
 	private BaseMethods base = new BaseMethods();
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Frame> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Frame.class);
+		return (List<Frame>)hibernateTemplate.findByCriteria(criteria);
 	}
 
 	@Override

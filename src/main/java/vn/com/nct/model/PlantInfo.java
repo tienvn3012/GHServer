@@ -20,7 +20,6 @@ public class PlantInfo {
 	@Column(name = "pH", nullable = false)
 	private String pH;
 	
-	
 	@Column(name = "co2", nullable = false)
 	private String co2;
 	

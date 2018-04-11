@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
+import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
+import vn.com.nct.model.Plants;
+import vn.com.nct.model.response.DevicesResponse;
 import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.model.response.Page;
+import vn.com.nct.model.response.PlantResponse;
 
 @Service("frameService")
 @Transactional(readOnly = false)
@@ -18,6 +22,12 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	
 	@Autowired
 	private ObjectDaoSupport<Frame> frameDao;
+	
+	@Autowired
+	private ObjectService<Devices, DevicesResponse> deviceService;
+	
+	@Autowired
+	private ObjectService<Plants, PlantResponse> plantService;
 
 	@Override
 	public List<Frame> getAll() {
@@ -116,7 +126,10 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 		fr.setHarvested(e.isHarvested());
 		fr.setTime_begin(e.getTime_begin());
 		
+		fr.setDevice_collect(deviceService.parseResponse(e.getDevice_colect()));
+		fr.setDevice_cotrol(deviceService.parseResponse(e.getDevice_control()));
 		
+		fr.setPlant(plantService.parseResponse(e.getPlant()));
 		
 		return fr;
 	}
