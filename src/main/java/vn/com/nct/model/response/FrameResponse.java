@@ -6,7 +6,7 @@ public class FrameResponse {
 	private String time_begin;
 	private boolean harvested;
 	private boolean automatic_mode;
-	private DevicesResponse device_cotrol;
+	private DevicesResponse device_control;
 	private DevicesResponse device_collect;
 	private PlantResponse plant;
 	
@@ -43,12 +43,12 @@ public class FrameResponse {
 		this.automatic_mode = automatic_mode;
 	}
 
-	public DevicesResponse getDevice_cotrol() {
-		return device_cotrol;
+	public DevicesResponse getDevice_control() {
+		return device_control;
 	}
 
-	public void setDevice_cotrol(DevicesResponse device_cotrol) {
-		this.device_cotrol = device_cotrol;
+	public void setDevice_control(DevicesResponse device_control) {
+		this.device_control = device_control;
 	}
 
 	public DevicesResponse getDevice_collect() {

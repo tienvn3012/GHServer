@@ -105,8 +105,15 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 
 	@Override
 	public Page<FrameResponse> getPage(int page_number, int row) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Page<FrameResponse> page = new Page<>();
+		page.setPage_number(page_number);
+		page.setRow(row);
+		
+		List<Frame> lf = this.getLimit(row*(page_number - 1), row);
+		page.setLis(parseAll(lf));
+		
+		return page;
 	}
 
 	@Override
@@ -127,7 +134,7 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 		fr.setTime_begin(e.getTime_begin());
 		
 		fr.setDevice_collect(deviceService.parseResponse(e.getDevice_colect()));
-		fr.setDevice_cotrol(deviceService.parseResponse(e.getDevice_control()));
+		fr.setDevice_control(deviceService.parseResponse(e.getDevice_control()));
 		
 		fr.setPlant(plantService.parseResponse(e.getPlant()));
 		

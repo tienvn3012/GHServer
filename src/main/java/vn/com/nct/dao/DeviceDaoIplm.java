@@ -48,8 +48,8 @@ public class DeviceDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppo
 	public Devices getOneById(int id) {
 		// TODO Auto-generated method stub
 		try{
-		Devices d = hibernateTemplate.get(Devices.class, id);
-		return d;
+			Devices d = hibernateTemplate.get(Devices.class, id);
+			return d;
 		}catch(Exception e){
 			e.printStackTrace();
 		}

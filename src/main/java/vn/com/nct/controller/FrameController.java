@@ -33,6 +33,7 @@ public class FrameController extends LayoutController{
 		private static final long serialVersionUID = 1L;
 
 		{
+			add(new ModelProperties("null", "null"));
 			add(new ModelProperties("time_begin", "String"));
 			add(new ModelProperties("plant.plant_name", "String"));
 		}
@@ -42,8 +43,9 @@ public class FrameController extends LayoutController{
 		private static final long serialVersionUID = 1L;
 
 		{
+			add(new ModelProperties("null", "null"));
 			add(new ModelProperties("device_control.device_name","String"));
-			add(new ModelProperties("device_colect.device_name","String"));
+			add(new ModelProperties("device_collect.device_name","String"));
 		}
 	};
 	

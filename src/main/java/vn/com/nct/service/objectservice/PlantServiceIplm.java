@@ -3,10 +3,15 @@ package vn.com.nct.service.objectservice;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import vn.com.nct.model.Plants;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PlantResponse;
 
+@Service
+@Transactional(readOnly = false)
 public class PlantServiceIplm implements ObjectService<Plants, PlantResponse>{
 
 	@Override

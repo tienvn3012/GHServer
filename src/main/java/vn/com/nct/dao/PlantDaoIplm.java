@@ -36,7 +36,7 @@ public class PlantDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 	@Override
 	public Plants getOneById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return hibernateTemplate.get(Plants.class, id);
 	}
 
 	@Override

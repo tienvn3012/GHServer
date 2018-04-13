@@ -93,7 +93,7 @@ public class Constant {
 			add(new ModelProperties("plant", "Object", "object", "ignore"));
 			add(new ModelProperties("time_begin", "String", "ignore", "ignore"));
 			add(new ModelProperties("device_control", "Object", "object", "ignore"));
-			add(new ModelProperties("device_colect", "Object", "object", "ignore"));
+			add(new ModelProperties("device_collect", "Object", "object", "ignore"));
 			add(new ModelProperties("automatic_mode", "boolean", "radio_values_on;off", "required"));
 			add(new ModelProperties("harvested", "boolean", "ignore", "ignore"));
 		}
