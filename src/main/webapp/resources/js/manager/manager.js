@@ -41,6 +41,7 @@ var pager = "";
 var data = {};
 var page = 1;
 var row = 5;
+var block = false;
 
 
 $(document).ready(function(){

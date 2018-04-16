@@ -61,10 +61,12 @@ public class FrameController extends LayoutController{
 	@RequestMapping(value = "manager/frame", method = RequestMethod.GET)
 	public ModelAndView framePage(){
 		clear_style();
-		set_other_layout("content", "../manager.jsp");
+		set_other_layout("content", "../block_manage.jsp");
 		this.more_css.add(new Layout("manager-style", "/GHServer/resources/css/manager/manager.css"));
+		this.more_css.add(new Layout("manager-style", "/GHServer/resources/css/manager/block_manage.css"));
 		this.more_js.add(new Layout("manager", "/GHServer/resources/js/manager/manager.js"));
-		this.more_js.add(new Layout("manager_frame", "/GHServer/resources/js/manager/frame_manager.js"));
+		this.more_js.add(new Layout("manager", "/GHServer/resources/js/manager/frame_manager.js"));
+		this.more_js.add(new Layout("manager_frame", "/GHServer/resources/js/manager/block_manage.js"));
 		
 		ModelAndView model = this.layout();
 		return model;
@@ -85,6 +87,7 @@ public class FrameController extends LayoutController{
 		
 		PropertiesResponse p = new PropertiesResponse();
 		p.setName("frame");
+		p.setBlock(true);
 		p.setBase_url("/GHServer/manager/frame");
 		p.setLink_url("manage/frame");
 		p.setTotal_records(frameService.countAll());

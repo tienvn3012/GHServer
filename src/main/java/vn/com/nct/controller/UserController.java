@@ -144,6 +144,7 @@ public class UserController extends LayoutController{
 		
 		PropertiesResponse p = new PropertiesResponse();
 		p.setName("user");
+		p.setBlock(false);
 		p.setBase_url("/GHServer/manager/user");
 		p.setLink_url("manage/user");
 		p.setTotal_records(userService.countAll());

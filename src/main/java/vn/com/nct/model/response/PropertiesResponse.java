@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PropertiesResponse {
 	private int 						   total_records;
+	private boolean						   block;
 	private String 						   base_url;
 	private String 						   link_url;
 	private String						   name;
@@ -102,6 +103,14 @@ public class PropertiesResponse {
 
 	public void setLink_url(String link_url) {
 		this.link_url = link_url;
+	}
+
+	public boolean isBlock() {
+		return block;
+	}
+
+	public void setBlock(boolean block) {
+		this.block = block;
 	}
 
 	

@@ -33,6 +33,10 @@ public class Frame {
 	@JoinColumn(name = "device_colect")
 	private Devices device_colect;
 	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "available_frame")
+	private AvailableFrame available_frame;
+	
 	@Column(name = "time_begin", nullable = false)
 	private String time_begin;
 	
@@ -129,6 +133,15 @@ public class Frame {
 
 	public void setAutomatic_mode(boolean automatic_mode) {
 		this.automatic_mode = automatic_mode;
+	}
+	
+
+	public AvailableFrame getAvailable_frame() {
+		return available_frame;
+	}
+
+	public void setAvailable_frame(AvailableFrame available_frame) {
+		this.available_frame = available_frame;
 	}
 
 	@Override

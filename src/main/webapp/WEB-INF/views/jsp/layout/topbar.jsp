@@ -2,7 +2,7 @@
 	<div class="main">
 		
 		<div class="logo">
-			<img alt="" src="resources/img/layout/logo.png" />
+			<img alt="" src="/GHServer/resources/img/layout/logo.png" />
 			<span>HUST </span>
 			<span class="font-weight-normal"> IoT</span>
 		</div>
