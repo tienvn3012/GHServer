@@ -61,79 +61,89 @@ public class Constant {
 	public static final List<ModelProperties> user_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("id", "int", "ignore", "ignore"));
-		add(new ModelProperties("username","String","inputtext","required"));
-		add(new ModelProperties("avatar", "img","img","notrequired"));
-		add(new ModelProperties("info", "Object", "object", "ignore"));
-		add(new ModelProperties("role", "Object", "object", "ignore"));
-		add(new ModelProperties("create_by", "int", "ignore", "ignore"));
-		add(new ModelProperties("create_time", "String", "ignore", "ignore"));
-		add(new ModelProperties("last_login", "String", "ignore", "ignore"));
-		add(new ModelProperties("active", "boolean", "ignore", "ignore"));
-		add(new ModelProperties("create_to", "boolean", "ignore", "ignore"));
+		add(new ModelProperties("id", "int", "ignore", "ignore",null));
+		add(new ModelProperties("username","String","inputtext","required",null));
+		add(new ModelProperties("avatar", "img","img","notrequired",null));
+		add(new ModelProperties("info", "Object", "object", "ignore",null));
+		add(new ModelProperties("role", "Object", "object", "ignore",null));
+		add(new ModelProperties("create_by", "int", "ignore", "ignore",null));
+		add(new ModelProperties("create_time", "String", "ignore", "ignore",null));
+		add(new ModelProperties("last_login", "String", "ignore", "ignore",null));
+		add(new ModelProperties("active", "boolean", "ignore", "ignore",null));
+		add(new ModelProperties("create_to", "boolean", "ignore", "ignore",null));
 	}};
 	
 	public static final List<ModelProperties> info_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("id", "int", "ignore", "ignore"));
-		add(new ModelProperties("level", "int", "select_values_1;2;3", "required"));
-		add(new ModelProperties("fullname", "String", "inputtext", "required"));
-		add(new ModelProperties("email", "String", "inputtext", "required"));
-		add(new ModelProperties("phone", "String", "inputtext", "required;minlength_9;maxlength_12"));
-		add(new ModelProperties("address", "String", "inputtext", "required"));
-		add(new ModelProperties("date_of_birth", "String", "inputtext", "required", "ex : 01/10/1995"));
-		add(new ModelProperties("gender", "boolean", "select_values_male;female", "required"));
+		add(new ModelProperties("id", "int", "ignore", "ignore",null));
+		add(new ModelProperties("level", "int", "select_values_1;2;3", "required",null));
+		add(new ModelProperties("fullname", "String", "inputtext", "required",null));
+		add(new ModelProperties("email", "String", "inputtext", "required",null));
+		add(new ModelProperties("phone", "String", "inputtext", "required;minlength_9;maxlength_12",null));
+		add(new ModelProperties("address", "String", "inputtext", "required",null));
+		add(new ModelProperties("date_of_birth", "String", "inputtext", "required", "ex : 01/10/1995",null));
+		add(new ModelProperties("gender", "boolean", "select_values_male;female", "required",null));
 	}};
 	
 	public static final List<ModelProperties> frame_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 		{
-			add(new ModelProperties("id", "int", "ignore", "ignore"));
-			add(new ModelProperties("plant", "Object", "object", "ignore"));
-			add(new ModelProperties("time_begin", "String", "ignore", "ignore"));
-			add(new ModelProperties("device_control", "Object", "object", "ignore"));
-			add(new ModelProperties("device_collect", "Object", "object", "ignore"));
-			add(new ModelProperties("automatic_mode", "boolean", "radio_values_on;off", "required"));
-			add(new ModelProperties("harvested", "boolean", "ignore", "ignore"));
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("plant", "Object", "object", "ignore",null));
+			add(new ModelProperties("time_begin", "String", "ignore", "ignore",null));
+			add(new ModelProperties("device_control", "Object", "object", "ignore",null));
+			add(new ModelProperties("device_collect", "Object", "object", "ignore",null));
+			add(new ModelProperties("available_frame", "Object", "object", "ignore",null));
+			add(new ModelProperties("automatic_mode", "boolean", "radio_values_on;off", "required",null));
+			add(new ModelProperties("harvested", "boolean", "ignore", "ignore",null));
+		}
+	};
+	
+	public static final List<ModelProperties> available_frame_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("status", "boolean", "ignore", "ignore",null));
+			add(new ModelProperties("image", "img", "img", "notrequired",null));
 		}
 	};
 	
 	public static final List<ModelProperties> plant_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 		{
-			add(new ModelProperties("id", "int", "ignore", "ignore"));
-			add(new ModelProperties("plant_name", "String", "select_link_/GHServer/manager/plant/select", "required"));
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("plant_name", "String", "select_link_/GHServer/manager/plant/select", "required",null));
 		}
 	};
 	
 	public static final List<ModelProperties> device_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 		{
-			add(new ModelProperties("id", "int", "ignore", "ignore"));
-			add(new ModelProperties("device_name", "String", "select_values_ESP32;LED;Pump A;Pump B;FAN;Pump ph up;Pump ph down;Pump up;Pump water", "requires"));
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("device_name", "String", "select_values_ESP32;LED;Pump A;Pump B;FAN;Pump ph up;Pump ph down;Pump up;Pump water", "requires",null));
 		}
 	};
 	
 	public static final List<ModelProperties> role_properties = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("id", "int", "ignore", "ignore"));
-		add(new ModelProperties("role", "String", "select_link_/GHServer/manager/role/select", "required"));
+		add(new ModelProperties("id", "int", "ignore", "ignore",null));
+		add(new ModelProperties("role", "String", "select_link_/GHServer/manager/role/select", "required",null));
 	}};
 	
 	//filter list
 	public static final List<ModelProperties> user_properties_filter = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("username","String"));
-		add(new ModelProperties("info.fullname", "String"));
-		add(new ModelProperties("info.email", "String"));
-		add(new ModelProperties("info.phone", "String"));
-		add(new ModelProperties("info.address", "String"));
-		add(new ModelProperties("info.date_of_birth", "String"));
-		add(new ModelProperties("info.gender", "boolean"));
-		add(new ModelProperties("role.role", "String"));
+		add(new ModelProperties("username","String",null));
+		add(new ModelProperties("info.fullname", "String",null));
+		add(new ModelProperties("info.email", "String",null));
+		add(new ModelProperties("info.phone", "String",null));
+		add(new ModelProperties("info.address", "String",null));
+		add(new ModelProperties("info.date_of_birth", "String",null));
+		add(new ModelProperties("info.gender", "boolean",null));
+		add(new ModelProperties("role.role", "String",null));
 
 	}};
 	

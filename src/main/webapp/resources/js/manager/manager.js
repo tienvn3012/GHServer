@@ -32,6 +32,8 @@ var table = '';
 //	+'		</div>'
 //	+'	</li>';
 
+var block_table = "";
+
 
 var manager_properties = null;
 var num_page = 0;
@@ -207,6 +209,70 @@ $(document).ready(function(){
 			$("#pager").html(pager);
 		},
 		
+//		//reload block table
+//		reload_block_table : function() {
+//			$("#total_records").html("Total records : "+manager_properties['total_records']+" records");
+//        	$(this).simple_ajax_request(obj_name+"/"+page+"?row="+row,null,'GET',false);
+//        	$(this).set_display(ansync_ajax_result);
+//        	
+//        	$("#manager").find("#tbl-ul").html(block_table);
+//        	
+//        	data = ansync_ajax_result;
+//		},
+		
+		// clear old block table
+		clear_block_table : function(){
+			block_table = "";
+		},
+		
+		//set block table item header
+		set_block_table_item_header : function(id){
+			block_table += '<div class="frame-box col-lg-4 col-md-4 col-sm-4 col-xs-12" frame-id="'+id+'"> '
+				+'<div class="box-inside">';
+		},
+		
+		//set bloc table item tail
+		set_block_table_item_tail : function(){
+			block_table += "</div></div>";
+		},
+		
+		//set block table content item
+		set_block_table_content_item : function(result){
+			block_table += '<div class="delete-box"><i class="fa fa-trash"></i></div><div class="main">';
+			
+			var img = manager_properties['display'][0]['name'].split(".");
+			img.length == 2 ? 
+					(block_table += '<img class="frame-img" src="'+(result[img[0]][img[1]] == null ?
+							(result[img[0]][img[1]]):'/GHServer/image?image=frame.png')+'" />'):
+					(block_table += '<img class="frame-img" src="'+img[0]+'" />'); 
+			
+			block_table += '<div class="main">';
+			var title = manager_properties['display'][1]['name'].split(".");
+			title.length == 2 ?
+					(block_table += '<div class="frame-title">'+manager_properties['display'][1]['display_name']+' '+result[title[0]][title[1]]+'</div>'):
+					(block_table += '<div class="frame-title">'+manager_properties['display'][1]['display_name']+' '+result[title[0]]+'</div>')	
+					
+			for(var i=2;i<manager_properties['display'].length;i++){
+				var temp = manager_properties['display'][i]['name'].split(".");
+				
+				temp.length == 2 ?
+						(block_table += '<div class="frame-info"><i class="fa fa-'+manager_properties['display'][i]['icon']+'"></i> '+manager_properties['display'][i]['display_name']+' : <b>'+result[temp[0]][temp[1]]+'</b></div>'):
+						(block_table += '<div class="frame-info"><i class="fa fa-'+manager_properties['display'][i]['icon']+'"></i> '+manager_properties['display'][i]['display_name']+' : <b>'+result[temp[0]]+'</b></div>');
+			}
+					
+			block_table += '<div class="row">';
+			for(var i=0;i<manager_properties['actions'].length;i++){
+				block_table += '<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">' +
+											'<div class="main">' +
+												'<button class="block-action btn btn-success frame-button" link="'+manager_properties['base_url']+'/'+result['id']+'/'+manager_properties['actions'][i]['name']+'">' +
+											'<i class="fa fa-'+manager_properties['actions'][i]['icon']+'"></i> '+manager_properties['actions'][i]['display_name']+'</button>'+
+											'</div>'+
+										'</div>';
+			}
+			
+			block_table += '</div></div></div>';
+		},
+		
 		//reload table
 		reload_table : function(){
 			$("#total_records").html("Total records : "+manager_properties['total_records']+" records");
@@ -309,13 +375,23 @@ $(document).ready(function(){
 		},
 		
 		set_display : function(result){
-			$(this).clear_table();
-			for (var i= 0; i < result['lis'].length; i++){
-				$(this).set_header(result['lis'][i]['id']);
-				$(this).set_left(result['lis'][i]);
-				$(this).set_mid(result['lis'][i]);
-				$(this).set_right();
-				$(this).set_tail();
+			if(!block){
+				$(this).clear_table();
+				for (var i= 0; i < result['lis'].length; i++){
+					$(this).set_header(result['lis'][i]['id']);
+					$(this).set_left(result['lis'][i]);
+					$(this).set_mid(result['lis'][i]);
+					$(this).set_right();
+					$(this).set_tail();
+				}
+			}else{
+				// set for block table
+				$(this).clear_block_table();
+				for (var i= 0; i < result['lis'].length; i++){
+					$(this).set_block_table_item_header(result['lis'][i]['id']);
+					$(this).set_block_table_content_item(result['lis'][i]);
+					$(this).set_block_table_item_tail();
+				}
 			}
 		}
 		

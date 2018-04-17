@@ -24,6 +24,7 @@ import vn.com.nct.model.response.ModelProperties;
 import vn.com.nct.model.response.ModelReferenceProperties;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PropertiesResponse;
+import vn.com.nct.model.response.TablePropertiesResponse;
 import vn.com.nct.model.response.UserInfoResponse;
 import vn.com.nct.model.response.UserResponse;
 import vn.com.nct.service.objectservice.ObjectService;
@@ -43,20 +44,20 @@ public class UserController extends LayoutController{
 	private List<ModelProperties> display_left = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("avatar", "img"));
-		add(new ModelProperties("info.fullname", "String"));
-		add(new ModelProperties("username", "String"));
-		add(new ModelProperties("info.date_of_birth", "String"));
+		add(new ModelProperties("avatar", "img",null));
+		add(new ModelProperties("info.fullname", "String",null));
+		add(new ModelProperties("username", "String",null));
+		add(new ModelProperties("info.date_of_birth", "String",null));
 		
 	}};
 	
 	private List<ModelProperties> display_mid = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
 	{
-		add(new ModelProperties("null", "null"));
-		add(new ModelProperties("role.role", "String"));
-		add(new ModelProperties("info.email", "String"));
-		add(new ModelProperties("info.phone", "String"));
+		add(new ModelProperties("null", "null",null));
+		add(new ModelProperties("role.role", "String",null));
+		add(new ModelProperties("info.email", "String",null));
+		add(new ModelProperties("info.phone", "String",null));
 	}};
 	
 	private List<String> display_right = new ArrayList<String>(){
@@ -142,7 +143,7 @@ public class UserController extends LayoutController{
 	@RequestMapping(value = "manager/user/properties", method = RequestMethod.GET)
 	public ResponseEntity<PropertiesResponse> getUserProperties(){
 		
-		PropertiesResponse p = new PropertiesResponse();
+		TablePropertiesResponse p = new TablePropertiesResponse();
 		p.setName("user");
 		p.setBlock(false);
 		p.setBase_url("/GHServer/manager/user");

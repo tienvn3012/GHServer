@@ -21,6 +21,18 @@ public class AvailableFrame {
 	@Column(name = "description" , nullable = true)
 	private String description;
 	
+	@Column(name="image",nullable = true)
+	private String image;
+	
+	@Column(name="status",nullable = false)
+	private boolean status;
+	
+	@Column(name="control_device",nullable = false)
+	private int control_device;
+	
+	@Column(name="collect_device",nullable = false)
+	private int collect_device;
+	
 	@OneToMany(mappedBy = "available_frame")
 	private List<Frame> frames;
 
@@ -46,6 +58,38 @@ public class AvailableFrame {
 
 	public void setFrames(List<Frame> frames) {
 		this.frames = frames;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public int getControl_device() {
+		return control_device;
+	}
+
+	public void setControl_device(int control_device) {
+		this.control_device = control_device;
+	}
+
+	public int getCollect_device() {
+		return collect_device;
+	}
+
+	public void setCollect_device(int collect_device) {
+		this.collect_device = collect_device;
 	}
 	
 	

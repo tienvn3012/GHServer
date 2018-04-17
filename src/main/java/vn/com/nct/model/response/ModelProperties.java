@@ -4,6 +4,10 @@ public class ModelProperties {
 	
 	private String name; // name of property
 	
+	private String icon;
+	
+	private String display_name;
+	
 	// type : object,img,String,int,double,...
 	private String type; 
 	
@@ -23,28 +27,39 @@ public class ModelProperties {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ModelProperties(String name, String type, String input, String rule, String notification) {
+	public ModelProperties(String name, String type, String input, String rule, String notification, String icon) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.input = input;
 		this.rule = rule;
 		this.notification = notification;
+		this.icon = icon;
 	}
 
-	public ModelProperties(String name, String type, String input, String rule) {
+	public ModelProperties(String name, String type, String input, String rule, String icon) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.input = input;
 		this.rule = rule;
+		this.icon = icon;
 	}
 
 	
-	public ModelProperties(String name, String type) {
+	public ModelProperties(String name, String type, String icon) {
 		super();
 		this.name = name;
 		this.type = type;
+		this.icon = icon;
+	}
+	
+	public ModelProperties(String name, String type, String icon, String display_name) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.icon = icon;
+		this.display_name = display_name;
 	}
 
 	public String getName() {
@@ -78,6 +93,22 @@ public class ModelProperties {
 
 	public void setNotification(String notification) {
 		this.notification = notification;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getDisplay_name() {
+		return display_name;
+	}
+
+	public void setDisplay_name(String display_name) {
+		this.display_name = display_name;
 	}
 	
 	
