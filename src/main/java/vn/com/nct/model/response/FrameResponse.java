@@ -9,6 +9,7 @@ public class FrameResponse {
 	private DevicesResponse device_control;
 	private DevicesResponse device_collect;
 	private PlantResponse plant;
+	private AvailableFrameResponse available_frame;
 	
 
 	public int getId() {
@@ -65,6 +66,14 @@ public class FrameResponse {
 
 	public void setPlant(PlantResponse plant) {
 		this.plant = plant;
+	}
+
+	public AvailableFrameResponse getAvailable_frame() {
+		return available_frame;
+	}
+
+	public void setAvailable_frame(AvailableFrameResponse available_frame) {
+		this.available_frame = available_frame;
 	}
 	
 	

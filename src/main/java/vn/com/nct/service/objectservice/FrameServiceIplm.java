@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.nct.dao.ObjectDaoSupport;
+import vn.com.nct.model.AvailableFrame;
 import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
 import vn.com.nct.model.Plants;
+import vn.com.nct.model.response.AvailableFrameResponse;
 import vn.com.nct.model.response.DevicesResponse;
 import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.model.response.Page;
@@ -22,6 +24,9 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	
 	@Autowired
 	private ObjectDaoSupport<Frame> frameDao;
+	
+	@Autowired
+	private ObjectService<AvailableFrame, AvailableFrameResponse> availableFrameService;
 	
 	@Autowired
 	private ObjectService<Devices, DevicesResponse> deviceService;
@@ -137,6 +142,8 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 		fr.setDevice_control(deviceService.parseResponse(e.getDevice_control()));
 		
 		fr.setPlant(plantService.parseResponse(e.getPlant()));
+		
+		fr.setAvailable_frame(availableFrameService.parseResponse(e.getAvailable_frame()));
 		
 		return fr;
 	}
