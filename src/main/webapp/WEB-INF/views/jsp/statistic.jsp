@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 
-<div id="statistic">
+<div id="statistic" topic="${topic}" frameid="${frameid}">
 	<div class="main">
 
 		<div class="chart-box">

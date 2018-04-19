@@ -36,10 +36,10 @@ public class FrameController extends LayoutController{
 		{
 			add(new ModelProperties("available_frame.image", "img",null,null));
 			add(new ModelProperties("available_frame.id", "int",null,"Frame number"));
-			add(new ModelProperties("Create at", "String","calendar","Create at"));
+			add(new ModelProperties("time_begin", "String","calendar","Create at"));
 			add(new ModelProperties("plant.plant_name", "String","leaf","Plant"));
 			add(new ModelProperties("available_frame.status", "boolean","cogs","Status"));
-			add(new ModelProperties("Days", "String","clock-o","Days"));
+			add(new ModelProperties("days", "String","clock-o","Days"));
 		}
 	};
 	

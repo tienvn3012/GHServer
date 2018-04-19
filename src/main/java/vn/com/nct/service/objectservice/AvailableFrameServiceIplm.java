@@ -12,7 +12,7 @@ import vn.com.nct.model.AvailableFrame;
 import vn.com.nct.model.response.AvailableFrameResponse;
 import vn.com.nct.model.response.Page;
 
-@Service
+@Service("availableFrameService")
 @Transactional(readOnly = false)
 public class AvailableFrameServiceIplm implements ObjectService<AvailableFrame, AvailableFrameResponse>{
 	

@@ -54,7 +54,7 @@ public class Frame {
 	
 	@OneToMany(mappedBy = "frame")
 	private List<SystemLogActivity> logs;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -143,6 +143,7 @@ public class Frame {
 	public void setAvailable_frame(AvailableFrame available_frame) {
 		this.available_frame = available_frame;
 	}
+	
 
 	@Override
 	public int hashCode() {

@@ -1,12 +1,15 @@
 package vn.com.nct.service.objectservice;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.nct.base.TimerService;
 import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.AvailableFrame;
 import vn.com.nct.model.Devices;
@@ -26,13 +29,19 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 	private ObjectDaoSupport<Frame> frameDao;
 	
 	@Autowired
+	@Qualifier("availableFrameService")
 	private ObjectService<AvailableFrame, AvailableFrameResponse> availableFrameService;
 	
 	@Autowired
+	@Qualifier("devicesService")
 	private ObjectService<Devices, DevicesResponse> deviceService;
 	
 	@Autowired
+	@Qualifier("plantService")
 	private ObjectService<Plants, PlantResponse> plantService;
+	
+	@Autowired
+	private TimerService timerService;
 
 	@Override
 	public List<Frame> getAll() {
@@ -137,6 +146,13 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 		fr.setAutomatic_mode(e.isAutomatic_mode());
 		fr.setHarvested(e.isHarvested());
 		fr.setTime_begin(e.getTime_begin());
+		try {
+			fr.setDays(timerService.countDays(e.getTime_begin()));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Error when count day !!!!");
+		}
 		
 		fr.setDevice_collect(deviceService.parseResponse(e.getDevice_colect()));
 		fr.setDevice_control(deviceService.parseResponse(e.getDevice_control()));

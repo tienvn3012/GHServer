@@ -10,7 +10,7 @@ import vn.com.nct.model.Plants;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PlantResponse;
 
-@Service
+@Service("plantService")
 @Transactional(readOnly = false)
 public class PlantServiceIplm implements ObjectService<Plants, PlantResponse>{
 

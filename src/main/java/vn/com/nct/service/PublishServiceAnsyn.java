@@ -42,7 +42,7 @@ public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 		super.run();
 		
 		long time_on = (long)Math.floor(delay_time*1000);
-		long time_off = time_on;
+		long time_off = (long)Math.floor(2*60*1000);;
 		while(true){
 			try {
 				sleep(5*1000);

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.com.nct.model.Frame;
 import vn.com.nct.model.FrameDataColection;
 import vn.com.nct.model.Layout;
 import vn.com.nct.model.response.FrameDataCollectionResponse;
+import vn.com.nct.model.response.FrameResponse;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.service.objectservice.ObjectService;
 
@@ -22,7 +24,10 @@ public class StatisticController extends LayoutController{
 	@Autowired
 	private ObjectService<FrameDataColection, FrameDataCollectionResponse> frameDataCollectionService;
 	
-	@RequestMapping(value = "statistic/{id}", method = RequestMethod.GET)
+	@Autowired
+	private ObjectService<Frame, FrameResponse> frameService;
+	
+	@RequestMapping(value = "manager/frame/{id}/statistic", method = RequestMethod.GET)
 	public ModelAndView getStatisticPage(@PathVariable int id){
 		this.clear_style();
 		this.more_css.add(new Layout("css", "/GHServer/resources/css/statistic/statistic.css"));
@@ -32,11 +37,16 @@ public class StatisticController extends LayoutController{
 		
 		this.set_other_layout("content", "../statistic.jsp");
 		
+		Frame frame = frameService.getOneById(id);
+		
 		ModelAndView model = this.layout();
+		model.addObject("topic","nct_collect_"+frame.getDevice_colect().getId());
+		model.addObject("frameid", id);
+		
 		return model;
 	}
 	
-	@RequestMapping(value = "statistic/{id}/data/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/statistic/data/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Page<FrameDataCollectionResponse>> getDataCollection(@PathVariable int id, 
 			@PathVariable int page,@RequestParam("row") int row){
 		

@@ -12,7 +12,7 @@ $(document).ready(function(){
 				$(self).parents("li").attr("state","1");
 				if(time.length != 0){
 					ansync_ajax_result = null; // clear ajax result
-					$(this).simple_ajax_request("control/1/"+name+"?"+name+"="+state,null,"GET",false);
+					$(this).simple_ajax_request("control/"+name+"?"+name+"="+state,null,"GET",false);
 					
 					if(ansync_ajax_result == null)
 						return;
@@ -40,7 +40,7 @@ $(document).ready(function(){
 					
 					
 					ansync_ajax_result = null; // clear ajax result
-					$(this).simple_ajax_request("control/1/"+name+"?"+name+"="+state,null,"GET",false);
+					$(this).simple_ajax_request("control/"+name+"?"+name+"="+state,null,"GET",false);
 					if(ansync_ajax_result == null)
 						return;
 					
@@ -51,7 +51,7 @@ $(document).ready(function(){
 			}else {
 				state = "off";
 				ansync_ajax_result = null; // clear ajax result
-				$(this).off_activity(self,"control/1/"+name+"?"+name+"="+state,null,"GET",false);
+				$(this).off_activity(self,"control/"+name+"?"+name+"="+state,null,"GET",false);
 				if(ansync_ajax_result == null)
 					return;
 				toastr.success(name+' on !', 'Success');
@@ -63,10 +63,10 @@ $(document).ready(function(){
 	$("#mode_toggle").change(function(){
 		if (this.checked){
 			var state = "on";
-			$(this).simple_ajax_request("control/1/mode?mode="+state,null,"GET",false);
+			$(this).simple_ajax_request("control/mode?mode="+state,null,"GET",false);
 		}else{
 			var state = "off";
-			$(this).simple_ajax_request("control/1/mode?mode="+state,null,"GET",false);
+			$(this).simple_ajax_request("control/mode?mode="+state,null,"GET",false);
 		}
 	});
 	
@@ -94,7 +94,7 @@ $(document).ready(function(){
 			$(this).parents("li").attr("state","1");
 			if(time.length != 0){
 				ansync_ajax_result = null; // clear ajax result
-				$(this).simple_ajax_request("control/1/led?led="+state,null,"GET",false);
+				$(this).simple_ajax_request("control/led?led="+state,null,"GET",false);
 				
 				if(ansync_ajax_result == null)
 					return;
@@ -122,7 +122,7 @@ $(document).ready(function(){
 				
 				
 				ansync_ajax_result = null; // clear ajax result
-				$(this).simple_ajax_request("control/1/led?led="+state,null,"GET",false);
+				$(this).simple_ajax_request("control/led?led="+state,null,"GET",false);
 				if(ansync_ajax_result == null)
 					return;
 				
@@ -133,7 +133,7 @@ $(document).ready(function(){
 		}else {
 			state = "off";
 			ansync_ajax_result = null; // clear ajax result
-			$(this).off_activity(self,"control/1/led?led="+state,null,"GET",false);
+			$(this).off_activity(self,"control/led?led="+state,null,"GET",false);
 			if(ansync_ajax_result == null)
 				return;
 			toastr.success('Led off !', 'Success');
@@ -151,7 +151,7 @@ $(document).ready(function(){
 			$(this).parents("li").attr("state","1");
 			if(time.length != 0){
 				ansync_ajax_result = null; // clear ajax result
-				$(this).simple_ajax_request("control/1/fan?fan="+state,null,"GET",false);
+				$(this).simple_ajax_request("control/fan?fan="+state,null,"GET",false);
 				
 				if(ansync_ajax_result == null)
 					return;
@@ -179,7 +179,7 @@ $(document).ready(function(){
 				
 				
 				ansync_ajax_result = null; // clear ajax result
-				$(this).simple_ajax_request("control/1/fan?fan="+state,null,"GET",false);
+				$(this).simple_ajax_request("control/fan?fan="+state,null,"GET",false);
 				if(ansync_ajax_result == null)
 					return;
 				
@@ -190,7 +190,7 @@ $(document).ready(function(){
 		}else {
 			state = "off";
 			ansync_ajax_result = null; // clear ajax result
-			$(this).off_activity(self,"control/1/fan?fan="+state,null,"GET",false);
+			$(this).off_activity(self,"control/fan?fan="+state,null,"GET",false);
 			if(ansync_ajax_result == null)
 				return;
 			toastr.success('Fan off !', 'Success');

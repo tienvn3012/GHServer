@@ -279,7 +279,7 @@ $(document).ready(function(){
         	$(this).simple_ajax_request(obj_name+"/"+page+"?row="+row,null,'GET',false);
         	$(this).set_display(ansync_ajax_result);
         	
-        	$("#manager").find("#tbl-ul").html(table);
+        	$("#manager").find("#tbl-ul").html(block==true?block_table:table);
         	
         	data = ansync_ajax_result;
 		},
@@ -508,6 +508,9 @@ $(document).ready(function(){
 		$(this).reload_pager();
 	});
 	
-	
+	$(document).on("click", "#manager .block-action",function() {
+		
+		window.location = $(this).attr("link");
+	});
 	
 });

@@ -1,11 +1,13 @@
 package vn.com.nct.config;
 
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -174,13 +176,24 @@ public class MqttConfig implements MqttCallback{
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message){
 //		String msg = message.toString() + ";"+timer.getCurrentTime()+";nct";
 		System.out.println("Receive message '"+message+"' from topic '"+topic+"'");
+		
+		String[] split = message.toString().split(";");
+		try {
+			publisher.publish("nct_collect_"+split[0], message.getPayload(), 0, false);
+			System.out.println("publish message \""+message.toString()+"\" to topic nct_collect_"+split[0]);
+		} catch (MqttPersistenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		automatic.trackParamsAnalysis(message.toString(), topic);
 		

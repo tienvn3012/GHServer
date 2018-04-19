@@ -435,7 +435,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			
 		String[] split = ec.split(Constant.SPLIT_PATTERN);
 		double avg_ec = (Double.parseDouble(split[0]) + Double.parseDouble(split[1]))/2;
-		double time = avg_ec*0.75/1.6;
+		double time = avg_ec*0.75/1.6*10;
 		
 		return time;
 	}

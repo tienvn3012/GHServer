@@ -41,7 +41,7 @@ public class ControlController extends LayoutController{
 	
 	
 	
-	@RequestMapping(value = "control", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control", method = RequestMethod.GET)
 	public ModelAndView getControlPage(){
 		this.clear_style();
 		this.set_other_layout("content", "../control.jsp");
@@ -53,7 +53,7 @@ public class ControlController extends LayoutController{
 		return model;
 	}
 	
-	@RequestMapping(value = "control/{id}/mode", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/mode", method = RequestMethod.GET)
 	public String modeControl(@PathVariable int id, @RequestParam(name = "mode")String mode){
 		Frame frame = Constant.getItemFromSetFrame(id);		 
 		
@@ -103,7 +103,7 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/led", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/led", method = RequestMethod.GET)
 	public String ledControl(@PathVariable int id, @RequestParam(name="led")String led){
 		try{
 			if("on".equals(led)){
@@ -121,7 +121,7 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/pumpa", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/pumpa", method = RequestMethod.GET)
 	public String pumpAControl(@PathVariable int id, @RequestParam(name="pumpa")String pumpa){
 		System.out.println("pumpa");
 		try{
@@ -140,7 +140,7 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/pumpb", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/pumpb", method = RequestMethod.GET)
 	public String pumpBControl(@PathVariable int id, @RequestParam(name="pumpb")String pumpb){
 		System.out.println("pumpb");
 		try{
@@ -159,7 +159,7 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/pumppu", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/pumppu", method = RequestMethod.GET)
 	public String pumpUpControl(@PathVariable int id, @RequestParam(name="pumppu")String pumppu){
 		System.out.println("pumppu");
 		try{
@@ -178,7 +178,7 @@ public class ControlController extends LayoutController{
 		return "{\"status\" : 0}";
 	}
 	
-	@RequestMapping(value = "control/{id}/pumppd", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/pumppd", method = RequestMethod.GET)
 	public String pumpDownControl(@PathVariable int id, @RequestParam(name="pumppd")String pumppd){
 		System.out.println("pumppd");
 		try{
@@ -199,7 +199,7 @@ public class ControlController extends LayoutController{
 	
 
 	
-	@RequestMapping(value = "control/{id}/fan", method = RequestMethod.GET)
+	@RequestMapping(value = "manager/frame/{id}/control/fan", method = RequestMethod.GET)
 	public String fanControl(@PathVariable int id, @RequestParam(name="fan")String fan){
 		try{
 			if("on".equals(fan)){

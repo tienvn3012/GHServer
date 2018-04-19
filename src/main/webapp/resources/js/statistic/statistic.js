@@ -30,7 +30,9 @@ client.connect({onSuccess:onConnect});
 function onConnect() {
 	  // Once a connection has been made, make a subscription and send a message.
 	  console.log("onConnect");
-	  client.subscribe("nct_collect_2");
+	  var topic = document.getElementById("statistic").getAttribute("topic");
+	  console.log(topic);
+	  client.subscribe(topic);
 //	  message = new Paho.MQTT.Message("Hello");
 //	  message.destinationName = "World";
 //	  client.send(message);
@@ -65,8 +67,8 @@ function onMessageArrived(message) {
 }
 
 $(document).ready(function(){
-	
-	$(this).simple_ajax_request("1/data/0?row=10",null,"GET",false);
+	var fid = $("#statistic").attr("frameid");
+	$(this).simple_ajax_request("statistic/data/0?row=10",null,"GET",false);
 	var data = parse_data_for_bar_chart(ansync_ajax_result['lis']);
 //	var line = parse_data_for_line_chart(ansync_ajax_result['lis']);
 	draw_bar_chart(null,null,data);

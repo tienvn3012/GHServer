@@ -65,8 +65,8 @@ public class PublishService extends Thread{
 				try {
 					System.out.println(message_on);
 					int day = 1;
-					long time_on = (long)Math.floor(delay_time*1000*60*60);
-					long time_off = 24*1000*60*60 - time_on;
+					long time_on = (long)Math.floor(delay_time*1000);
+					long time_off = 24*1000 - time_on;
 					while(day <= stop_time){
 						sleep(10*1000);
 						control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);

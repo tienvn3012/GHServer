@@ -3,6 +3,7 @@ package vn.com.nct.model.response;
 public class FrameResponse {
 	
 	private int id;
+	private int days;
 	private String time_begin;
 	private boolean harvested;
 	private boolean automatic_mode;
@@ -74,6 +75,14 @@ public class FrameResponse {
 
 	public void setAvailable_frame(AvailableFrameResponse available_frame) {
 		this.available_frame = available_frame;
+	}
+
+	public int getDays() {
+		return days;
+	}
+
+	public void setDays(int days) {
+		this.days = days;
 	}
 	
 	
