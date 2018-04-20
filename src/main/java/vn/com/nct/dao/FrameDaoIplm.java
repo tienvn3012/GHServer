@@ -52,7 +52,8 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 	public Frame getOneByCondition(String... condition) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Frame.class,"frame");
 		criteria.createAlias("frame.plant", "plant")
-		.createAlias("frame.device_control", "device_control");
+		.createAlias("frame.device_control", "device_control")
+		.createAlias("frame.device_colect", "device_colect");
 		criteria = base.setCondition(criteria, condition);
 
 		List<Frame> lis = (List<Frame>)hibernateTemplate.findByCriteria(criteria);
