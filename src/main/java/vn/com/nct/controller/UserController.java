@@ -24,7 +24,7 @@ import vn.com.nct.model.response.ModelProperties;
 import vn.com.nct.model.response.ModelReferenceProperties;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PropertiesResponse;
-import vn.com.nct.model.response.TablePropertiesResponse;
+import vn.com.nct.model.response.RowTablePropertiesResponse;
 import vn.com.nct.model.response.UserInfoResponse;
 import vn.com.nct.model.response.UserResponse;
 import vn.com.nct.service.objectservice.ObjectService;
@@ -143,9 +143,9 @@ public class UserController extends LayoutController{
 	@RequestMapping(value = "manager/user/properties", method = RequestMethod.GET)
 	public ResponseEntity<PropertiesResponse> getUserProperties(){
 		
-		TablePropertiesResponse p = new TablePropertiesResponse();
+		RowTablePropertiesResponse p = new RowTablePropertiesResponse();
 		p.setName("user");
-		p.setBlock(false);
+		p.setBlock(1);
 		p.setBase_url("/GHServer/manager/user");
 		p.setLink_url("manage/user");
 		p.setTotal_records(userService.countAll());

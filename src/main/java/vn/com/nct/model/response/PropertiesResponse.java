@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PropertiesResponse {
 	private int 						   total_records;
-	private boolean						   block;
+	private int						  	   block; //1: non-table ; 2: block ; 3: table
 	private String 						   base_url;
 	private String 						   link_url;
 	private String						   name;
@@ -74,13 +74,15 @@ public class PropertiesResponse {
 		this.link_url = link_url;
 	}
 
-	public boolean isBlock() {
+	public int getBlock() {
 		return block;
 	}
 
-	public void setBlock(boolean block) {
+	public void setBlock(int block) {
 		this.block = block;
 	}
+
+
 
 	
 	

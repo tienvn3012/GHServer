@@ -132,6 +132,36 @@ public class Constant {
 		add(new ModelProperties("role", "String", "select_link_/GHServer/manager/role/select", "required",null));
 	}};
 	
+	public static final List<ModelProperties> log_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("time", "String", "ignore", "ignore",null));
+			add(new ModelProperties("auto", "boolean", "ignore", "ignore",null));
+			add(new ModelProperties("statement", "Object", "object", "ignore",null));
+			add(new ModelProperties("notification", "Object", "object", "ignore",null));
+			add(new ModelProperties("frame", "Object", "object", "ignore",null));
+			add(new ModelProperties("users", "Object", "object", "ignore",null));
+		}
+	};
+	
+	public static final List<ModelProperties> statement_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("statements", "String", "ignore", "ignore",null));
+			add(new ModelProperties("title", "String", "ignore", "ignore",null));
+		}
+	};
+	
+	public static final List<ModelProperties> notification_properties = new ArrayList<ModelProperties>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new ModelProperties("id", "int", "ignore", "ignore",null));
+			add(new ModelProperties("notifications", "String", "ignore", "ignore",null));
+		}
+	};
+	
 	//filter list
 	public static final List<ModelProperties> user_properties_filter = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;

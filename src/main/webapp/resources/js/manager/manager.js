@@ -1,3 +1,4 @@
+
 var table = '';
 //	'<li class="item">'
 //	+'<div class="main display-flex">'
@@ -43,7 +44,7 @@ var pager = "";
 var data = {};
 var page = 1;
 var row = 5;
-var block = false;
+var block = 1;
 
 
 $(document).ready(function(){
@@ -375,7 +376,7 @@ $(document).ready(function(){
 		},
 		
 		set_display : function(result){
-			if(!block){
+			if(block == 1){
 				$(this).clear_table();
 				for (var i= 0; i < result['lis'].length; i++){
 					$(this).set_header(result['lis'][i]['id']);
@@ -384,7 +385,7 @@ $(document).ready(function(){
 					$(this).set_right();
 					$(this).set_tail();
 				}
-			}else{
+			}else if(block == 2){
 				// set for block table
 				$(this).clear_block_table();
 				for (var i= 0; i < result['lis'].length; i++){
@@ -392,6 +393,8 @@ $(document).ready(function(){
 					$(this).set_block_table_content_item(result['lis'][i]);
 					$(this).set_block_table_item_tail();
 				}
+			}else{
+				console.log("error!");
 			}
 		}
 		

@@ -82,7 +82,7 @@ public class FrameController extends LayoutController{
 		
 		BlockPropertiesResponse p = new BlockPropertiesResponse();
 		p.setName("frame");
-		p.setBlock(true);
+		p.setBlock(2);
 		p.setBase_url("/GHServer/manager/frame");
 		p.setLink_url("manage/frame");
 		p.setTotal_records(frameService.countAll());

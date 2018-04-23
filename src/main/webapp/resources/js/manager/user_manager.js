@@ -13,6 +13,7 @@ $(document).ready(function(){
         success : function (result) {            	
         	$("head").find("title").html(result['name'] + "Manager");
         	obj_name = result['name']
+        	block = result['block'];
         	$("#pt").html(obj_name + "Manage");
         	manager_properties = result;
         	$("#total_records").html("Total records : "+result['total_records']+" records");
