@@ -111,7 +111,7 @@ public class StatementServiceIplm implements ObjectService<Statements, Statement
 	@Override
 	public StatementResponse parseResponse(Statements e) {
 		// TODO Auto-generated method stub
-		return null;
+		return new StatementResponse(e.getId(), e.getStatements(), e.getTitle());
 	}
 
 	@Override

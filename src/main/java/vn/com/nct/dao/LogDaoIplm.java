@@ -13,10 +13,11 @@ import vn.com.nct.model.SystemLogActivity;
 @Transactional(readOnly = false)
 public class LogDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<SystemLogActivity>{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SystemLogActivity> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(SystemLogActivity.class);
+		return (List<SystemLogActivity>)hibernateTemplate.findByCriteria(criteria);
 	}
 
 	@Override

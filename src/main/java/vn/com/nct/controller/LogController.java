@@ -3,6 +3,7 @@ package vn.com.nct.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +13,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.nct.constant.Constant;
 import vn.com.nct.model.Layout;
+import vn.com.nct.model.SystemLogActivity;
+import vn.com.nct.model.response.LogResponse;
 import vn.com.nct.model.response.ModelProperties;
 import vn.com.nct.model.response.ModelReferenceProperties;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PropertiesResponse;
 import vn.com.nct.model.response.TablePropertiesResponse;
 import vn.com.nct.model.response.UserResponse;
+import vn.com.nct.service.objectservice.ObjectService;
 
 @RestController
 public class LogController extends LayoutController{
+	
+	@Autowired
+	private ObjectService<SystemLogActivity, LogResponse> logService;
 	
 	private List<ModelProperties> display = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
@@ -46,8 +53,8 @@ public class LogController extends LayoutController{
 	}
 	
 	@RequestMapping(value = "manager/log/data", method = RequestMethod.GET)
-	public ResponseEntity<Page<UserResponse>> getLogData(){
-		return null;
+	public ResponseEntity<List<LogResponse>> getLogData(){
+		return new ResponseEntity<List<LogResponse>>(logService.parseAll(logService.getAll()), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "manager/log/properties", method = RequestMethod.GET)
