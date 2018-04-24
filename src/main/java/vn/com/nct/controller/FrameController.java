@@ -61,7 +61,6 @@ public class FrameController extends LayoutController{
 		this.more_css.add(new Layout("manager-style", "/GHServer/resources/css/manager/block_manage.css"));
 		this.more_js.add(new Layout("manager", "/GHServer/resources/js/manager/manager.js"));
 		this.more_js.add(new Layout("manager", "/GHServer/resources/js/manager/frame_manager.js"));
-		this.more_js.add(new Layout("manager_frame", "/GHServer/resources/js/manager/block_manage.js"));
 		
 		ModelAndView model = this.layout();
 		return model;

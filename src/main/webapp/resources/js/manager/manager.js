@@ -280,7 +280,7 @@ $(document).ready(function(){
         	$(this).simple_ajax_request(obj_name+"/"+page+"?row="+row,null,'GET',false);
         	$(this).set_display(ansync_ajax_result);
         	
-        	$("#manager").find("#tbl-ul").html(block==true?block_table:table);
+        	$("#manager").find("#tbl-ul").html(block==2?block_table:table);
         	
         	data = ansync_ajax_result;
 		},

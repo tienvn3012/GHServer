@@ -17,10 +17,8 @@ import vn.com.nct.model.SystemLogActivity;
 import vn.com.nct.model.response.LogResponse;
 import vn.com.nct.model.response.ModelProperties;
 import vn.com.nct.model.response.ModelReferenceProperties;
-import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.PropertiesResponse;
 import vn.com.nct.model.response.TablePropertiesResponse;
-import vn.com.nct.model.response.UserResponse;
 import vn.com.nct.service.objectservice.ObjectService;
 
 @RestController
@@ -47,6 +45,7 @@ public class LogController extends LayoutController{
 		clear_style();
 		set_other_layout("content", "../table_manage.jsp");
 		this.more_js.add(new Layout("manager", "/GHServer/resources/js/manager/table_manage.js"));
+		this.more_js.add(new Layout("log_manager", "/GHServer/resources/js/manager/log_manage.js"));
 		
 		ModelAndView model = this.layout();
 		return model;
@@ -62,6 +61,7 @@ public class LogController extends LayoutController{
 		
 		TablePropertiesResponse p = new TablePropertiesResponse();
 		
+		p.setName("log");
 		p.setBlock(3);
 		p.setDisplay(display);
 		p.setModel_properties(Constant.log_properties);

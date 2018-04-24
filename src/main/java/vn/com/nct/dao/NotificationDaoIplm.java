@@ -1,25 +1,18 @@
-package vn.com.nct.service.objectservice;
+package vn.com.nct.dao;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.Notifications;
-import vn.com.nct.model.response.NotificationResponse;
-import vn.com.nct.model.response.Page;
 
-@Service
-public class NotificationServiceIplm implements ObjectService<Notifications, NotificationResponse>{
+@Repository
+public class NotificationDaoIplm extends HibernateDaoSupport implements ObjectDaoSupport<Notifications>{
 
-	@Autowired
-	private ObjectDaoSupport<Notifications> notificationDao;
-	
 	@Override
 	public List<Notifications> getAll() {
 		// TODO Auto-generated method stub
-		return notificationDao.getAll();
+		return null;
 	}
 
 	@Override
@@ -87,39 +80,5 @@ public class NotificationServiceIplm implements ObjectService<Notifications, Not
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public Page<NotificationResponse> getPage(int page_number, int row) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<NotificationResponse> getPageBy(int page_number, int row, String... condition) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<NotificationResponse> parseAll(List<Notifications> lis) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotificationResponse parseResponse(Notifications e) {
-		NotificationResponse r = new NotificationResponse();
-		
-		r.setId(e.getId());
-		r.setNotifications(e.getNotifications());
-		
-		return r;
-	}
-
-	@Override
-	public Notifications parseToStandar(NotificationResponse t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }
