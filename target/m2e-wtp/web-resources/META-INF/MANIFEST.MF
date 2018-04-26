@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Implementation-Vendor: Pivotal Software, Inc.
 Implementation-Title: GHServer Maven Webapp
 Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Do Dinh Thai
 Implementation-Vendor-Id: GHServer
-Build-Jdk: 1.7.0_79
-Built-By: tienvn3012
+Build-Jdk: 1.8.0_144
 Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
 
