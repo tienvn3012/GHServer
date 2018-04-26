@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,11 @@ import vn.com.nct.service.objectservice.ObjectService;
 public class LogController extends LayoutController{
 	
 	@Autowired
+	@Qualifier("logService")
 	private ObjectService<SystemLogActivity, LogResponse> logService;
 	
 	private List<ModelProperties> display = new ArrayList<ModelProperties>(){
 		private static final long serialVersionUID = 1L;
-
 		{
 			add(new ModelProperties("time", "String",null,"Time"));
 			add(new ModelProperties("auto", "boolean",null,"Auto"));
@@ -53,7 +54,9 @@ public class LogController extends LayoutController{
 	
 	@RequestMapping(value = "manager/log/data", method = RequestMethod.GET)
 	public ResponseEntity<List<LogResponse>> getLogData(){
-		return new ResponseEntity<List<LogResponse>>(logService.parseAll(logService.getAll()), HttpStatus.OK);
+		
+		List<LogResponse> r = logService.parseAll(logService.getAll());
+		return new ResponseEntity<List<LogResponse>>(r, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "manager/log/properties", method = RequestMethod.GET)

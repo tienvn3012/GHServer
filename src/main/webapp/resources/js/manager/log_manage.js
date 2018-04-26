@@ -18,6 +18,7 @@ $(document).ready(function(){
         	manager_properties = result;
         	$("#total_records").html("Total records : "+result['total_records']+" records");
         	$(this).get_and_display_data();
+        	console.log(result);
         },
         
         error : function (jqXHR, exception) {

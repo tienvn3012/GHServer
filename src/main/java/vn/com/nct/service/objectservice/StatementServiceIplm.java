@@ -11,7 +11,7 @@ import vn.com.nct.model.Statements;
 import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.StatementResponse;
 
-@Service
+@Service("statementService")
 @Transactional(readOnly = false)
 public class StatementServiceIplm implements ObjectService<Statements, StatementResponse>{
 

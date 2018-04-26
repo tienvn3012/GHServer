@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,7 @@ import vn.com.nct.model.response.Page;
 import vn.com.nct.model.response.StatementResponse;
 import vn.com.nct.model.response.UserResponse;
 
-@Service
+@Service("logService")
 @Transactional(readOnly = false)
 public class LogServiceIplm implements ObjectService<SystemLogActivity, LogResponse>{
 	
@@ -34,6 +35,7 @@ public class LogServiceIplm implements ObjectService<SystemLogActivity, LogRespo
 	private ObjectService<Frame, FrameResponse> frameService;
 	
 	@Autowired
+	@Qualifier("statementService")
 	private ObjectService<Statements, StatementResponse> statementService;
 	
 	@Autowired

@@ -16,6 +16,7 @@ $(document).ready(function() {
     		}
             
             data_table += '</tr></thead>';
+//            console.log(data_table);
     	},
     	
     	set_table_content : function(){
@@ -27,13 +28,15 @@ $(document).ready(function() {
     			for(var j = 0;j<manager_properties['display'].length;j++){
     				
     				var split = manager_properties['display'][j]['name'].split(".");
+    				console.log(split);
     				if(split.length == 1){
     					data_table += '<td>'+data[i][split[0]]+'</td>';
     				}else{
     					var count = 0;
-    					var temp = null;
+    					var temp = data[i];
     					while(count < split.length){
-    						temp = data[i][split[count]];
+    						temp = temp[split[count]];
+    						count+=1;
     					}
     					data_table += '<td>'+temp+'</td>';
     				}
