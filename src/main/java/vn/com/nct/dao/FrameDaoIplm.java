@@ -35,10 +35,15 @@ public class FrameDaoIplm extends HibernateDaoSupport implements ObjectDaoSuppor
 		return (List<Frame>)hibernateTemplate.findByCriteria(criteria,index,offset);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Frame> getLimitBy(int index, int offset, String... condition) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Frame.class,"frame");
+		criteria.createAlias("frame.plant", "plant")
+		.createAlias("frame.device_control", "device_control")
+		.createAlias("frame.device_colect", "device_colect");
+		criteria = base.setCondition(criteria, condition);
+		return (List<Frame>)hibernateTemplate.findByCriteria(criteria, index, offset);
 	}
 
 	@Override

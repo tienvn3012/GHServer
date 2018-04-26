@@ -71,9 +71,27 @@ public class FrameController extends LayoutController{
 	public ResponseEntity<Page<FrameResponse>> getFrameByPage(@PathVariable int page,
 			@RequestParam(value = "row", required = true)int row){
 		
-		Page<FrameResponse> p = frameService.getPage(page, row);
+		Page<FrameResponse> p = frameService.getPageBy(page, row, "harvested;false;=;boolean");
 		
 		return new ResponseEntity<>(p, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "manager/frame/end/{id}", method = RequestMethod.POST)
+	public String endFrame(@PathVariable int id){
+		
+		Frame frame = Constant.getItemFromSetFrame(id);
+		if(frame == null){
+			frame = frameService.getOneById(id);
+		}
+		
+		frame.setHarvested(true);
+		frame.getAvailable_frame().setStatus(false);
+		
+		//off all device here
+		
+		frameService.updateE(frame);
+		
+		return "{\"status\" : 0}";
 	}
 	
 	@RequestMapping(value = "manager/frame/properties", method = RequestMethod.GET)

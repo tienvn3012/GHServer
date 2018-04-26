@@ -1,6 +1,7 @@
 package vn.com.nct.constant;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,6 +55,30 @@ public class Constant {
 	public static final String PUMP_PH_DOWN_OFF = "PD_0\0";
 	public static final String PUMP_UP_OFF		= "UP_0\0";
 	public static final String PUMP_WATER_OFF	= "PW_0\0";
+	
+	public static final HashMap<String, String> statements = new HashMap<String, String>(){
+		private static final long serialVersionUID = 1L;
+		{
+			put("led_on", Constant.LED_ON);
+			put("fan_on", Constant.FAN_ON);
+			put("heatled_on", Constant.HEAT_LED_ON);
+			put("pumpa_on", Constant.PUMP_A_ON);
+			put("pumpb_on", Constant.PUMP_B_ON);
+			put("pumppu_on", Constant.PUMP_PH_UP_ON);
+			put("pumppd_on", Constant.PUMP_PH_DOWN_ON);
+			put("pumpup_on", Constant.PUMP_UP_ON);
+			put("pumpw_on", Constant.PUMP_WATER_ON);
+			put("led_off", Constant.LED_OFF);
+			put("heatled_off", Constant.HEAT_LED_OFF);
+			put("fan_off", Constant.FAN_OFF);
+			put("pumpa_off", Constant.PUMP_A_OFF);
+			put("pumpb_off", Constant.PUMP_B_OFF);
+			put("pumppu_off", Constant.PUMP_PH_UP_OFF);
+			put("pumppd_off", Constant.PUMP_PH_DOWN_OFF);
+			put("pumpup_off", Constant.PUMP_UP_OFF);
+			put("pumpw_off", Constant.PUMP_WATER_OFF);
+		}
+	};
 	
 	
 	
