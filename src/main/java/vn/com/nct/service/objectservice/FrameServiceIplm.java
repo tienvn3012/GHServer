@@ -166,8 +166,14 @@ public class FrameServiceIplm implements ObjectService<Frame,FrameResponse>{
 
 	@Override
 	public Page<FrameResponse> getPageBy(int page_number, int row, String... condition) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<FrameResponse> page = new Page<>();
+		page.setPage_number(page_number);
+		page.setRow(row);
+		
+		List<Frame> lf = this.getLimitBy(row*(page_number - 1), row,condition);
+		page.setLis(parseAll(lf));
+		
+		return page;
 	}
 
 	@Override

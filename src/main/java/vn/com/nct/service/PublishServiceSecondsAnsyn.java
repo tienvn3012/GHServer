@@ -27,7 +27,7 @@ public class PublishServiceSecondsAnsyn extends Thread{
 		while(true){
 			try {
 				sleep(2000);
-				System.out.println(active);
+//				System.out.println(active);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

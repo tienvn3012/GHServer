@@ -59,22 +59,30 @@ public class FileController {
 	
 	@RequestMapping(value = "/file", method = RequestMethod.GET)
 	@ResponseBody
-	public String buildCodeOTA(@RequestParam String file,@RequestParam int id){
+	public String buildCodeOTA(@RequestParam String file,@RequestParam(required=false) int id){
 		
 		String filePath = "D:/TienVN/GH/code/"+file;
-		
+		File f = new File(filePath);
+		System.out.println(f.exists());
+		System.out.println(filePath);
 		FileReader fr;
 		try {
 			fr = new FileReader(filePath);
-			@SuppressWarnings("resource")
+//			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(fr);
 			String temp = "";
+			
 			String line;
 			while((line = br.readLine()) != null){
+				System.out.println(line);
 				temp += line;
 			}
-			
-			publisher.publish("nct_restart_"+id, new MqttMessage(temp.getBytes()));
+			br.close();
+			fr.close();
+			System.out.println(temp);
+//			publisher.publish("nct_restart_"+id, new MqttMessage(temp.getBytes()));
+			publisher.publish("nct_demo", new MqttMessage(temp.getBytes()));
+			publisher.publish("nct_demo", new MqttMessage("dmthai".getBytes()));
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
