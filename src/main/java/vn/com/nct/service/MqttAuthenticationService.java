@@ -100,7 +100,7 @@ public class MqttAuthenticationService implements MqttCallback{
 					deviceService.updateE(d);
 					
 					// open automatic thread control
-					controlService.pumpWaterToFrame(frame, 0);
+//					controlService.pumpWaterToFrame(frame, 0);
 					controlService.plantAnalysis(frame);
 				}
 				

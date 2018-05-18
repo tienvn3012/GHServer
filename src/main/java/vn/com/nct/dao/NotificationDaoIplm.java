@@ -36,7 +36,7 @@ public class NotificationDaoIplm extends HibernateDaoSupport implements ObjectDa
 	@Override
 	public Notifications getOneById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return hibernateTemplate.get(Notifications.class, id);
 	}
 
 	@Override

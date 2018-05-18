@@ -43,7 +43,7 @@ public class NotificationServiceIplm implements ObjectService<Notifications, Not
 	@Override
 	public Notifications getOneById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return notificationDao.getOneById(id);
 	}
 
 	@Override

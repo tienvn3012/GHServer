@@ -76,6 +76,7 @@ public class ControlController extends LayoutController{
 			
 		}else if("off".equals(mode)){
 			frame.setAutomatic_mode(false);
+			System.out.println(frame.isAutomatic_mode());
 			this.saveStageDeviceBeforeOffAutomaticMode(frame);
 			try {
 				publisher.publish("nct_control_"+id, (Constant.LED_OFF).getBytes(),2,true);
@@ -105,6 +106,11 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "manager/frame/{id}/control/led", method = RequestMethod.GET)
 	public String ledControl(@PathVariable int id, @RequestParam(name="led")String led){
+		Frame frame = Constant.getItemFromSetFrame(id);
+		System.out.println(frame.isAutomatic_mode());
+		if(frame.isAutomatic_mode()) {
+			return "{\"status\" : 1}";
+		}
 		try{
 			if("on".equals(led)){
 				publisher.publish("nct_control_"+id, (Constant.LED_ON).getBytes(),2,true);
@@ -123,7 +129,11 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "manager/frame/{id}/control/pumpa", method = RequestMethod.GET)
 	public String pumpAControl(@PathVariable int id, @RequestParam(name="pumpa")String pumpa){
-		System.out.println("pumpa");
+		Frame frame = Constant.getItemFromSetFrame(id);
+		System.out.println(frame.isAutomatic_mode());
+		if(frame.isAutomatic_mode()) {
+			return "{\"status\" : 1}";
+		}
 		try{
 			if("on".equals(pumpa)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_A_ON).getBytes(),2,true);
@@ -142,7 +152,10 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "manager/frame/{id}/control/pumpb", method = RequestMethod.GET)
 	public String pumpBControl(@PathVariable int id, @RequestParam(name="pumpb")String pumpb){
-		System.out.println("pumpb");
+		Frame frame = Constant.getItemFromSetFrame(id);
+		if(frame.isAutomatic_mode()) {
+			return "{\"status\" : 1}";
+		}
 		try{
 			if("on".equals(pumpb)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_B_ON).getBytes(),2,true);
@@ -161,7 +174,10 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "manager/frame/{id}/control/pumppu", method = RequestMethod.GET)
 	public String pumpUpControl(@PathVariable int id, @RequestParam(name="pumppu")String pumppu){
-		System.out.println("pumppu");
+		Frame frame = Constant.getItemFromSetFrame(id);
+		if(frame.isAutomatic_mode()) {
+			return "{\"status\" : 1}";
+		}
 		try{
 			if("on".equals(pumppu)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_ON).getBytes(),2,true);
@@ -180,7 +196,10 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "manager/frame/{id}/control/pumppd", method = RequestMethod.GET)
 	public String pumpDownControl(@PathVariable int id, @RequestParam(name="pumppd")String pumppd){
-		System.out.println("pumppd");
+		Frame frame = Constant.getItemFromSetFrame(id);
+		if(frame.isAutomatic_mode()) {
+			return "{\"status\" : 1}";
+		}
 		try{
 			if("on".equals(pumppd)){
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_ON).getBytes(),2,true);
@@ -201,6 +220,10 @@ public class ControlController extends LayoutController{
 	
 	@RequestMapping(value = "manager/frame/{id}/control/fan", method = RequestMethod.GET)
 	public String fanControl(@PathVariable int id, @RequestParam(name="fan")String fan){
+		Frame frame = Constant.getItemFromSetFrame(id);
+		if(frame.isAutomatic_mode()) {
+			return "{\"status\" : 1}";
+		}
 		try{
 			if("on".equals(fan)){
 				publisher.publish("nct_control_"+id, (Constant.FAN_ON).getBytes(),2,true);

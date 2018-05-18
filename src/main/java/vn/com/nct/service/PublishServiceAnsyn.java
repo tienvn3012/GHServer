@@ -20,6 +20,8 @@ public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 	private String message_off;
 	private int stop_time;
 	
+	public boolean r = false;
+	
 	public PublishServiceAnsyn() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -40,13 +42,14 @@ public class PublishServiceAnsyn extends Thread{ //for pump water up to frame
 	@Override
 	public void run() {
 		super.run();
-		
+		r = true;
 		long time_on = (long)Math.floor(delay_time*1000);
 		long time_off = (long)Math.floor(2*60*1000);;
 		while(true){
 			try {
 				sleep(5*1000);
 				control_device.publish("nct_control_"+this.did, (message_on).getBytes(), 0, true);
+				System.out.println("xxxx "+message_on);
 				sleep(time_on);
 				control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, true);
 				System.out.println("off");

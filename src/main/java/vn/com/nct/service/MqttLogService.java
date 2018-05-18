@@ -11,11 +11,13 @@ import vn.com.nct.constant.Constant;
 import vn.com.nct.dao.ObjectDaoSupport;
 import vn.com.nct.model.Devices;
 import vn.com.nct.model.Frame;
+import vn.com.nct.model.Notifications;
 import vn.com.nct.model.Statements;
 import vn.com.nct.model.SystemLogActivity;
 import vn.com.nct.model.Users;
 import vn.com.nct.model.response.DevicesResponse;
 import vn.com.nct.model.response.FrameResponse;
+import vn.com.nct.model.response.NotificationResponse;
 import vn.com.nct.model.response.StatementResponse;
 import vn.com.nct.model.response.UserResponse;
 import vn.com.nct.service.objectservice.ObjectService;
@@ -37,6 +39,9 @@ public class MqttLogService implements MqttCallback{
 	
 	@Autowired
 	private ObjectDaoSupport<SystemLogActivity> logDao;
+	
+	@Autowired
+	private ObjectService<Notifications, NotificationResponse> notificationService;
 	
 	@Autowired
 	private TimerService timerService;
@@ -64,6 +69,10 @@ public class MqttLogService implements MqttCallback{
 		
 		Statements s = statementService.getOneByCondition("statements.statements;"+split[2]+";=;String");
 		log.setStatements(s);
+		
+		Notifications n = notificationService.getOneById(1);
+		
+		log.setNotification(n);
 		
 		// write to db this log
 		logDao.saveE(log);
