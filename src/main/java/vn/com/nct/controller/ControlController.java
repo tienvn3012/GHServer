@@ -255,23 +255,24 @@ public class ControlController extends LayoutController{
 	private void turnStageDevice(String name, int control_id, boolean mode){
 		try{
 			switch (name) {
-				case "led" :
+				case "LED" :
 					publisher.publish("nct_control_"+control_id, 
 							((mode == true ? Constant.LED_ON:Constant.LED_OFF)).getBytes(),2,true);
 					break;
-				case "pumpa" :
+				case "Pump A" :
 					publisher.publish("nct_control_"+control_id, 
 							((mode == true ? Constant.PUMP_A_ON:Constant.PUMP_A_OFF)).getBytes(),2,true);
 					break;
-				case "pumpb" :
+				case "Pump B" :
 					publisher.publish("nct_control_"+control_id, 
 							((mode == true ? Constant.PUMP_B_ON:Constant.PUMP_B_OFF)).getBytes(),2,true);
 					break;
-				case "pumppu" :
+				case "Pump ph up" :
 					publisher.publish("nct_control_"+control_id, 
 							((mode == true ? Constant.PUMP_PH_UP_ON:Constant.PUMP_PH_UP_OFF)).getBytes(),2,true);
+					System.out.println("heeeeee");
 					break;
-				case "pumppd" :
+				case "Pump ph down" :
 					publisher.publish("nct_control_"+control_id, 
 							((mode == true ? Constant.PUMP_PH_DOWN_ON:Constant.PUMP_PH_DOWN_OFF)).getBytes(),2,true);
 					break;
