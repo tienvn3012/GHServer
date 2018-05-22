@@ -68,7 +68,7 @@ function onMessageArrived(message) {
 
 $(document).ready(function(){
 	var fid = $("#statistic").attr("frameid");
-	$(this).simple_ajax_request("statistic/data/0?row=10",null,"GET",false);
+	$(this).simple_ajax_request("statistic/data/0?row=40",null,"GET",false);
 	var data = parse_data_for_bar_chart(ansync_ajax_result['lis']);
 //	var line = parse_data_for_line_chart(ansync_ajax_result['lis']);
 	draw_bar_chart(null,null,data);

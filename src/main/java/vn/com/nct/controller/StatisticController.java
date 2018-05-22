@@ -50,10 +50,14 @@ public class StatisticController extends LayoutController{
 	public ResponseEntity<Page<FrameDataCollectionResponse>> getDataCollection(@PathVariable int id, 
 			@PathVariable int page,@RequestParam("row") int row){
 		
-		Page<FrameDataCollectionResponse> p = frameDataCollectionService.getPageBy(page, row, 
+		int total = frameDataCollectionService.countAll();
+		int pa = total%row == 0 ? (total/row) : (1+total/row);
+		
+		Page<FrameDataCollectionResponse> p = frameDataCollectionService.getPageBy(pa, row, 
 				"frame.id;"+id+";=;int");
 		
 		return new ResponseEntity<>(p, HttpStatus.OK);
 	}
+	
 	
 }

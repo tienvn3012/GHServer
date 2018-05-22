@@ -113,8 +113,10 @@ public class ControlController extends LayoutController{
 		}
 		try{
 			if("on".equals(led)){
+				System.out.println("LED ON");
 				publisher.publish("nct_control_"+id, (Constant.LED_ON).getBytes(),2,true);
 			}else {
+				System.out.println("LED OFF");
 				publisher.publish("nct_control_"+id, (Constant.LED_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
@@ -136,8 +138,10 @@ public class ControlController extends LayoutController{
 		}
 		try{
 			if("on".equals(pumpa)){
+				System.out.println("PUMP A ON");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_A_ON).getBytes(),2,true);
 			}else {
+				System.out.println("PUMP A OFF");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_A_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
@@ -158,8 +162,10 @@ public class ControlController extends LayoutController{
 		}
 		try{
 			if("on".equals(pumpb)){
+				System.out.println("PUMP B ON");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_B_ON).getBytes(),2,true);
 			}else {
+				System.out.println("PUMP B OFF");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_B_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
@@ -180,8 +186,10 @@ public class ControlController extends LayoutController{
 		}
 		try{
 			if("on".equals(pumppu)){
+				System.out.println("PUMP PH UP ON");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_ON).getBytes(),2,true);
 			}else {
+				System.out.println("PUMP PH UP OFF");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_UP_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
@@ -202,8 +210,10 @@ public class ControlController extends LayoutController{
 		}
 		try{
 			if("on".equals(pumppd)){
+				System.out.println("PUMP PH DOWN ON");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_ON).getBytes(),2,true);
 			}else {
+				System.out.println("PUMP PH DOWN OFF");
 				publisher.publish("nct_control_"+id, (Constant.PUMP_PH_DOWN_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {
@@ -226,8 +236,10 @@ public class ControlController extends LayoutController{
 		}
 		try{
 			if("on".equals(fan)){
+				System.out.println("FAN ON");
 				publisher.publish("nct_control_"+id, (Constant.FAN_ON).getBytes(),2,true);
 			}else {
+				System.out.println("FAN OFF");
 				publisher.publish("nct_control_"+id, (Constant.FAN_OFF).getBytes(),2,true);
 			}
 		} catch (MqttPersistenceException e) {

@@ -2,6 +2,7 @@ package vn.com.nct.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Repository;
@@ -69,14 +70,16 @@ public class FrameDataCollectionDaoIplm extends HibernateDaoSupport implements O
 
 	@Override
 	public int countAll() {
-		// TODO Auto-generated method stub
-		return 0;
+		Criteria criteria = getSession().getCurrentSession().createCriteria(FrameDataColection.class,"framedatacolection");
+		Integer count = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+		return count;
 	}
 
 	@Override
 	public int countBy(String... condition) {
-		// TODO Auto-generated method stub
-		return 0;
+		Criteria criteria = getSession().getCurrentSession().createCriteria(FrameDataColection.class,"framedatacolection");
+		Integer count = ((Number)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+		return count;
 	}
 
 	@SuppressWarnings("unchecked")

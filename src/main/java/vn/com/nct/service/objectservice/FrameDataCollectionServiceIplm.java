@@ -92,7 +92,7 @@ public class FrameDataCollectionServiceIplm implements ObjectService<FrameDataCo
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub
-		return 0;
+		return frameDataCollectionDao.countAll();
 	}
 
 	@Override

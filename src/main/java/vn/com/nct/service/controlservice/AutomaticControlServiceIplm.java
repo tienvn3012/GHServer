@@ -222,7 +222,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 	@Override
 	public void plantAnalysis(Frame frame) {
-		
+		System.out.println("Automatic begin !!!!");
 		if(frame.isAutomatic_mode()){
 			this.lightAnalysis(frame);
 			this.ecAnalysis(frame);
