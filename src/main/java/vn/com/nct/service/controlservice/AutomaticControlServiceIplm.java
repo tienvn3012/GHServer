@@ -137,7 +137,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		control.setDid(did);
 		control.setMessage_on(this.on);
 		control.setMessage_off(this.off);
-//		control.start();
+		control.start();
 		
 		return control;
 	}
@@ -222,7 +222,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 
 	@Override
 	public void plantAnalysis(Frame frame) {
-		
+		System.out.println("Automatic begin !!!!");
 		if(frame.isAutomatic_mode()){
 			this.lightAnalysis(frame);
 			this.ecAnalysis(frame);
