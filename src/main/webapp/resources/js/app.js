@@ -127,6 +127,8 @@ $(document).ready(function(){
 		if(isClose){
 			$(this).open_menu();
 			isClose = false;
+		}else{
+			window.location = $(this).attr("ref");
 		}
 	});
 });

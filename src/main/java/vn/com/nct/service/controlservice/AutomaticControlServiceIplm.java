@@ -137,7 +137,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		control.setDid(did);
 		control.setMessage_on(this.on);
 		control.setMessage_off(this.off);
-//		control.start();
+		control.start();
 		
 		return control;
 	}
@@ -211,11 +211,11 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 //			System.out.println("xxxxxxxxxxxxx");
 			
 //			System.out.println("xascxas "+ pumpUpControlService.r);
-//			if(!pumpUpControlService.r) {
-//				this.controlAnsyn("pumpUp",300, frame.getDevice_control().getId());
-////				pumpUpControlService.start();
-////				
-//			}
+			if(!pumpUpControlService.r) {
+				this.controlAnsyn("pumpUp",300, frame.getDevice_control().getId());
+//				pumpUpControlService.start();
+//				
+			}
 //			//		}
 		System.out.println("pump end");
 	}
@@ -442,8 +442,8 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 			
 		String[] split = ec.split(Constant.SPLIT_PATTERN);
 		double avg_ec = (Double.parseDouble(split[0]) + Double.parseDouble(split[1]))/2;
-//		double time = avg_ec*0.75*50000/3.2;
-		double time = avg_ec*0.75*10/3.2;
+//		double time = avg_ec*0.81*500/3.2; // real equation
+		double time = avg_ec*0.75*20/3.2; // demo equation
 		return time;
 	}
 
