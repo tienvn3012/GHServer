@@ -116,6 +116,11 @@ p{margin:0px;padding:0px;}
 .mar-t-7px{
 	margin-top: 7px;
 }
+
+.mar-t-10px{
+	margin-top: 10px;
+}
+
 .mar-t-20px{
 	margin-top: 20px;
 }
@@ -126,6 +131,22 @@ p{margin:0px;padding:0px;}
 
 .mar-r-10px{
 	margin-right: 10px;
+}
+
+.mar-b-10px{
+	margin-bottom: 10px;
+}
+
+.fontsize24{
+	font-size: 24px;
+}
+
+.fontsize58{
+	font-size: 58px;
+}
+
+.fontweight-bold{
+	font-weight: bold;
 }
 
 .nicescroll-rails{

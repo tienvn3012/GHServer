@@ -39,24 +39,24 @@ public class PublishServiceSeconds extends Thread{
 		this.message_off = message_off;
 	}
 
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		super.run();
 		if(Constant.getItemFromSetFrameByControlId(did).isAutomatic_mode()){
-			int index = -1;
-			int thread_index = -1;
-			for (int i = 0; i < Constant.lis_deviceThread.size(); i++) {
-				if(Constant.lis_deviceThread.get(i).getId() == this.did){
-					Constant.lis_deviceThread.get(i).getLis().add(this);
-					thread_index = Constant.lis_deviceThread.get(i).getLis().size() - 1;
-					index = i;
-					break;
-				}
-			}
-			System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
-			if(index == -1)
-				this.stop();
+//			int index = -1;
+//			int thread_index = -1;
+//			for (int i = 0; i < Constant.lis_deviceThread.size(); i++) {
+//				if(Constant.lis_deviceThread.get(i).getId() == this.did){
+//					Constant.lis_deviceThread.get(i).getLis().add(this);
+//					thread_index = Constant.lis_deviceThread.get(i).getLis().size() - 1;
+//					index = i;
+//					break;
+//				}
+//			}
+//			System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
+//			if(index == -1)
+//				this.stop();
 			
 			
 				synchronized (control_device) {
@@ -70,8 +70,8 @@ public class PublishServiceSeconds extends Thread{
 //						control_device.publish("nct_control_"+this.did, (message_off).getBytes(), 0, false);
 						control_device.publish("nct_control_"+this.did, new MqttMessage(message_off.getBytes()));
 						sleep(2000);
-						System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
-						Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
+//						System.out.println(Constant.lis_deviceThread.get(index).getLis().size() + "-" +thread_index);
+//						Constant.lis_deviceThread.get(index).getLis().remove(thread_index);
 					} catch (MqttException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

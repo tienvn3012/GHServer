@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+#home{
+	width: 100%;
+	height: auto;
+}
+
+#home .content{
+	width: 90%;
+	margin: auto;
+	text-align: center;
+	margin-top: 50px;
+}
+
+#home .content .block{
+	
+}
+
+#home .content .block .block-inside{
+	width: 70%;
+	margin: auto;
+	margin-top: 20px;
+	border: 1px solid #000;
+	border-radius: 8px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#home .content .block .block-inside:hover{
+	background-color: #008cff;
+	color: #fff;
+	border: 1px solid blue;
+}

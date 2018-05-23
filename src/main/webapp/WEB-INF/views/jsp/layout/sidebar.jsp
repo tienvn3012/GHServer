@@ -1,7 +1,7 @@
 <div id="gh-sidebar">
 	<ul>
 	
-		<li class="item" ref="/GHServer/manager/user">
+		<li class="item" ref="/GHServer/home">
 			<div class="main70">
 				<div class="content">
 					<i class="fa fa-home icon"></i> <span class="menu-collapse"> Home</span>
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 		</li>
-		<li class="item" ref="/GHServer/manager/frame">
+		<li class="item" ref="/GHServer/manage">
 			<div class="main70">
 				<div class="content">
 					<i class="fa fa-tasks icon"></i> <span class="menu-collapse"> Manager</span>
