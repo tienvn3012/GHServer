@@ -8,7 +8,7 @@ import vn.com.nct.constant.Constant;
 public class PlantAnalysisServiceIplm implements PlantAnalysisService{
 	
 	private double pre_ph = 0;
-	
+	private int a[] = {0,1,2,-1,-2};
 	
 	@Override
 	public int phAnalysisService(String split, double cur_ph) {
@@ -26,17 +26,18 @@ public class PlantAnalysisServiceIplm implements PlantAnalysisService{
 		}else{
 			stage = 1;
 		}
-		double differrence = cur_ph - pre_ph;
+		if(pre_ph != 0)cur_ph+=2;
+		double differrence = pre_ph == 0 ? 0 : (cur_ph - pre_ph);
 
 		for(int i=0;i<5;i++){
 			double ph_next = cur_ph + this.phByAction(i) - differrence;
-			int pen = ((ph_next >= min) && (ph_next <= max)) ? 0:7;
+			int pen = ((ph_next >= min) && (ph_next <= max)) ? 0:14;
 			
 			double alpha = i<3 ? ((this.phByAction(2) - this.phByAction(1))/0.5):
-				((this.phByAction(4) - this.phByAction(3))/0.5);
+				((this.phByAction(3) - this.phByAction(4))/0.5);
 			
-			double r = -1*alpha*stage*differrence*i - this.phByAction(i) - pen;
-//			System.out.println("stage : "+stage+" - ph next : "+ph_next+" - cur ph : "+cur_ph+" - anpha : "+alpha+" reward : "+(r>reward?true:false));
+			double r = -1*alpha*stage*differrence*a[i] - this.phByAction(i) - pen;
+			System.out.println("stage : "+stage+" - ph next : "+ph_next+" - cur ph : "+cur_ph+" - anpha : "+alpha+" reward : "+r);
 			if(r > reward){
 				reward = r;
 				action = i;

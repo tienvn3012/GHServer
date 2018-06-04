@@ -251,7 +251,6 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		System.out.println("Data saved !!!!");
 		
 		Devices d = devicesService.getOneById(frame.getDevice_control().getId());
-
 		if(d.isDevice_status()){
 			this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
 			if(frame.isAutomatic_mode()){
