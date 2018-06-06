@@ -249,8 +249,10 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		frameDataCollectionService.saveE(fdc);
 
 		System.out.println("Data saved !!!!");
+		phAnalysis(msgSplit[4],frame);
 		
 		Devices d = devicesService.getOneById(frame.getDevice_control().getId());
+		System.out.println("device active " +d.isDevice_status());
 		if(d.isDevice_status()){
 			this.pumpWaterToFrame(frame, Integer.parseInt(msgSplit[5]));
 			if(frame.isAutomatic_mode()){
@@ -391,7 +393,7 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 		String[] split = frame.getPlant().getPlant_info().getpH().split(Constant.SPLIT_PATTERN_LEVEL2);
 		if(split.length == 1){
 			int action = analysisService.phAnalysisService(split[0], ph);
-			this.controlPumpPhByAction(action, frame);
+//			this.controlPumpPhByAction(action, frame);
 			System.out.println("action "+action);
 		}else{
 			try {
