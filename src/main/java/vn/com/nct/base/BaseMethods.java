@@ -6,8 +6,21 @@ import org.hibernate.criterion.Restrictions;
 
 import vn.com.nct.constant.Constant;
 
+/*
+ *
+ * Class name: BaseMethod
+ * Class purpose: some base method for set hibernate DB query 
+ */
+
 public class BaseMethods {
 	
+	
+	/*
+	 * set condition for DB criteria
+	 * Param 1: hibernate criteria
+	 * Param 2: array of condition
+	 * condition form: property;value;equaltion;property type 
+	 */
 	public DetachedCriteria setCondition(DetachedCriteria criteria, String... condition){
 		for(int i=0;i<condition.length;i++){
 			String[] split = condition[i].split(Constant.SPLIT_PATTERN);

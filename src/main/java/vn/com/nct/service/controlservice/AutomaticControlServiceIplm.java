@@ -208,15 +208,11 @@ public class AutomaticControlServiceIplm implements AutomaticControlService{
 				"device_name;Pump up;=;String");
 		System.out.println(pumpup.isDevice_status()+" hello " + pumpup.getId());
 		
-//			System.out.println("xxxxxxxxxxxxx");
 			
-//			System.out.println("xascxas "+ pumpUpControlService.r);
 			if(!pumpUpControlService.r) {
 				this.controlAnsyn("pumpUp",300, frame.getDevice_control().getId());
 //				pumpUpControlService.start();
-//				
 			}
-//			//		}
 		System.out.println("pump end");
 	}
 

@@ -4,6 +4,11 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+/*
+ * class name:  PasswordCryptServiceIplm
+ * class purpose: check and encrypt string or password
+ */
+
 @Service
 public class PasswordCryptServiceIplm implements PasswordCryptService{
 
